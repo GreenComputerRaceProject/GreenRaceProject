@@ -88,7 +88,7 @@ public class GameScreenMain extends JPanel{
       
      
       setBounds(0, 70, 1585, 500);
-      setBackground(Color.red);
+      setBackground(Color.green);
       setLayout(null);
 
       
