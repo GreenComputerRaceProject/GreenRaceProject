@@ -102,8 +102,6 @@ public class GameScreenMain extends JPanel{
 
       new runing();
       
-      
-
    }
 
    class runing extends Thread{
@@ -180,10 +178,7 @@ public class GameScreenMain extends JPanel{
 
    public static void main(String[] args) {
 
-
       new GameScreenMain();
-
-
 
    }
 

@@ -20,7 +20,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
+import ohs.GameScreenMain;
+import ohs.RaceProjFrame;
+
 public class EntryPointMain extends JFrame {
+	
+	EntryPointMain entryframe = this;
 	
 	LoginPanel loginPanel = new LoginPanel();
 	
@@ -115,7 +120,12 @@ public class EntryPointMain extends JFrame {
 					pwField.setText("");
 				} else if(id_accordence && pw_accordence) {
 					JOptionPane.showMessageDialog(null, "로그인하셨습니다!", "로그인 성공", JOptionPane.PLAIN_MESSAGE);
+					
+					entryframe.dispose();
+					new RaceProjFrame(idField.getText());
 				}
+				
+				
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -125,7 +135,7 @@ public class EntryPointMain extends JFrame {
 	public EntryPointMain() {
 		
 		try {
-		    //UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName() );
+		    //UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
