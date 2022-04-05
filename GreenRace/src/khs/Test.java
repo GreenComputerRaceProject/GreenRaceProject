@@ -12,12 +12,13 @@ import javax.swing.JPanel;
 
 public class Test extends JFrame {
 	
-	RankIcon rankIcon;
-	
-	JButton user_grade;	// ?��?��?�� ?��?��
+	RankIcon rankIcon; 
+	RaceListMain raceListMain = new RaceListMain();
+	String imgIcon = "";
+//	JButton user_grade;	// 회원 랭크
 	JButton my_money;	// 보유머니
 	JButton m_charge;	// 게임머니충전
-	JButton game_info;	// 경기?��보조?��
+	JButton game_info;	// 경기정보
 	JButton exit;		// 게임종료
 	
 	JPanel jp;
@@ -29,21 +30,22 @@ public class Test extends JFrame {
 		setSize(1600, 1000);
 		setLayout(null);
 		
-		rankIcon = new RankIcon();
-//		user_grade = new JButton("?��?��?���??(?��?��)");
-//		user_grade.setSize(320,50);
-//		user_grade.setBackground(Color.white);
+		for (int i = 1; i < raceListMain.al_rank.size(); i++) {
+			imgIcon = "fff3/"+raceListMain.al_rank.get(i)+".jpg";
+			rankIcon = new RankIcon(i,imgIcon); 
+			add(rankIcon);
+		}
 		
-//		jp = new JPanel();
-//		jp.setSize(320,100);
-	
-//		add(user_grade);
-//		add(jp);
-		add(rankIcon);
 		
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		repaint();
+		
+		
+		
 	}
+		
+	
 	
 	public static void main(String[] args) {
 		

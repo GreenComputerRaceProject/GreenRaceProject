@@ -2,6 +2,7 @@ package khs;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -11,62 +12,84 @@ import javax.swing.JPanel;
 public class RankIcon extends JButton implements ActionListener{
 	
 	Test test;
-	RaceListMain raceListMain;
-	int user_rank = 0;
+	RaceListMain raceListMain = new RaceListMain();
+//	int user_rank = 0;
+	String imgIcon = "";
+	ImageIcon icon;
 	
-	public RankIcon() {
+//	public RankIcon() {
+//		raceListMain = new RaceListMain();
+//
+//			setBounds(50, 50, 20, 20);
+//			
+//			
+//			icon = new ImageIcon(imgIcon);
+//			setIcon(icon);
+//			System.out.println("ë²„íŠ¼ ìƒì„±");
+//			System.out.println("RankIcon:"+raceListMain.al_rank);
+//			addActionListener(this);
+//			
+//			
+//		}
 		
-		setBounds(50, 50, 20, 20);
-		raceListMain = new RaceListMain();
-		user_rank = raceListMain.rank;
-		
-		switch(user_rank) {
-		
-		case 1: String img1 = "fff3/cl.png";
-			break;
+		public RankIcon(int a, String imgIcon) {
 			
-		case 2: String img2 = "fff3/g.png";
-			break;	
+			setBounds(50, 50*a, 20, 20); 
 			
-		case 3: String img3 = "fff3/gr.png";
-			break;
+//			for (int user_rank : raceListMain.al_rank) {
 			
-		case 4: String img4 = "fff3/new.jpg";
-			break;	
+//				System.out.println("ìœ ì €ë­í¬" +user_rank);
+				
+				switch(a) {
+				
+					case 1: imgIcon = "fff3/cl.png";
+						break;
+						
+					case 2: imgIcon = "fff3/g.png";
+						break;	
+						
+					case 3: imgIcon = "fff3/gr.png";
+						break;
+						
+					case 4: imgIcon = "fff3/new.jpg";
+						break;	
+						
+					case 5: imgIcon = "fff3/OIP.jpg";
+						break;	
+						
+					case 6: imgIcon = "fff3/p.png";
+						break;
+						
+					case 7: imgIcon = "fff3/stop.jpg";
+						break;
+						
+					case 8: imgIcon = "fff3/trp.png";
+						break;
+						
+					case 9: imgIcon = "fff3/wr.png";
+						break;
+						
+					case 10: imgIcon = "fff3/bth.jpg";
+						break;
+						
+					default: imgIcon = "fff3/bth.jpg";
+						break;
+				}
+				
+				icon = new ImageIcon(imgIcon);
+				setIcon(icon);
+				System.out.println("ë²„íŠ¼ ìƒì„±");
+//			}
 			
-		case 5: String img5 = "fff3/OIP.jpg";
-			break;	
-			
-		case 6: String img6 = "fff3/p.png";
-			break;
-			
-		case 7: String img7 = "fff3/stop.jpg";
-			break;
-			
-		case 8: String img8 = "fff3/trp.png";
-			break;
-			
-		case 9: String img9 = "fff3/wr.png";
-			break;
-			
-		case 10: String img10 = "fff3/bth.jpg";
-			break;
+			addActionListener(this);
+		}
 	
-	}
-		ImageIcon img = new ImageIcon("fff3/OIP.jpg");
-		setIcon(img);
-		System.out.println("ë²„íŠ¼ ?ƒ?„±");
-		
-		addActionListener(this);
-		setVisible(true);
-		
-	}
 	
 
 	
 	@Override
-	public void actionPerformed(ActionEvent e) { //?´ë¦? ?‹œ ?šŒ?›?˜ ? •ë³´ì°½ ?„??
-		System.out.println("?ˆ„ë¦?");
+	public void actionPerformed(ActionEvent e) { //í´ë¦­ ì‹œ íšŒì›ì˜ ì •ë³´ì°½ ë„ì›€
+		System.out.println("ëˆ„ë¦„");
 		
 		JFrame userInfo = new JFrame();
 		userInfo.setBounds(50, 50, 500, 400);
