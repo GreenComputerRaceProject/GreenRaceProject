@@ -58,7 +58,7 @@ public class GameScreenMain extends JPanel{
          Connection con = DriverManager.getConnection(
                "jdbc:mariadb://localhost:3306/race_db",
                "root",
-               "123456"
+               "4546"
                );
 
          Statement stmt = con.createStatement();
