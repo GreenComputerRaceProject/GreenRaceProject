@@ -2,6 +2,8 @@ package ohs;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import ocy.MultiCastChatting;
 
 public class RaceProjFrame extends JFrame implements ActionListener{
 	
@@ -19,16 +23,23 @@ public class RaceProjFrame extends JFrame implements ActionListener{
    JButton user_info, m_charge, game_info, exit, b_single, b_yeon, b_bok;
          //회원정보,   게임머니충전,  경기정보조회,   게임종료,  단식,    연식,    복식
    
-   JPanel game_screen, b_danglyul,   game_rule, chat, user_list;    
-         //게임화면,     배당률,       배팅방식,       채팅,     참가자리스트
+   JPanel game_screen, b_danglyul,   game_rule, user_list;    
+         //게임화면,     배당률,       배팅방식,       참가자리스트
    
    JLabel my_money;   //보유머니
    JPanel jp;          //상단나열바
    
-   public RaceProjFrame() {
+   MultiCastChatting chat;
+   
+   public RaceProjFrame(String user_id) {
       super("달려라 왕바우");
       setSize(1600,1000);
       setLayout(null);
+      
+      Dimension frameSize = getSize();
+      Dimension windowSize = Toolkit.getDefaultToolkit().getScreenSize();
+      setLocation((windowSize.width - frameSize.width) / 2,
+				  (windowSize.height - frameSize.height) / 2);
    
       jp = new JPanel();
       jp.setSize(1585,70);
@@ -77,9 +88,8 @@ public class RaceProjFrame extends JFrame implements ActionListener{
       b_danglyul.setBackground(Color.blue);
       add(b_danglyul);
       
-      chat = new JPanel();
+      chat = new MultiCastChatting(user_id);
       chat.setBounds(800, 570, 400, 392);
-      chat.setBackground(Color.black);
       add(chat);
       
       game_rule = new JPanel();
@@ -125,8 +135,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
    
    public static void main(String[] args) {
       
-     
-      new RaceProjFrame();
+      //new RaceProjFrame();
    }
    
    @Override

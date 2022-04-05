@@ -88,7 +88,7 @@ public class GameScreenMain extends JPanel{
       
      
       setBounds(0, 70, 1585, 500);
-      setBackground(Color.red);
+      setBackground(Color.green);
       setLayout(null);
 
       
@@ -102,8 +102,6 @@ public class GameScreenMain extends JPanel{
 
       new runing();
       
-      
-
    }
 
    class runing extends Thread{
@@ -180,10 +178,7 @@ public class GameScreenMain extends JPanel{
 
    public static void main(String[] args) {
 
-
       new GameScreenMain();
-
-
 
    }
 
