@@ -6,30 +6,31 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import ocy.MultiCastChatting;
+import ocy.MultiServer;
 
 public class RaceProjFrame extends JFrame implements ActionListener{
 	
-   GameScreenMain gsm;
+   ServerGameScreen gsm;
 	
    JFrame refFrame;   //기능버튼클릭시 추가 생성되는 화면
-   
    JButton user_info, m_charge, game_info, exit, b_single, b_yeon, b_bok;
          //회원정보,   게임머니충전,  경기정보조회,   게임종료,  단식,    연식,    복식
-   
-   JPanel game_screen, b_danglyul,   game_rule, user_list;    
-         //게임화면,     배당률,       배팅방식,       참가자리스트
+
+   public JPanel user_list;
+   JPanel game_screen, b_danglyul,   game_rule;    
+         //게임화면,     배당률,       배팅방식,       채팅,     참가자리스트
    
    JLabel my_money;   //보유머니
    JPanel jp;          //상단나열바
    
-   MultiCastChatting chat;
+   MultiServer chat;
    
    public RaceProjFrame(String user_id) {
       super("달려라 왕바우");
@@ -80,7 +81,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
       add(game_screen);
      */ 
       
-      gsm = new GameScreenMain();
+      gsm = new ServerGameScreen();
       add(gsm);
       
       b_danglyul = new JPanel();
@@ -88,7 +89,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
       b_danglyul.setBackground(Color.blue);
       add(b_danglyul);
       
-      chat = new MultiCastChatting(user_id);
+      chat = new MultiServer(this, user_id);
       chat.setBounds(800, 570, 400, 392);
       add(chat);
       
@@ -127,9 +128,12 @@ public class RaceProjFrame extends JFrame implements ActionListener{
       
       
       
-//      setResizable(false);
+//    setResizable(false);
       setVisible(true);
       setDefaultCloseOperation(EXIT_ON_CLOSE);
+      
+      chat.user_entrance();
+      
    }
    
    
@@ -143,12 +147,13 @@ public class RaceProjFrame extends JFrame implements ActionListener{
    
       if( e.getSource().equals(user_info) ||
          e.getSource().equals(m_charge) ||
-         e.getSource().equals(game_info) ||
-         e.getSource().equals(exit) )    {
+         e.getSource().equals(game_info)) {
          refFrame.setBounds(500, 100, 500, 500);
          refFrame.setResizable(false);
          refFrame.setVisible(true);
-      }else
+      } else if(e.getSource().equals(exit)) {
+    	  chat.user_exit();
+      } else
             return;
       }
       
