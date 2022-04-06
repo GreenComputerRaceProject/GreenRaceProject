@@ -16,16 +16,18 @@ import ocy.MultiCastChatting;
 
 public class RaceProjFrame extends JFrame implements ActionListener{
 	
-   GameScreenMain gsm;
+   ServerGameScreen gsm;
 	
    JFrame refFrame;   //기능버튼클릭시 추가 생성되는 화면
-   
    JButton user_info, m_charge, game_info, exit, b_single, b_yeon, b_bok;
          //회원정보,   게임머니충전,  경기정보조회,   게임종료,  단식,    연식,    복식
+
+   JPanel game_screen, b_danglyul,   game_rule,  user_list;    
+         //게임화면,     배당률,       배팅방식,       채팅,     참가자리스트
    
-   JPanel game_screen, b_danglyul,   game_rule, user_list;    
-         //게임화면,     배당률,       배팅방식,       참가자리스트
+
    
+
    JLabel my_money;   //보유머니
    JPanel jp;          //상단나열바
    
@@ -80,7 +82,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
       add(game_screen);
      */ 
       
-      gsm = new GameScreenMain();
+      gsm = new ServerGameScreen();
       add(gsm);
       
       b_danglyul = new JPanel();
