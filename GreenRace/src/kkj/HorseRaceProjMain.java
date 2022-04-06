@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JButton;
@@ -14,10 +15,10 @@ import javax.swing.JTextField;
 
 public class HorseRaceProjMain extends JFrame implements ActionListener{
 	
-	int horse_num;		// 말번호
-	long batting_money;	//배팅액
+//	int horse_num;		// 말번호
+//	long batting_money;	//배팅액
 	JFrame reFrame;		//기능버튼클릭시 추가 생성되는 화면
-	JTextField field;	//배당률 안에 그리드로 쪼개기
+//	JTextField field;	//
 	JTextField input;	
 	JButton click;		//클릭시 기능활성시킬 버튼
 	
@@ -29,7 +30,7 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 	JPanel game_screen, b_danglyul,	game_rule, chat, user_list; 	
 			//게임화면,	  배당률,		 배팅방식,	    채팅,	  참가자리스트
 
-	JPanel lyul_panel;	//배당률 상단나열바
+//	JPanel lyul_panel;	//배당률 상단나열바
 	JPanel top_panel; 			//상단나열바
 	JPanel b_single_inpanel;	//메인화면 단식버튼클릭했을때 열리는 기능화면에서 버튼들 마번 묶는 패널
 	
@@ -40,35 +41,35 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 	
 		top_panel = new JPanel();	//상단나열바
 		top_panel.setSize(1585,70);
-//		top_panel.setBackground(Color.white);
+		top_panel.setBackground(Color.white);
 		top_panel.setLayout(null);
 		add(top_panel);
 		
 		user_info = new JButton("회원정보(랭크)");
 		user_info.setBounds(0, 0, 317, 70);
-//		user_info.setBackground(Color.white);
+		user_info.setBackground(Color.white);
 		top_panel.add(user_info);
 		
 		my_money = new JLabel("보유머니");
 		my_money.setBounds(317, 0, 317, 70);
 		my_money.setHorizontalAlignment(JLabel.CENTER);
 //		my_money.setBackground(Color.cyan);
-		my_money.setOpaque(true);
+//		my_money.setOpaque(true);
 		top_panel.add(my_money);
 
 		m_charge = new JButton("게임머니충전");
 		m_charge.setBounds(634, 0, 317, 70);
-//		m_charge.setBackground(Color.white);
+		m_charge.setBackground(Color.white);
 		top_panel.add(m_charge);
 		
 		game_info = new JButton("경기정보조회");
 		game_info.setBounds(951, 0, 317, 70);
-//		game_info.setBackground(Color.white);
+		game_info.setBackground(Color.white);
 		top_panel.add(game_info);
 		
 		exit = new JButton("게임종료");
 		exit.setBounds(1268, 0, 317, 70);
-//		exit.setBackground(Color.white);
+		exit.setBackground(Color.white);
 		top_panel.add(exit);
 		
 		game_screen = new JPanel();		//게임화면
@@ -82,19 +83,19 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 //		b_danglyul.setBackground(Color.blue);
 		add(b_danglyul);
 			
-		field = new JTextField();	//배당률 안에 그리드로 쪼개기
-		field.setSize(0,70);
-		field.setEnabled(false);
+//		field = new JTextField();	//배당률 안에 그리드로 쪼개기
+//		field.setSize(0,70);
+//		field.setEnabled(false);
 		
-		lyul_panel = new JPanel();		//배당률 상단나열바
-		lyul_panel.setBounds(0,0,800,70);
-		lyul_panel.setLayout(new GridLayout( 1,9));
+//		lyul_panel = new JPanel();		//배당률 상단나열바
+//		lyul_panel.setBounds(0,0,800,70);
+//		lyul_panel.setLayout(new GridLayout( 1,9));
 //		lyul_panel.setBackground(Color.yellow);
-		b_danglyul.add(lyul_panel);
+//		b_danglyul.add(lyul_panel);
 		
-		for (int i = 0; i < 10; i++) {
-			lyul_panel.add(new JTextField());
-		}
+//		for (int i = 0; i < 10; i++) {
+//			lyul_panel.add(new JTextField());
+//		}
 	
 		chat = new JPanel();		//채팅
 		chat.setBounds(800, 570, 400, 392);
@@ -103,23 +104,23 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 		
 		game_rule = new JPanel();		//배팅방식
 		game_rule.setBounds(1200, 570, 385, 80);
-//		game_rule.setBackground(Color.orange);
+		game_rule.setBackground(Color.orange);
 		game_rule.setLayout(null);
 		add(game_rule);
 		
 		b_single = new JButton("단식");
 		b_single.setBounds(0, 0, 128, 80);
-//		b_single.setBackground(Color.pink);
+		b_single.setBackground(Color.pink);
 		game_rule.add(b_single);
 		
 		b_yeon = new JButton("연식");
 		b_yeon.setBounds(128, 0, 129, 80);
-//		b_yeon.setBackground(Color.green);
+		b_yeon.setBackground(Color.green);
 		game_rule.add(b_yeon);
 		
 		b_bok = new JButton("복식");
 		b_bok.setBounds(257, 0, 128, 80);
-//		b_bok.setBackground(Color.yellow);
+		b_bok.setBackground(Color.yellow);
 		game_rule.add(b_bok);
 		
 		user_list = new JPanel();		//참가자리스트
@@ -180,16 +181,16 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 				reFrame.setLayout(null);
 				reFrame.setBounds(800, 500, 413, 392);
 			
-				b_single_inpanel = new JPanel();		//메인화면 단식버튼클릭했을때 열리는 기능화면에서 버튼들 마번 묶는 패널
-				b_single_inpanel.setSize(400,100);
-				b_single_inpanel.setLayout(null);
-				b_single_inpanel.setBackground(Color.yellow);
-				reFrame.add(b_single_inpanel);
+//				b_single_inpanel = new JPanel();		//메인화면 단식버튼클릭했을때 열리는 기능화면에서 버튼들 마번 묶는 패널
+//				b_single_inpanel.setSize(400,100);
+//				b_single_inpanel.setLayout(null);
+//				b_single_inpanel.setBackground(Color.yellow);
+//				reFrame.add(b_single_inpanel);
 			
 				click = new JButton();
 				click.setSize(100,50);
 				click.setBackground(Color.white);
-				b_single_inpanel.add(click);
+				reFrame.add(click);
 				
 				input = new JTextField();
 				input.setBounds(125, 245, 150, 50);
@@ -198,13 +199,7 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 				input.setEnabled(true);
 				reFrame.add(input);
 				
-				batting_money = 0;
-				if(horse_num>0 && 9>horse_num){
-					Scanner sc = new Scanner(System.in);
-					batting_money = sc.nextLong();
-					
-				}
-				
+
 			
 				reFrame.setResizable(false);
 				reFrame.setVisible(true);
