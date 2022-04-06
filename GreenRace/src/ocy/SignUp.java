@@ -194,13 +194,13 @@ public class SignUp extends JFrame {
 			} else if(e.getSource().equals(phoneButton)) {
 				
 				if(!phoneField.getText().isEmpty()) {
-					String pattern = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
+					String pattern = "^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$";
 					boolean regex = Pattern.matches(pattern, phoneField.getText());
 					
 					if(regex) {
 						phone_verification();
 					} else {
-						JOptionPane.showMessageDialog(null, "전화번호를 다시 입력해주세요(하이픈을 포함해주세요)", "중복확인 실패", JOptionPane.PLAIN_MESSAGE);
+						JOptionPane.showMessageDialog(null, "전화번호를 다시 입력해주세요(하이픈(-)을 포함하지 말아주세요)", "중복확인 실패", JOptionPane.PLAIN_MESSAGE);
 						phoneField.setText("");
 					}
 				} else {
