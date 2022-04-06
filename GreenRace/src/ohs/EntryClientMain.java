@@ -30,7 +30,7 @@ public class EntryClientMain {
 	public static void main(String[] args) {
 		
 		try {
-			Socket socket = new Socket("192.168.0.4", 8888);
+			Socket socket = new Socket("192.168.35.10", 8888);
 			System.out.println("서버 접속 성공");
 			
 			InputStream is = socket.getInputStream();
