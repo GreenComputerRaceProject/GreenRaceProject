@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 public class Test extends JFrame {
 	
+	HorseInfo horseInfo;
 	ChattingList chattingList;
 	RankIcon rankIcon; 
 	RaceListMain raceListMain = new RaceListMain();
@@ -37,9 +38,11 @@ public class Test extends JFrame {
 			rankIcon = new RankIcon(i,imgIcon); 
 			add(rankIcon);
 		}
+		
 		chattingList = new ChattingList();
 		add(chattingList);
-		
+		horseInfo = new HorseInfo();
+		add(horseInfo);
 		
 		System.out.println(raceListMain.user_rank);
 		setVisible(true);
