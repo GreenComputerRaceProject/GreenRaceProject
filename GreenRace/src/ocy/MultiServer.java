@@ -2,6 +2,7 @@ package ocy;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -170,6 +171,8 @@ public class MultiServer extends JPanel {
 			
 			ResultSet rs = stmt.executeQuery("select nickname from currentUser");
 			
+			currentUserList.clear();
+			
 			while(rs.next()) {
 				currentUserList.add(rs.getString("nickname"));
 			}
@@ -183,10 +186,22 @@ public class MultiServer extends JPanel {
 			ex.printStackTrace();
 		}
 		
-		//frame.user_list.add(new JLabel(currentUserList.get(1)));
+		frame.user_list.removeAll();
 		
 		for (String currentUser : currentUserList) {
-			frame.user_list.add(new JLabel(currentUser));
+			JPanel jp = new JPanel();
+			jp.setPreferredSize(new Dimension(380, 35));
+			jp.setBackground(Color.red);
+			
+			JLabel jl = new JLabel(currentUser);
+			jl.setBackground(Color.pink);
+			jl.setOpaque(true);
+			jp.add(jl);
+			
+			JButton jb = new JButton("인포");
+			jp.add(jb);
+			
+			frame.user_list.add(jp);
 		}
 		
 		frame.user_list.repaint();
