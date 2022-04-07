@@ -45,47 +45,44 @@ public class BattingDataMain extends JFrame implements ActionListener {
 	JLabel label; 
 	
 	BattingDataMain(){
-//		super();
-//		Dimension dms = new Dimension(400,100);
-//		setLocation(750, 500);
-//		setPreferredSize(dms);
-//		pack();
-//		
-//		field = new JTextField();
-//		label = new JLabel("배팅금액");
-//		label.setHorizontalAlignment(SwingConstants.CENTER);
-//		label.setVerticalAlignment(SwingConstants.CENTER);
-//		
-//		btn = new JButton("확인");
-//		btn.addActionListener(this);
-//		
-//		add(btn, BorderLayout.SOUTH);
-//		add(label, BorderLayout.NORTH);
-//		add(field, BorderLayout.CENTER);
-//		
-//		setResizable(false);
-//		setVisible(true);
-//		setDefaultCloseOperation(EXIT_ON_CLOSE);
-	/*	
-		for (int i = 0; i < 27; i++) {
-			GridLayout gl = new GridLayout(3,8,0,0);
-			setLayout(gl);
-			JLabel label = new JLabel("1");
-			add(label);
-			label.setHorizontalAlignment(JLabel.CENTER);
-		}
-			레이블번호를 하나하나바꿀수있는 방법
-	*/	
-	}
-	
-	
-	public ArrayList<BattingDTO> BattingDataMain() {
-
+		super();
+		Dimension dms = new Dimension(400,100);
+		setLocation(750, 500);
+		setPreferredSize(dms);
+		pack();
+		
+		field = new JTextField();
+		label = new JLabel("배팅금액");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setVerticalAlignment(SwingConstants.CENTER);
+		
+		btn = new JButton("확인");
+		btn.addActionListener(this);
+		
+		add(btn, BorderLayout.SOUTH);
+		add(label, BorderLayout.NORTH);
+		add(field, BorderLayout.CENTER);
+		
+		setResizable(false);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+//		for (int i = 0; i < 27; i++) {
+//			GridLayout gl = new GridLayout(3,8,0,0);
+//			setLayout(gl);
+//			JLabel label = new JLabel("1");
+//			add(label);
+//			label.setHorizontalAlignment(JLabel.CENTER);
+//		}
+//			레이블번호를 하나하나바꿀수있는 방법못찾음.. 배당률표에 세팅할라고했음
+		
+//	}
+		
 		try {
 
 			Class.forName("org.mariadb.jdbc.Driver");
 			
-			con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/race_db", "race", "123456");
+			con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/race_db", "root", "4546");
 			
 			stmt = con.createStatement();
 			
@@ -93,13 +90,10 @@ public class BattingDataMain extends JFrame implements ActionListener {
 			 
 				while(rs.next()) {
 					
-					BattingDTO dto = new BattingDTO();
-					dto.horse_num = rs.getInt("horse_num");
-					dto.nickname = rs.getString("nickname");
-					dto.gambling_money = rs.getLong(field.getText());
-					dto.tot_money = rs.getLong("tot_money");
-					
-					data.add(dto);
+					System.out.println(rs.getString("horse_num"));
+					System.out.println(rs.getString("nickname"));
+					System.out.println(rs.getString("gambling_money"));
+					System.out.println(rs.getString("tot_money"));
 					
 				}
 				
@@ -109,7 +103,7 @@ public class BattingDataMain extends JFrame implements ActionListener {
 		}finally {
 			close();
 		}
-		return data;
+	//	return data;
 	
 	}
 
