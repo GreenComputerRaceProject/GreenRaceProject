@@ -17,10 +17,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import ocy.MultiServer;
+import ocy.RaceReadyScreen;
 
 public class RaceProjFrame extends JFrame implements ActionListener{
 	
-   ServerGameScreen gsm;
+	RaceReadyScreen rrs;
+   public ServerGameScreen gsm;
 	
    JFrame refFrame;   //기능버튼클릭시 추가 생성되는 화면
    JButton user_info, m_charge, game_info, exit, b_single, b_yeon, b_bok;
@@ -84,8 +86,11 @@ public class RaceProjFrame extends JFrame implements ActionListener{
       add(game_screen);
      */ 
       
-      gsm = new ServerGameScreen();
-      add(gsm);
+      rrs = new RaceReadyScreen(this);
+      add(rrs);
+      
+//      gsm = new ServerGameScreen();
+//      add(gsm);
       
       b_danglyul = new JPanel();
       b_danglyul.setBounds(0, 570, 800, 392);
@@ -140,12 +145,6 @@ public class RaceProjFrame extends JFrame implements ActionListener{
       
    }
    
-   
-   public static void main(String[] args) {
-      
-      //new RaceProjFrame();
-   }
-   
    @Override
    public void actionPerformed(ActionEvent e) {
    
@@ -157,11 +156,13 @@ public class RaceProjFrame extends JFrame implements ActionListener{
          refFrame.setVisible(true);
       } else if(e.getSource().equals(exit)) {
     	  chat.user_exit();
-      } else
+      } else if(e.getSource().equals(b_single)) {
+    	  
+      } else {
             return;
       }
       
    }
 
-
+}
       

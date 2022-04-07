@@ -123,6 +123,7 @@ public class EntryPointMain extends JFrame {
 					
 					entryframe.dispose();
 					new RaceProjFrame(idField.getText());
+					new BGM();
 				}
 				
 				
