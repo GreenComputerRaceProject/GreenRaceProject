@@ -2,12 +2,15 @@ package ohs;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -117,6 +120,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
       user_list = new JPanel();
       user_list.setBounds(1200, 650, 385, 312);
       user_list.setBackground(Color.gray);
+      user_list.setLayout(new FlowLayout());
       add(user_list);
       
       refFrame = new JFrame();
