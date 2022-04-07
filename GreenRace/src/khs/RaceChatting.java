@@ -14,7 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import test_p.RaceChatting.MulReceiver;
+import khs.RaceChatting.MulReceiver;
 
 public class RaceChatting extends JFrame {
 
@@ -51,7 +51,7 @@ public class RaceChatting extends JFrame {
 					String msg = new String(buf);
 					
 
-					ta.append("?ïÑ?ù¥?îî"+":"+msg+"\n");
+					ta.append("ÏïÑÏù¥Îîî"+":"+msg+"\n");
 					ta.setCaretPosition(ta.getDocument().getLength());
 				}
 			} catch (Exception e) {
@@ -109,7 +109,7 @@ public class RaceChatting extends JFrame {
 						    
 							mul_socket.send(data);
 							
-//							ta.append("?Çò"+tf.getText()+"\n");
+//							ta.append("ÎÇò"+tf.getText()+"\n");
 							ta.setCaretPosition(ta.getDocument().getLength());
 							
 							tf.setText("");

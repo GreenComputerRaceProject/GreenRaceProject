@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 public class Test extends JFrame {
 	
+	ChattingList chattingList;
 	RankIcon rankIcon; 
 	RaceListMain raceListMain = new RaceListMain();
 	String imgIcon = "";
@@ -22,7 +23,7 @@ public class Test extends JFrame {
 	JButton exit;		// 게임종료
 	
 	JPanel jp;
-	
+	int i = 0;
 	
 	
 	public Test() {
@@ -30,13 +31,17 @@ public class Test extends JFrame {
 		setSize(1600, 1000);
 		setLayout(null);
 		
-		for (int i = 1; i < raceListMain.al_rank.size(); i++) {
-			imgIcon = "fff3/"+raceListMain.al_rank.get(i)+".jpg";
+		for (i = 0; i < raceListMain.user_nickname.size(); i++) {
+			imgIcon = "fff3/"+raceListMain.user_rank.get(i)+".jpg";
+			
 			rankIcon = new RankIcon(i,imgIcon); 
 			add(rankIcon);
 		}
+		chattingList = new ChattingList();
+		add(chattingList);
 		
 		
+		System.out.println(raceListMain.user_rank);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		repaint();
