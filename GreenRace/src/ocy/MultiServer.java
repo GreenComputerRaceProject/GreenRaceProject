@@ -28,6 +28,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import ohs.EntryInfoSender;
 import ohs.RaceProjFrame;
 
 public class MultiServer extends JPanel {
@@ -66,8 +67,6 @@ public class MultiServer extends JPanel {
 					
 					ta.append(msg + "\n");
 					ta.setCaretPosition(ta.getDocument().getLength());
-					
-					// 누군가 입장,퇴장 했을때 if문 걸어서 접속자 리스트 갱신해줘야함
 					
 					if(msg.substring(0, 2).equals("안내")) {
 						reSelectCurrentUser();
@@ -254,7 +253,6 @@ public class MultiServer extends JPanel {
 		this.frame = frame;
 		this.user_id = user_id;
 		
-		//setSize(400, 362);
 		setBackground(Color.pink);
 		setLayout(new BorderLayout());
 		
