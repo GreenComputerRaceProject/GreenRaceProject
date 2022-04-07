@@ -22,7 +22,7 @@ import ocy.RaceReadyScreen;
 public class RaceProjFrame extends JFrame implements ActionListener{
 	
 	RaceReadyScreen rrs;
-   public ServerGameScreen gsm;
+   public GameScreen2 gsm;
 	
    JFrame refFrame;   //기능버튼클릭시 추가 생성되는 화면
    JButton user_info, m_charge, game_info, exit, b_single, b_yeon, b_bok;
@@ -89,7 +89,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
       rrs = new RaceReadyScreen(this);
       add(rrs);
       
-//      gsm = new ServerGameScreen();
+//      gsm = new GameScreen2();
 //      add(gsm);
       
       b_danglyul = new JPanel();

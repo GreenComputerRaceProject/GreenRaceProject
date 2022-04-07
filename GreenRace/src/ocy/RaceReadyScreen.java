@@ -7,6 +7,7 @@ import java.util.Iterator;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import ohs.GameScreen2;
 import ohs.RaceProjFrame;
 import ohs.ServerGameScreen;
 
@@ -36,8 +37,10 @@ public class RaceReadyScreen extends JPanel {
 				
 				rrs.setVisible(false);
 				
-				rpf.gsm = new ServerGameScreen();
+				rpf.gsm = new GameScreen2();
 				rpf.add(rpf.gsm);
+				rpf.repaint();
+				
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
