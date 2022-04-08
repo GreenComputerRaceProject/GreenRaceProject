@@ -34,12 +34,12 @@ public class RankIcon extends JButton implements ActionListener{
 //	ArrayList<String> user_rank = new ArrayList<String>();
 	
 	
-		public RankIcon(int a, String imgIcon) {
+		public RankIcon(String text) { //String imgIcon
 			
-			setBounds(50, 50*a, 20, 20); 
+			setBounds(0, 0, 20, 20); 
 			
-			icon = new ImageIcon(imgIcon);
-			setIcon(icon);
+//			icon = new ImageIcon(imgIcon);
+//			setIcon(icon);
 			System.out.println("버튼 생성");
 
 			

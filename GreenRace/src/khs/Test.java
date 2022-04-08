@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 public class Test extends JFrame {
 	
+	GameInfo gameInfo;
 	HorseInfo horseInfo;
 	ChattingList chattingList;
 	RankIcon rankIcon; 
@@ -28,26 +29,35 @@ public class Test extends JFrame {
 	
 	
 	public Test() {
-		super("horserace");
-		setSize(1600, 1000);
+		
+		setSize(1000, 900);
 		setLayout(null);
 		
-		for (i = 0; i < raceListMain.user_nickname.size(); i++) {
-			imgIcon = "fff3/"+raceListMain.user_rank.get(i)+".jpg";
-			
-			rankIcon = new RankIcon(i,imgIcon); 
-			add(rankIcon);
-		}
+//		for (i = 0; i < raceListMain.user_nickname.size(); i++) {
+//			
+//		}
+	
+//		if(raceListMain.user_rank.get(i)) {
+//			imgIcon = "fff3/"+raceListMain.user_rank.get(i)+".jpg";
+//		}
+		rankIcon = new RankIcon("랭크 버튼"); //imgIcon 
+		rankIcon.setBounds(10, 20, 20, 20);
+		add(rankIcon);
 		
-		chattingList = new ChattingList();
-		add(chattingList);
+		
+		
 		horseInfo = new HorseInfo();
+		horseInfo.setBounds(10, 50, 20, 20);
 		add(horseInfo);
 		
-		System.out.println(raceListMain.user_rank);
+//		gameInfo = new GameInfo();
+//		gameInfo.setBounds(10, 80, 20, 20);
+//		add(gameInfo);
+		
+//		System.out.println(raceListMain.user_rank);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		repaint();
+		
 		
 		
 		

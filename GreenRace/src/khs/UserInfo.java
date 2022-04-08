@@ -6,44 +6,37 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import ocy.MultiServer;
+
 public class UserInfo extends JFrame{
 
-	RaceListMain raceListMain = new RaceListMain();
-	
+	Test test;
+	MultiServer multiServer;
 	JLabel jnickname, jmoney, jtotgame, jwin, jlose, jrank;
+	String user_id, nickname, money, totgame, win, lose, rank;
 	
-
 	
 	public UserInfo() {
-		
-//		raceListMain.user_num.get(user_num) = user_num;
+			
+		userNum();
 		setBounds(50, 50, 500, 400);
 		setLayout(null);
 		
-		
-//		System.out.println("유저닉네임:"+raceListMain.user_nickname);
-//		System.out.println("유저머니:"+raceListMain.user_money);
-//		System.out.println("유저총게임:"+raceListMain.user_totgame);
-//		System.out.println("유저승리:"+raceListMain.user_win);
-//		System.out.println("유저패배:"+raceListMain.user_lose);
-//		System.out.println("유저랭크:"+raceListMain.user_rank);
-		
-		
-			
-		jnickname = new JLabel("닉네임:"+raceListMain.user_nickname); 
+		jnickname = new JLabel("닉네임:"+nickname); 
 		jnickname.setBounds(20,20,200,30);
-		jmoney = new JLabel("머니:"+raceListMain.user_money); 
+		jmoney = new JLabel("머니:"+money); 
 		jmoney.setBounds(20,60,200,30); 
-		jtotgame = new JLabel("판수:"+raceListMain.user_totgame);
+		jtotgame = new JLabel("판수:"+totgame);
 		jtotgame.setBounds(20,100,200,30);
-		jwin = new JLabel("승리:"+raceListMain.user_win); 
+		jwin = new JLabel("승리:"+win); 
 		jwin.setBounds(20,140,200,30); 
-		jlose = new JLabel("패배:"+raceListMain.user_lose); 
+		jlose = new JLabel("패배:"+lose); 
 		jlose.setBounds(20,180,200,30);
-		jrank = new JLabel("랭크:"+raceListMain.user_rank); 
+		jrank = new JLabel("랭크:"+rank); 
 		jrank.setBounds(20,220,200,30);
 		
 		
@@ -57,13 +50,56 @@ public class UserInfo extends JFrame{
 		
 		setVisible(true);
 		setResizable(false);
-		
+	
 	}
+		
+		
+		void userNum() {
+			try {
+				Class.forName("org.mariadb.jdbc.Driver");
+				
+				
+				Connection con = DriverManager.getConnection(
+						"jdbc:mariadb://localhost:3306/race_db",  
+						"race",                             	
+						"123456"                                
+						);
+				
+				
+				Statement stmt = con.createStatement();
+				
+				
+				ResultSet rs = stmt.executeQuery("select nickname,money,totgame,win,lose,"
+						+ "rank from user where nickname = '"+multiServer.nickname+"'"); //그냥 nickname으로해도 특정 가능한가?
+				
+				
+				while(rs.next()) { 
+					
+					nickname = rs.getString("nickname");
+					money = rs.getString("money");
+					totgame = rs.getString("totgame");
+					win = rs.getString("win");
+					lose = rs.getString("lose");
+					rank = rs.getString("rank");
+					
+				}
+				
+				rs.close();
+				stmt.close();
+				con.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	
+	
 	
 	
 //	public static void main(String[] args) {
 //		
-//		new UserInfo(2);
+//		new UserInfo();
 //		
 //	}
 

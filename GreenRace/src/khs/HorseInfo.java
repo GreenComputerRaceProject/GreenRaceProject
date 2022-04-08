@@ -43,7 +43,7 @@ public class HorseInfo extends JButton implements ActionListener {
 			Statement stmt = con.createStatement();
 			
 			
-			ResultSet rs = stmt.executeQuery("select * from horse where hname = '"+horseName+"'");//여기 말 엔트리의 이름 연결 
+			ResultSet rs = stmt.executeQuery("select * from horse "); //여기 말 엔트리의 이름 연결 where hname = '"+horseName+"'"
 			
 			
 			while(rs.next()) { 
@@ -69,6 +69,7 @@ public class HorseInfo extends JButton implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(hname);
 	}
 	
 
@@ -77,29 +78,30 @@ public class HorseInfo extends JButton implements ActionListener {
 		
 		JFrame Horse_Info = new JFrame();
 		Horse_Info.setBounds(50, 50, 400, 400);
+		Horse_Info.setLayout(null);
 		
 		jhname = new JLabel("이름:"+hname); 
-		jhname.setBounds(20,20,200,30);
+		jhname.setBounds(20,10,200,30);
 		jtype = new JLabel("타입:"+type); 
-		jtype.setBounds(20,50,200,30); 
+		jtype.setBounds(20,40,200,30); 
 		jgender = new JLabel("성별:"+gender);
-		jgender.setBounds(20,80,200,30);
+		jgender.setBounds(20,70,200,30);
 		jyear = new JLabel("나이:"+year); 
-		jyear.setBounds(20,110,200,30); 
-		jstate = new JLabel(":"+state); 
-		jstate.setBounds(20,140,200,30);
+		jyear.setBounds(20,100,200,30); 
+		jstate = new JLabel("컨디션:"+state); 
+		jstate.setBounds(20,130,200,30);
 		jspeed = new JLabel("평균 속도:"+speed); 
-		jspeed.setBounds(20,170,200,30);
+		jspeed.setBounds(20,160,200,30);
 		jfirstspeed = new JLabel("초반 속도:"+firstspeed); 
-		jfirstspeed.setBounds(20,200,200,30);
+		jfirstspeed.setBounds(20,190,200,30);
 		jlastspeed = new JLabel("후반 속도:"+lastspeed); 
-		jlastspeed.setBounds(20,230,200,30);
+		jlastspeed.setBounds(20,220,200,30);
 		jstamina = new JLabel("스테미나:"+stamina); 
-		jstamina.setBounds(20,260,200,30);
+		jstamina.setBounds(20,250,200,30);
 		jweight = new JLabel("무게:"+weight); 
-		jweight.setBounds(20,290,200,30);
+		jweight.setBounds(20,280,200,30);
 		jrecentrecord = new JLabel("최근 성적:"+recentrecord); 
-		jrecentrecord.setBounds(20,320,200,30);
+		jrecentrecord.setBounds(20,310,200,30);
 	
 		Horse_Info.add(jhname);
 		Horse_Info.add(jtype);
