@@ -7,6 +7,10 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -185,7 +189,45 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 	
 	public static void main(String[] args) {
 		
+		try {
+
+			Class.forName("org.mariadb.jdbc.Driver");
+			
+			Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/race_db", "race", "1234");
+			
+			Statement stmt = con.createStatement();
+			
+			 ResultSet rs = stmt.executeQuery("select * from dansik");
+			
+			 stmt.executeUpdate("insert into dansik " + 
+					 
+   						"(horse_num, nickname, gambling_money, tot_money) " +  "VALUES " + 
+   						
+					 "(2,'검은악마', 1500, 2000)");
+			 
+			 while(rs.next()) {
+				 
+				 System.out.println("==============================");
+				 System.out.println("마번 : "+ rs.getString("horse_num"));
+				 System.out.println("유저 닉네임 : "+ rs.getString("nickname"));
+				 System.out.println("유저 배팅금액 : "+ rs.getString("gambling_money"));
+				 System.out.println("전체유저 배팅금액 : "+ rs.getString("tot_money"));
+				 System.out.println("==============================");
+				 
+			 }
+
+				rs.close();
+				stmt.close();
+				con.close();
+				
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		
+		}
 		new HorseRaceProjMain();
+		
+		
 	}
 	
 	@Override
@@ -271,7 +313,7 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						System.out.println(field.getText());
+						System.out.println(Integer.parseInt(field.getText()));
 						field.setText("");
 					}
 				};
@@ -309,7 +351,7 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						System.out.println(field.getText());
+						System.out.println(Integer.parseInt(field.getText()));
 						field.setText("");
 					}
 				};
