@@ -7,20 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -28,23 +23,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import ohs.EntryInfoSender;
+import ocy.MultiServer.MulReceiver;
 import ohs.RaceProjFrame;
 
-public class MultiServer extends JPanel {
+public class CurrentUserServer{
 
-	RaceProjFrame frame;
 	MulticastSocket sender_ms = null;
 	InetAddress sender_addr;
-	
-	JTextArea ta;
-	JTextField tf;
 	
 	MulReceiver mr;
 	
 	String user_id;
 	public String nickname;
-	ArrayList<String> currentUserList = new ArrayList<String>();
+	static ArrayList<String> currentUserList = new ArrayList<String>();
 
 	class MulReceiver extends Thread {
 		
@@ -247,40 +238,9 @@ public class MultiServer extends JPanel {
 		System.exit(0);
 	}
 	
-	public void taPosition() {
-		ta.setCaretPosition(ta.getDocument().getLength());
-		tf.setText("");
-	}
-	
-	public MultiServer(RaceProjFrame frame, String user_id) {
-		
-		this.frame = frame;
-		this.user_id = user_id;
-		
-		setBackground(Color.pink);
-		setLayout(new BorderLayout());
-		
-		ta = new JTextArea();
-		ta.setEditable(false);
-		add(new JScrollPane(ta), BorderLayout.CENTER);
-		
-		tf = new JTextField();
-		add(tf, BorderLayout.SOUTH);
-		
-		setVisible(true);
+	public CurrentUserServer() {
 		
 		getUserInfo();
 		connect();
-		
-		tf.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				send((nickname + " : " + tf.getText()).getBytes());
-				taPosition();
-			}
-		});
 	}
-
 }

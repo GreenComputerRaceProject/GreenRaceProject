@@ -193,7 +193,7 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 
 			Class.forName("org.mariadb.jdbc.Driver");
 			
-			Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/race_db", "race", "1234");
+			Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/race_db", "race", "123456");
 			
 			Statement stmt = con.createStatement();
 			
