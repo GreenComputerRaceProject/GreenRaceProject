@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import javax.swing.JOptionPane;
 
@@ -92,6 +93,10 @@ public class TCPServerMain {
 					if(data.dst.equals("서버")) {
 						name = data.src;
 						map.put(data.src, oos);
+						
+						for (Entry<String, ObjectOutputStream> entry : map.entrySet()) {
+				            System.out.println("[key]:" + entry.getKey() + ", [value]:" + entry.getValue());
+				        }
 						firstGo(data);
 					} else if(data.dst.equals("CHAT")) {
 						chat(data);
@@ -241,7 +246,7 @@ public class TCPServerMain {
 		void chat(TCPData data) {
 			TCPData response = new TCPData();
 			response.src = "CHAT";
-			response.user.nickname = 
+			response.user.nickname = data.user.nickname;
 			response.msg = data.msg;
 			
 			sendToAll(response);

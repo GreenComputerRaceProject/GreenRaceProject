@@ -74,7 +74,7 @@ public class UserDAO {
 	}
 	
 	public UserDTO user_info(UserDTO dto) {
-		sql = "select * from user";
+		sql = "select * from user where id = '"+ dto.id +"'";
 		
 		UserDTO res = null;
 		
@@ -91,7 +91,7 @@ public class UserDAO {
 				res.phone = rs.getString("phone");
 				res.about = rs.getString("about");
 				res.money = rs.getLong("money");
-				res.tot = rs.getInt("tot");
+				res.totgame = rs.getInt("totgame");
 				res.win = rs.getInt("win");
 				res.lose = rs.getInt("lose");
 			}
