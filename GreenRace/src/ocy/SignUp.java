@@ -22,8 +22,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import ohs.RaceProjFrame;
+
 
 public class SignUp extends JFrame {
+	
+	TCPClient tc;
 	
 	JFrame signUpFrame = this;
 	
@@ -148,7 +152,8 @@ public class SignUp extends JFrame {
 				} else {
 					if(isIdComplete && isNicknameComplete && isPhoneComplete) {
 						if(pwField.getText().equals(pwField2.getText())) {
-							insertUser();
+							tc.requestInsertUser(this, idField.getText(), pwField.getText(), nameField.getText(), nicknameField.getText(),
+									phoneField.getText(), aboutArea.getText());
 						} else {
 							JOptionPane.showMessageDialog(null, "비밀번호를 다시 확인해주세요", "회원가입 실패", JOptionPane.PLAIN_MESSAGE);
 							pwField.setText("");
@@ -170,7 +175,7 @@ public class SignUp extends JFrame {
 					boolean regex = Pattern.matches(pattern, idField.getText());
 					
 					if(regex) {
-						id_verification();
+						tc.requestIdVerification(this, idField.getText());
 					} else {
 						JOptionPane.showMessageDialog(null, "아이디는 영문, 숫자로만 이루어진 5 ~ 12자 이하로 작성해주세요", "중복확인 실패", JOptionPane.PLAIN_MESSAGE);
 					}
@@ -184,7 +189,7 @@ public class SignUp extends JFrame {
 					boolean regex = Pattern.matches(pattern, nicknameField.getText());
 					
 					if(regex) {
-						nickname_verification();
+						tc.requestNickNameVerification(this, nicknameField.getText());
 					} else {
 						JOptionPane.showMessageDialog(null, "닉네임은 영문, 한글로만 이루어진 2 ~ 8자 이하로 작성해주세요", "중복확인 실패", JOptionPane.PLAIN_MESSAGE);
 					}
@@ -198,7 +203,7 @@ public class SignUp extends JFrame {
 					boolean regex = Pattern.matches(pattern, phoneField.getText());
 					
 					if(regex) {
-						phone_verification();
+						tc.requestPhoneVerification(this, phoneField.getText());
 					} else {
 						JOptionPane.showMessageDialog(null, "전화번호를 다시 입력해주세요(하이픈(-)을 포함하지 말아주세요)", "중복확인 실패", JOptionPane.PLAIN_MESSAGE);
 						phoneField.setText("");
@@ -220,138 +225,53 @@ public class SignUp extends JFrame {
 			
 		}
 		
-		public void id_verification() {
-			try {
-				Class.forName("org.mariadb.jdbc.Driver");
-				
-				Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/race_db","race","123456");
-				Statement stmt = con.createStatement();
-				
-				ResultSet rs = stmt.executeQuery("select * from user");
-				
-				boolean id_existence = false;
-				
-				while(rs.next()) { 
-					if(rs.getString("id").equals(idField.getText())) {
-						id_existence = true;
-					}
-				}
-				
-				rs.close();
-				stmt.close();
-				con.close();
-				
-				if(id_existence) {
-					JOptionPane.showMessageDialog(null, "이미 존재하는 아이디입니다.", "중복확인 실패", JOptionPane.PLAIN_MESSAGE);
-					idField.setText("");
-				} else {
-					JOptionPane.showMessageDialog(null, "사용 가능한 아이디입니다.", "중복확인 완료", JOptionPane.PLAIN_MESSAGE);
-					isIdComplete = true;
-				}
-				
-			} catch (Exception ex) {
-				// TODO Auto-generated catch block
-				ex.printStackTrace();
+		public void id_verification_notice(String response) {
+			if(response.equals("ID_EXIST")) {
+				JOptionPane.showMessageDialog(null, "이미 존재하는 아이디입니다.", "중복확인 실패", JOptionPane.PLAIN_MESSAGE);
+				idField.setText("");
+			} else if(response.equals("COMPLETE")) {
+				JOptionPane.showMessageDialog(null, "사용 가능한 아이디입니다.", "중복확인 완료", JOptionPane.PLAIN_MESSAGE);
+				isIdComplete = true;
 			}
 		}
 		
-		public void nickname_verification() {
-			try {
-				Class.forName("org.mariadb.jdbc.Driver");
-				
-				Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/race_db","race","123456");
-				Statement stmt = con.createStatement();
-				
-				ResultSet rs = stmt.executeQuery("select * from user");
-				
-				boolean nickname_existence = false;
-				
-				while(rs.next()) { 
-					if(rs.getString("nickname").equals(nicknameField.getText())) {
-						nickname_existence = true;
-					}
-				}
-				
-				rs.close();
-				stmt.close();
-				con.close();
-				
-				if(nickname_existence) {
-					JOptionPane.showMessageDialog(null, "이미 존재하는 닉네임입니다.", "중복확인 실패", JOptionPane.PLAIN_MESSAGE);
-					nicknameField.setText("");
-				} else {
-					JOptionPane.showMessageDialog(null, "사용 가능한 닉네임입니다.", "중복확인 완료", JOptionPane.PLAIN_MESSAGE);
-					isNicknameComplete = true;
-				}
-				
-			} catch (Exception ex) {
-				// TODO Auto-generated catch block
-				ex.printStackTrace();
+		public void nickname_verification_notice(String response) {
+			if(response.equals("NICKNAME_EXIST")) {
+				JOptionPane.showMessageDialog(null, "이미 존재하는 닉네임입니다.", "중복확인 실패", JOptionPane.PLAIN_MESSAGE);
+				nicknameField.setText("");
+			} else if(response.equals("COMPLETE")) {
+				JOptionPane.showMessageDialog(null, "사용 가능한 닉네임입니다.", "중복확인 완료", JOptionPane.PLAIN_MESSAGE);
+				isNicknameComplete = true;
 			}
 		}
 		
-		public void phone_verification() {
-			try {
-				Class.forName("org.mariadb.jdbc.Driver");
-				
-				Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/race_db","race","123456");
-				Statement stmt = con.createStatement();
-				
-				ResultSet rs = stmt.executeQuery("select * from user");
-				
-				boolean phone_existence = false;
-				
-				while(rs.next()) { 
-					if(rs.getString("phone").equals(phoneField.getText())) {
-						phone_existence = true;
-					}
-				}
-				
-				rs.close();
-				stmt.close();
-				con.close();
-				
-				if(phone_existence) {
-					JOptionPane.showMessageDialog(null, "이미 가입한 사용자입니다.", "중복확인 실패", JOptionPane.PLAIN_MESSAGE);
-					phoneField.setText("");
-				} else {
-					certNum = new SMSSend(phoneField.getText()).send();
-					JOptionPane.showMessageDialog(null, "인증번호를 전송했습니다", "인증번호 전송 성공", JOptionPane.PLAIN_MESSAGE);
-					certField.setEnabled(true);
-					certButton.setEnabled(true);
-				}
-				
-			} catch (Exception ex) {
-				// TODO Auto-generated catch block
-				ex.printStackTrace();
+		public void phone_verification_notice(String response) {
+			if(response.equals("PHONE_EXIST")) {
+				JOptionPane.showMessageDialog(null, "이미 가입한 사용자입니다.", "중복확인 실패", JOptionPane.PLAIN_MESSAGE);
+				phoneField.setText("");
+			} else if(response.equals("NEED_CERTIFICATION")) {
+				JOptionPane.showMessageDialog(null, "인증번호를 전송했습니다", "인증번호 전송 성공", JOptionPane.PLAIN_MESSAGE);
+				certNum = new SMSSend(phoneField.getText()).send();
+				certField.setEnabled(true);
+				certButton.setEnabled(true);
 			}
 		}
 		
-		public void insertUser() {
-			try {
-				Class.forName("org.mariadb.jdbc.Driver");
-				
-				Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/race_db","race","123456");
-				Statement stmt = con.createStatement();
-				
-				int rs = stmt.executeUpdate("INSERT into user(id, pw, name, nickname, phone, money, totgame, win, lose, rank, about) "
-						+ "values('"+idField.getText()+"', '"+pwField.getText()+"', '"+nameField.getText()+"','"
-						+nicknameField.getText()+"', '"+phoneField.getText()+"', "+10000000+", "+0+", "+0+", "+0+", "+1+", '"+aboutArea.getText()+"')");
-				
+		public void user_insert_notice(String response) {
+			if(response.equals("COMPLETE")) {
 				JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다", "회원가입 성공", JOptionPane.PLAIN_MESSAGE);
-				
-				stmt.close();
-				con.close();
-				
 				signUpFrame.dispose();
-			} catch (Exception ex) {
-				// TODO Auto-generated catch block
-				ex.printStackTrace();
+			} else if(response.equals("WRONG")) {
+				JOptionPane.showMessageDialog(null, "잠시후에 다시 시도해주세요", "회원가입 실패", JOptionPane.PLAIN_MESSAGE);
+				signUpFrame.dispose();
 			}
 		}
 	}
 	
-	public SignUp() {
+	public SignUp(TCPClient tc) {
+		
+		this.tc = tc;
+		
 		setSize(400, 750);
 		setLayout(null);
 		
