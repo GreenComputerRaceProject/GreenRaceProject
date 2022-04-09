@@ -2,11 +2,13 @@ package kkj;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.regex.Pattern;
 
@@ -19,7 +21,6 @@ import javax.swing.SwingConstants;
 
 public class HorseRaceProjMain extends JFrame implements ActionListener{
 	
-	long batting_money=0;
 	JFrame reFrame;		//기능버튼클릭시 추가 생성되는 화면
 	JTextField field;	
 	JButton btn;		//클릭시 기능활성시킬 버튼
@@ -36,7 +37,42 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 		super("달려라 왕바우");
 		setSize(1600,1000);
 		setLayout(null);
-	
+		setLocationRelativeTo(null);
+		
+		
+//		try {
+//
+//            Class.forName("org.mariadb.jdbc.Driver");
+//
+//            Connection con = DriverManager.getConnection(
+//
+//            		"jdbc:mariadb://localhost:3306/race_db","race", "123456" );
+//
+//            Statement stmt = con.createStatement();
+//
+//            stmt.executeUpdate("insert into dansik " + 
+//            			
+//                    "(horse_num, nickname, gambling_money, tot_money) " +  "VALUES " + 
+//
+//            		"()");
+//            	
+//            ResultSet rs = stmt.executeQuery("select * from dansik");
+//            
+//            while(rs.next()) {
+//            	
+//            	System.out.println(rs.getString("nickname"));
+//            	
+//            }
+//            
+//            	
+//            stmt.close();
+//            con.close();
+//
+//        } catch (Exception e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+		
 		top_panel = new JPanel();	//상단나열바
 		top_panel.setSize(1585,70);
 		top_panel.setBackground(Color.white);
@@ -89,8 +125,8 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 			field = new JTextField();
 			field.setBounds(0, 0, 70, 70);
 			b_danglyul.setLayout(new GridLayout(12,90,0,0));
-			field.setText(i+""+"\n"+field.getText());
-			b_danglyul.add(field);	//배당률 안에 그리드로 쪼개기
+			field.setText(i+""+"\n"+"0");
+			b_danglyul.add(field);	
 			field.setEditable(false);
 			field.setHorizontalAlignment(JTextField.CENTER);
 				
@@ -130,9 +166,9 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 						}else if(i==110) {
 							field.setText("9");
 							field.setBackground(new Color(147,170,250));
-//				}else 
-//					field.setText(i+"");
-//		}	
+				}else 
+					field.setText(i+"");
+		}	
 		
 		chat = new JPanel();		//채팅
 		chat.setBounds(800, 570, 400, 392);
@@ -165,30 +201,7 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 //		user_list.setBackground(Color.gray);
 		add(user_list);
 		
-		try {
 
-            Class.forName("org.mariadb.jdbc.Driver");
-
-            Connection con = DriverManager.getConnection(
-
-            		"jdbc:mariadb://localhost:3306/race_db","race", "123456" );
-
-            Statement stmt = con.createStatement();
-
-            stmt.executeUpdate("insert into dansik " + 
-            			
-                    "(horse_num, nickname, gambling_money, tot_money) " +  "VALUES " + 
-
-            		"(1,'노란악마', 800000, 9000000)");
-            
-            stmt.close();
-            con.close();
-
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
 		
 		user_info.addActionListener(this);
 		m_charge.addActionListener(this);
@@ -203,8 +216,7 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
-		}
-	
+		
 	public static void main(String[] args) {
 		
 		new HorseRaceProjMain();
@@ -215,38 +227,53 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 	
 		if( e.getSource().equals(user_info)) {
 			reFrame = new JFrame("회원정보(랭크)");
-			reFrame.setBounds(500, 100, 500, 500);
+			reFrame.setSize(400,500);
+			reFrame.setLocationRelativeTo(null); 
 			reFrame.setResizable(false);
 			reFrame.setVisible(true);
 		}
 			else if(e.getSource().equals(m_charge)) {
 				reFrame = new JFrame("게임머니충전");
-				reFrame.setBounds(500, 100, 500, 500);
+				reFrame.setSize(400,300);
+				reFrame.setLocationRelativeTo(null); 
 				reFrame.setResizable(false);
 				reFrame.setVisible(true);
 		}
 			else if(e.getSource().equals(game_info)) {
 				reFrame = new JFrame("경기정보조회");
-				reFrame.setBounds(500, 100, 500, 500);
+				reFrame.setSize(400,500);
+				reFrame.setLocationRelativeTo(null); 
 				reFrame.setResizable(false);
 				reFrame.setVisible(true);
 		}
 			else if(e.getSource().equals(exit)) {
 				reFrame = new JFrame("게임종료");
-				reFrame.setBounds(500, 100, 500, 500);
-				reFrame.setResizable(false);
+				reFrame.setSize(500,200);
+				reFrame.setLocationRelativeTo(null); 
 				reFrame.setVisible(true);
+				label = new JLabel("종료하시겠습니까?");
+				label.setBounds(0, 0, 100, 50);
+				label.setHorizontalAlignment(JLabel.CENTER);
+				label.setVerticalAlignment(JLabel.CENTER);
+				reFrame.add(label);
+//				btn = new JButton("네");
+//				btn.setBounds(50, 140, 70, 70);
+//				btn.setAlignmentX(LEFT_ALIGNMENT);
+//				btn.setAlignmentX(BOTTOM_ALIGNMENT);
+//				reFrame.add(btn);
+				
+				
 		}
 			else if(e.getSource().equals(b_single)) {
 				reFrame = new JFrame("단식");
-				reFrame.setBounds(500, 100, 400, 100);
-				
+				reFrame.setSize(400,100);
+				reFrame.setLocationRelativeTo(null); 
 				field = new JTextField();
 				
 //				if(게임시작하면 배팅못하게끔 닫을꺼임)
 //					field.setEnabled(false);
 				
-				label = new JLabel("배팅금액");
+				label = new JLabel("배팅하실 말 번호를 입력해주세요");
 				label.setHorizontalAlignment(SwingConstants.CENTER);
 				label.setVerticalAlignment(SwingConstants.CENTER);
 				
@@ -256,8 +283,11 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						System.out.println(Integer.parseInt(field.getText()));
-						field.setText("");
+//						if(btn.equals("확인")) {
+							System.out.println(Integer.parseInt(field.getText()));
+							field.setText("");
+							
+//						}
 						
 					}
 				};
@@ -278,7 +308,8 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 		}
 			else if(e.getSource().equals(b_yeon)) {
 				reFrame = new JFrame("연식");
-				reFrame.setBounds(500, 100, 400, 100);
+				reFrame.setSize(400, 100);
+				reFrame.setLocationRelativeTo(null);
 				
 				//	else if(게임시작하면 배팅못하게끔 닫을꺼임)
 				//		field.setEnabled(false);
@@ -314,8 +345,8 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 		}
 			else if(e.getSource().equals(b_bok)) {
 				reFrame = new JFrame("복식");
-				reFrame.setBounds(500, 100, 400, 100);
-				
+				reFrame.setSize(400, 100);
+				reFrame.setLocationRelativeTo(null);
 				field = new JTextField();
 
 //				if(게임시작하면 배팅못하게끔 닫을꺼임)
@@ -351,9 +382,8 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 				reFrame.setVisible(true);
 		}else
 				return;
-		}
-};
-
+	}
+		};
 
 
 		
