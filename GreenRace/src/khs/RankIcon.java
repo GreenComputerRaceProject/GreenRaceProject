@@ -26,20 +26,20 @@ public class RankIcon extends JButton implements ActionListener{
 	MultiServer multiServer;
 	JLabel jnickname, jmoney, jtotgame, jwin, jlose, jrank;
 	String user_id, nickname, money, totgame, win, lose, rank;
-	ArrayList<String> user_nickname = new ArrayList<String>();
-	ArrayList<String> user_money = new ArrayList<String>();
-	ArrayList<String> user_totgame = new ArrayList<String>();
-	ArrayList<String> user_win = new ArrayList<String>();
-	ArrayList<String> user_lose = new ArrayList<String>();	
-	ArrayList<String> user_rank = new ArrayList<String>();
+//	ArrayList<String> user_nickname = new ArrayList<String>();
+//	ArrayList<String> user_money = new ArrayList<String>();
+//	ArrayList<String> user_totgame = new ArrayList<String>();
+//	ArrayList<String> user_win = new ArrayList<String>();
+//	ArrayList<String> user_lose = new ArrayList<String>();	
+//	ArrayList<String> user_rank = new ArrayList<String>();
 	
 	
-		public RankIcon(int a, String imgIcon) {
+		public RankIcon(String text) { //String imgIcon
 			
-			setBounds(50, 50*a, 20, 20); 
+			setBounds(0, 0, 20, 20); 
 			
-			icon = new ImageIcon(imgIcon);
-			setIcon(icon);
+//			icon = new ImageIcon(imgIcon);
+//			setIcon(icon);
 			System.out.println("버튼 생성");
 
 			
@@ -63,7 +63,7 @@ public class RankIcon extends JButton implements ActionListener{
 				
 				
 				ResultSet rs = stmt.executeQuery("select nickname,money,totgame,win,lose,"
-						+ "rank from user where id = '"+multiServer.user_id+"'"); //다른 패키지라 못 읽음
+						+ "rank from user where nickname = '"+multiServer.nickname+"'"); //그냥 nickname으로해도 특정 가능한가?
 				
 				
 				while(rs.next()) { 
@@ -77,12 +77,12 @@ public class RankIcon extends JButton implements ActionListener{
 				
 					
 					
-					user_nickname.add(nickname);
-					user_money.add(money);
-					user_totgame.add(totgame);
-					user_win.add(win);
-					user_lose.add(lose);
-					user_rank.add(rank);
+//					user_nickname.add(nickname);
+//					user_money.add(money);
+//					user_totgame.add(totgame);
+//					user_win.add(win);
+//					user_lose.add(lose);
+//					user_rank.add(rank);
 					
 				}
 				
@@ -105,17 +105,17 @@ public class RankIcon extends JButton implements ActionListener{
 		JFrame userInfo = new JFrame();
 		userInfo.setBounds(50, 50, 500, 400);
 		userInfo.setLayout(null);
-		jnickname = new JLabel("닉네임:"+user_nickname); 
+		jnickname = new JLabel("닉네임:"+nickname); 
 		jnickname.setBounds(20,20,200,30);
-		jmoney = new JLabel("머니:"+user_money); 
+		jmoney = new JLabel("머니:"+money); 
 		jmoney.setBounds(20,60,200,30); 
-		jtotgame = new JLabel("판수:"+user_totgame);
+		jtotgame = new JLabel("판수:"+totgame);
 		jtotgame.setBounds(20,100,200,30);
-		jwin = new JLabel("승리:"+user_win); 
+		jwin = new JLabel("승리:"+win); 
 		jwin.setBounds(20,140,200,30); 
-		jlose = new JLabel("패배:"+user_lose); 
+		jlose = new JLabel("패배:"+lose); 
 		jlose.setBounds(20,180,200,30);
-		jrank = new JLabel("랭크:"+user_rank); 
+		jrank = new JLabel("랭크:"+rank); 
 		jrank.setBounds(20,220,200,30);
 		
 		

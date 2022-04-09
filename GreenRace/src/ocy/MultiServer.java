@@ -68,8 +68,10 @@ public class MultiServer extends JPanel {
 					ta.append(msg + "\n");
 					ta.setCaretPosition(ta.getDocument().getLength());
 					
-					if(msg.substring(0, 2).equals("안내")) {
+					if(msg.substring(0, 2).equals("입장")) {
 						reSelectCurrentUser();
+					} else if(msg.substring(0, 2).equals("퇴장")) {
+						
 					}
 					
 				}
@@ -119,14 +121,14 @@ public class MultiServer extends JPanel {
 		}
 	}
 	
-	void currentUserInsert() {
+	void currentUserInsert(String userNickname) {
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 			
 			Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/race_db","race","123456");
 			Statement stmt = con.createStatement();
 			
-			String sql = "insert into currentUser() values ( '"+nickname+"' )";
+			String sql = "insert into currentUser() values ( '"+userNickname+"' )";
 			
 			stmt.executeUpdate(sql);
 			
@@ -141,14 +143,14 @@ public class MultiServer extends JPanel {
 		}
 	}
 	
-	void currentUserDelete() {
+	void currentUserDelete(String userNickname) {
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 			
 			Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/race_db","race","123456");
 			Statement stmt = con.createStatement();
 			
-			String sql = "delete from currentUser where nickname = '"+nickname+"'";
+			String sql = "delete from currentUser where nickname = '"+userNickname+"'";
 			
 			stmt.executeUpdate(sql);
 			
@@ -197,7 +199,7 @@ public class MultiServer extends JPanel {
 			jl.setOpaque(true);
 			jp.add(jl);
 			
-			JButton jb = new JButton("인포");
+			JButton jb = new JButton("인포");// RankIcon으로 바꿔야 함
 			jp.add(jb);
 			
 			frame.user_list.add(jp);
@@ -217,15 +219,17 @@ public class MultiServer extends JPanel {
 	}
 	
 	public void user_entrance() {
-		this.send(("안내 : " + nickname + "님이 입장하셨습니다.").getBytes());
+		this.send(("입장 : " + nickname + "님이 입장하셨습니다.").getBytes());
 		taPosition();
+		
+		currentUserInsert(nickname);
 	}
 	
 	public void user_exit() {
-		this.send(("안내 : " + nickname + "님이 퇴장하셨습니다.").getBytes());
+		this.send(("퇴장 : " + nickname + "님이 퇴장하셨습니다.").getBytes());
 		taPosition();
 		
-		currentUserDelete();
+		currentUserDelete(nickname);
 		
 		sender_ms.close();
 		sender_ms = null;
@@ -267,7 +271,6 @@ public class MultiServer extends JPanel {
 		
 		getUserInfo();
 		connect();
-		currentUserInsert();
 		
 		tf.addActionListener(new ActionListener() {
 			
