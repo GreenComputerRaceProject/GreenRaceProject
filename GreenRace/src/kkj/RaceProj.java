@@ -21,8 +21,6 @@ import javax.swing.SwingConstants;
 
 public class RaceProj extends JFrame {
 	
-	//연결이안됨, 이거쓰는거아님
-	
 	RaceProj rpj = new RaceProj();
 	
 	JTextField field;
@@ -171,10 +169,6 @@ public class RaceProj extends JFrame {
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	
-	
-
-
-		
 	}
 }
 
