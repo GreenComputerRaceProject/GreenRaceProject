@@ -104,7 +104,7 @@ public class EntryPointMain extends JFrame {
 				
 				entryPointMain.dispose();
 				new RaceProjFrame(tc);
-				new BGM();
+				//new BGM();
 			}
 		}
 	}

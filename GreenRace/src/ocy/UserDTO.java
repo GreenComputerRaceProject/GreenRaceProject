@@ -8,7 +8,7 @@ public class UserDTO implements Serializable{
 
 	String id, pw, name, nickname, phone, about;
 	long money;
-	int tot, win, lose;
+	int totgame, win, lose;
 	
 	public UserDTO() {
 		
@@ -23,7 +23,7 @@ public class UserDTO implements Serializable{
 		this.phone = data.user.phone;
 		this.about = data.user.about;
 		this.money = data.user.money;
-		this.tot = data.user.tot;
+		this.totgame = data.user.totgame;
 		this.win = data.user.win;
 		this.lose = data.user.lose;
 	}
@@ -38,7 +38,7 @@ public class UserDTO implements Serializable{
 		this.phone = phone;
 		this.about = about;
 		this.money = money;
-		this.tot = tot;
+		this.totgame = tot;
 		this.win = win;
 		this.lose = lose;
 	}
@@ -99,12 +99,12 @@ public class UserDTO implements Serializable{
 		this.money = money;
 	}
 
-	public int getTot() {
-		return tot;
+	public int getTotGame() {
+		return totgame;
 	}
 
-	public void setTot(int tot) {
-		this.tot = tot;
+	public void setTotGame(int tot) {
+		this.totgame = tot;
 	}
 
 	public int getWin() {
@@ -126,7 +126,7 @@ public class UserDTO implements Serializable{
 	@Override
 	public String toString() {
 		return "[" + id + "," + pw + "," + name + "," + nickname + "," + phone
-				+ "," + about + "," + money + "," + tot + "," + win + "," + lose + "]";
+				+ "," + about + "," + money + "," + totgame + "," + win + "," + lose + "]";
 	}
 	
 	

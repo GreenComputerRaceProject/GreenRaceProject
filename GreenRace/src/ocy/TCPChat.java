@@ -34,6 +34,13 @@ public class TCPChat extends JPanel implements ActionListener {
 		
 		tf.addActionListener(this);
 	}
+	
+	public void showChat(TCPData response) {
+		
+		ta.append(response.user.nickname + " : " + response.msg + "\n");
+		ta.setCaretPosition(ta.getDocument().getLength());
+		tf.setText("");
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

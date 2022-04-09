@@ -61,10 +61,10 @@ public class TCPClient {
 						innerFind.id_find_notice(response);
 					} else if(response.src.equals("UPDATE_PW")) {
 						innerFind.pw_update_notice(response);
-					} else if(response.src.equals("UPDATE_PW")) {
-						innerFind.pw_update_notice(response);
 					} else if(response.src.equals("CHAT")) {
-						
+						if(tcpChat != null) { // 로그인중인데 챗 시그널 받으면 클라이언트 얼어버림. 예외처리
+							tcpChat.showChat(response);
+						}
 					}
 					
 				}
@@ -224,6 +224,7 @@ public class TCPClient {
 			TCPData data = new TCPData();
 			data.src = local.getHostAddress();
 			data.dst = "CHAT";
+			data.user.nickname = this.user.nickname;
 			data.msg = msg;
 			
 			oos.writeObject(data);
@@ -243,7 +244,10 @@ public class TCPClient {
 			oos = new ObjectOutputStream(soc.getOutputStream());
 			ois = new ObjectInputStream(soc.getInputStream());
 			
-			local = InetAddress.getLocalHost();
+//			local = InetAddress.getLocalHost();
+			
+			// 컴 하나로 임시테스트할때는 가짜 ip주소 넣어줌.  클라 켤때마다 숫자 바꿔줘야함
+			local = InetAddress.getByName("192.168.35.11");
 			
 			new TCPClientReceiver().start();
 		} catch (Exception e1) {
