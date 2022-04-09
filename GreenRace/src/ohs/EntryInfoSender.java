@@ -28,7 +28,7 @@ public class EntryInfoSender extends Thread implements Serializable {
 
 	public EntryInfoSender() {
 	
-		start();
+	
 	}
 
 
@@ -40,7 +40,7 @@ public class EntryInfoSender extends Thread implements Serializable {
 			try {
 				entry();
 
-				Thread.sleep(15000);
+				Thread.sleep(10000);
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -113,7 +113,8 @@ public class EntryInfoSender extends Thread implements Serializable {
 	public static void main(String[] args) {
 
 		try {
-			new EntryInfoSender();
+			
+			new EntryInfoSender().start();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

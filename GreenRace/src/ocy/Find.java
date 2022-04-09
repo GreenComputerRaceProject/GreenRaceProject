@@ -21,6 +21,8 @@ import javax.swing.JTextField;
 
 public class Find extends JFrame {
 	
+	TCPClient tc;
+	
 	JFrame findFrame = this;
 	
 	InnerFind innerFind;
@@ -99,7 +101,7 @@ public class Find extends JFrame {
 						JOptionPane.showMessageDialog(null, "전화번호 인증에 성공하였습니다", "인증 성공", JOptionPane.PLAIN_MESSAGE);
 						
 						if(this.mode.equals("ID 찾기")) {
-							selectID();
+							tc.requestFindID(this, phoneField.getText());
 						} else if(this.mode.equals("PW 재설정")) {
 							firstField.setEnabled(false);
 							phoneField.setEnabled(false);
@@ -124,7 +126,7 @@ public class Find extends JFrame {
 								if((!pwField.getText().isEmpty() && !pwField2.getText().isEmpty()) && 
 										(pwField.getText().equals(pwField2.getText()))) {
 									
-									updatePW();
+									tc.requestUpdatePW(this, phoneField.getText(), pwField.getText());
 								} else {
 									JOptionPane.showMessageDialog(null, "재설정할 비밀번호를 다시 확인해주세요", "재설정 실패", JOptionPane.PLAIN_MESSAGE);
 									pwField.setText("");
@@ -151,67 +153,32 @@ public class Find extends JFrame {
 				
 				this.repaint();
 				
+				JOptionPane.showMessageDialog(null, "인증번호를 전송했습니다", "안내", JOptionPane.PLAIN_MESSAGE);
 				// 메세지 발송 메소드
 				certNum = new SMSSend(phoneField.getText()).send();
-				JOptionPane.showMessageDialog(null, "인증번호를 전송했습니다", "안내", JOptionPane.PLAIN_MESSAGE);
 			} else {
 				JOptionPane.showMessageDialog(null, "빈 내용을 채워주세요", "입력해주세요", JOptionPane.PLAIN_MESSAGE);
 			}
 		}
 		
-		void selectID() {
-			try {
-				Class.forName("org.mariadb.jdbc.Driver");
-				
-				Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/race_db","race","123456");
-				Statement stmt = con.createStatement();
-				
-				ResultSet rs = stmt.executeQuery("select id from user where phone = '"+phoneField.getText()+"'");
-				
-				String id = "";
-				
-				while(rs.next()) {
-					id = rs.getString("id");
-				}
-				
-				JOptionPane.showMessageDialog(null, firstField.getText() + "님의 ID : " + id, "ID 찾기 완료", JOptionPane.PLAIN_MESSAGE);
-				
-				rs.close();
-				stmt.close();
-				con.close();
-				
+		public void id_find_notice(TCPData response) {
+			if(response.msg.equals("COMPLETE")) {
+				JOptionPane.showMessageDialog(null, firstField.getText() + "님의 ID : " + response.user.id, "ID 찾기 완료", JOptionPane.PLAIN_MESSAGE);
 				findFrame.dispose();
-				
-			} catch (Exception ex) {
-				// TODO Auto-generated catch block
-				ex.printStackTrace();
 			}
 		}
 		
-		void updatePW() {
-			try {
-				Class.forName("org.mariadb.jdbc.Driver");
-				
-				Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/race_db","race","123456");
-				Statement stmt = con.createStatement();
-				
-				int rs = stmt.executeUpdate("update user set pw = '"+pwField.getText()+"' where phone = '"+phoneField.getText()+"'");
-				
-				JOptionPane.showMessageDialog(null, firstField.getText() + "님의 비밀번호가 재설정되었습니다.", "PW 찾기 완료", JOptionPane.PLAIN_MESSAGE);
-				
-				stmt.close();
-				con.close();
-				
+		public void pw_update_notice(TCPData response) {
+			if(response.msg.equals("COMPLETE")) {
+				JOptionPane.showMessageDialog(null, firstField.getText() + "님의 비밀번호가 재설정되었습니다.", "PW 재설정 완료", JOptionPane.PLAIN_MESSAGE);
 				findFrame.dispose();
-				
-			} catch (Exception ex) {
-				// TODO Auto-generated catch block
-				ex.printStackTrace();
 			}
 		}
 	}
 
-	public Find(String mode) {
+	public Find(TCPClient tc, String mode) {
+		this.tc = tc;
+		
 		setSize(400, 750);
 		setLayout(null);
 		

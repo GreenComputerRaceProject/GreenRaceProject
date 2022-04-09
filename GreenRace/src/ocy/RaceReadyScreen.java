@@ -53,7 +53,14 @@ public class RaceReadyScreen extends JPanel {
 		
 		setBounds(0, 70, 1585, 500);
 		setBackground(Color.white);
+		setLayout(null);
 		
+		JPanel info = new JPanel();
+		info.setBounds(0, 50, 1585, 450);
+		info.setBackground(Color.red);
+		
+		
+		add(info);
 		add(jl);
 		
 		new ReadyTimer(this).start();
