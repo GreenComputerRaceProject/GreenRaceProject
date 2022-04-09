@@ -197,7 +197,7 @@ public class MultiServer extends JPanel {
 			jl.setOpaque(true);
 			jp.add(jl);
 			
-			JButton jb = new JButton("인포");
+			JButton jb = new JButton("인포");// RankIcon으로 바꿔야 함
 			jp.add(jb);
 			
 			frame.user_list.add(jp);
