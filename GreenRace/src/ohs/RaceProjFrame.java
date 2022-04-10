@@ -155,8 +155,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
     	if(e.getSource().equals(user_info) ||
     			//e.getSource().equals(game_info)||
-    			e.getSource().equals(m_charge)  
-    			) {
+    			e.getSource().equals(m_charge)) {
     		refFrame.setBounds(500, 100, 500, 500);
     		refFrame.setResizable(false);
     		refFrame.setVisible(true);
