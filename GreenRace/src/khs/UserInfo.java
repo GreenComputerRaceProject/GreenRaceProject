@@ -70,7 +70,7 @@ public class UserInfo extends JFrame{
 				
 				
 				ResultSet rs = stmt.executeQuery("select nickname,money,totgame,win,lose,"
-						+ "rank from user where nickname = '"+multiServer.nickname+"'"); //그냥 nickname으로해도 특정 가능한가?
+						+ "rank from user where nickname = '"+multiServer.current_User+"'"); //그냥 nickname으로해도 특정 가능한가?
 				
 				
 				while(rs.next()) { 

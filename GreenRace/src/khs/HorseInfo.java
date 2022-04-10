@@ -11,7 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class HorseInfo extends JButton implements ActionListener {
+import ohs.GameScreen2;
+
+public class HorseInfo extends JFrame {
 	
 	String horseName, hname, recentrecord,type, gender, year, state, 
 		speed, firstspeed, lastspeed, stamina, weight;
@@ -19,12 +21,56 @@ public class HorseInfo extends JButton implements ActionListener {
 	JLabel jhname, jrecentrecord, jtype, jgender, jyear, jstate,
 		jspeed, jfirstspeed, jlastspeed, jstamina, jweight;
 	
-	public HorseInfo() { //String horseName
+	int horseNum;
+	
+	public HorseInfo(int horseNum) { //String horseName
+		
+		this.horseNum = horseNum;
 		
 //		this.horseName = horseName;
-		setBounds(100, 100, 50, 50); //말 엔트리 옆에 위치
+		setBounds(100, 100, 400, 400); //말 엔트리 옆에 위치
+		setLayout(null);
 		
-		addActionListener(this);
+		horseDB();
+		
+		jhname = new JLabel("이름:"+hname); 
+		jhname.setBounds(20,10,200,30);
+		jtype = new JLabel("타입:"+type); 
+		jtype.setBounds(20,40,200,30); 
+		jgender = new JLabel("성별:"+gender);
+		jgender.setBounds(20,70,200,30);
+		jyear = new JLabel("나이:"+year); 
+		jyear.setBounds(20,100,200,30); 
+		jstate = new JLabel("컨디션:"+state); 
+		jstate.setBounds(20,130,200,30);
+		jspeed = new JLabel("평균 속도:"+speed); 
+		jspeed.setBounds(20,160,200,30);
+		jfirstspeed = new JLabel("초반 속도:"+firstspeed); 
+		jfirstspeed.setBounds(20,190,200,30);
+		jlastspeed = new JLabel("후반 속도:"+lastspeed); 
+		jlastspeed.setBounds(20,220,200,30);
+		jstamina = new JLabel("스테미나:"+stamina); 
+		jstamina.setBounds(20,250,200,30);
+		jweight = new JLabel("무게:"+weight); 
+		jweight.setBounds(20,280,200,30);
+		jrecentrecord = new JLabel("최근 성적:"+recentrecord); 
+		jrecentrecord.setBounds(20,310,200,30);
+	
+		add(jhname);
+		add(jtype);
+		add(jgender);
+		add(jyear);
+		add(jstate);
+		add(jspeed);
+		add(jfirstspeed);
+		add(jlastspeed);
+		add(jstamina);
+		add(jweight);
+		add(jrecentrecord);
+		
+		
+		setVisible(true);
+		setResizable(false);
 	}
 	
 	
@@ -43,7 +89,7 @@ public class HorseInfo extends JButton implements ActionListener {
 			Statement stmt = con.createStatement();
 			
 			
-			ResultSet rs = stmt.executeQuery("select * from horse "); //여기 말 엔트리의 이름 연결 where hname = '"+horseName+"'"
+			ResultSet rs = stmt.executeQuery("select * from horse where hid = '"+horseNum+"'"); //여기 말 엔트리의 이름 연결 where hname = '"+horseName+"'"
 			
 			
 			while(rs.next()) { 
@@ -69,55 +115,7 @@ public class HorseInfo extends JButton implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(hname);
-	}
-	
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-		JFrame Horse_Info = new JFrame();
-		Horse_Info.setBounds(50, 50, 400, 400);
-		Horse_Info.setLayout(null);
-		
-		jhname = new JLabel("이름:"+hname); 
-		jhname.setBounds(20,10,200,30);
-		jtype = new JLabel("타입:"+type); 
-		jtype.setBounds(20,40,200,30); 
-		jgender = new JLabel("성별:"+gender);
-		jgender.setBounds(20,70,200,30);
-		jyear = new JLabel("나이:"+year); 
-		jyear.setBounds(20,100,200,30); 
-		jstate = new JLabel("컨디션:"+state); 
-		jstate.setBounds(20,130,200,30);
-		jspeed = new JLabel("평균 속도:"+speed); 
-		jspeed.setBounds(20,160,200,30);
-		jfirstspeed = new JLabel("초반 속도:"+firstspeed); 
-		jfirstspeed.setBounds(20,190,200,30);
-		jlastspeed = new JLabel("후반 속도:"+lastspeed); 
-		jlastspeed.setBounds(20,220,200,30);
-		jstamina = new JLabel("스테미나:"+stamina); 
-		jstamina.setBounds(20,250,200,30);
-		jweight = new JLabel("무게:"+weight); 
-		jweight.setBounds(20,280,200,30);
-		jrecentrecord = new JLabel("최근 성적:"+recentrecord); 
-		jrecentrecord.setBounds(20,310,200,30);
-	
-		Horse_Info.add(jhname);
-		Horse_Info.add(jtype);
-		Horse_Info.add(jgender);
-		Horse_Info.add(jyear);
-		Horse_Info.add(jstate);
-		Horse_Info.add(jspeed);
-		Horse_Info.add(jfirstspeed);
-		Horse_Info.add(jlastspeed);
-		Horse_Info.add(jstamina);
-		Horse_Info.add(jweight);
-		Horse_Info.add(jrecentrecord);
-		
-		
-		Horse_Info.setVisible(true);
-		Horse_Info.setResizable(false);
+//		System.out.println(hname);
 	}
 
 }

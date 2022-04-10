@@ -1,5 +1,7 @@
 package khs;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -15,22 +18,24 @@ import ohs.GameScreenMain;
 public class GameInfo extends JFrame{
 
 	GameScreenMain gameScreenMain = new GameScreenMain();
-	String track_length;
-	String track_con;  
-	String horse_entry;  
-	JLabel jtrack_length;
-	JLabel jtrack_con;
-	JLabel jhorse_entry;
+	HorseInfo horseInfo;
+	String track_length, track_con;  
+	String horse_entry;
+	int horse_num;
+	JLabel jtrack_length, jtrack_con;
+	JButton jhorse_entry;
 	ArrayList<String> ALtrack_length = new ArrayList<String>();
 	ArrayList<String> ALtrack_con = new ArrayList<String>();
-	ArrayList<Object> ALhorse_entry= new ArrayList<Object>();
+	ArrayList<String> ALhorse_entry= new ArrayList<String>();
+	ArrayList<Integer> ALhorse_num= new ArrayList<Integer>();
 	
 	public GameInfo() {
 		setBounds(100, 50, 300, 300);
 		setLayout(null);
 		Random r = new Random();
 		int a = 0;
-		
+		int i = 0;
+//		int [] b = new b [ ALhorse_entry.size()];
 //		ALhorse_entry.add(gameScreenMain.entrys(1));
 		gameinfo();
 		
@@ -41,8 +46,22 @@ public class GameInfo extends JFrame{
 		jtrack_length.setBounds(0, 0, 200, 50);
 		jtrack_con = new JLabel("트랙 상태:"+ALtrack_con.get(a));
 		jtrack_con.setBounds(0, 50, 200, 50);
-//		jhorse_entry = new JLabel("츨전마 엔트리:"+gameScreenMain.entrys.);
-//		jhorse_entry.setBounds(0, 100, 200, 50);
+		
+		for (i = 0; i <= ALhorse_entry.size(); i++) {
+			int b = i;
+			jhorse_entry = new JButton(ALhorse_entry.get(i));
+			jhorse_entry.setBounds(1*i, 100, 50, 50);
+			jhorse_entry.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					horseInfo = new HorseInfo(ALhorse_num.get(b));
+					
+				}
+			});
+			
+		}
 		
 		
 		
@@ -72,7 +91,7 @@ public class GameInfo extends JFrame{
 			
 			
 			ResultSet rs1 = stmt.executeQuery("select * from gameInfo");
-//			ResultSet rs2 = stmt.executeQuery("select * from horse");
+			ResultSet rs2 = stmt.executeQuery("select * from horse");
 		
 			while(rs1.next()) {
 				track_length = rs1.getString("track_length");
@@ -83,13 +102,15 @@ public class GameInfo extends JFrame{
 				
 			}
 			
-//			while(rs2.next()) {
-//				horse_entry = rs2.getString("hname");
-//				ALhorse_entry.add(horse_entry);
-//			}
+			while(rs2.next()) {
+				horse_entry = rs2.getString("hname");
+				ALhorse_entry.add(horse_entry);
+				horse_num = rs2.getInt("hid");
+				ALhorse_num.add(horse_num);
+			}
 			
 			rs1.close();
-//			rs2.close();
+			rs2.close();
 			stmt.close();
 			con.close();
 		} catch (Exception e) {
