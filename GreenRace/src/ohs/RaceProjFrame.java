@@ -21,12 +21,15 @@ import ocy.MultiServer;
 import ocy.RaceReadyScreen;
 import ocy.TCPChat;
 import ocy.TCPClient;
+import khs.GameInfo;
 
 public class RaceProjFrame extends JFrame implements ActionListener{
 	
 	TCPClient tc;
 	RaceReadyScreen rrs;
     public GameScreen2 gsm;
+    
+    GameInfo gameinfo;
 	
     JFrame refFrame;   //기능버튼클릭시 추가 생성되는 화면
     JButton user_info, m_charge, game_info, exit, b_single, b_yeon, b_bok;
@@ -152,10 +155,14 @@ public class RaceProjFrame extends JFrame implements ActionListener{
    
     @Override
     public void actionPerformed(ActionEvent e) {
-    	if(e.getSource().equals(user_info) || e.getSource().equals(m_charge) || e.getSource().equals(game_info)) {
+    	if(e.getSource().equals(user_info) ||
+    			//e.getSource().equals(game_info)||
+    			e.getSource().equals(m_charge)) {
     		refFrame.setBounds(500, 100, 500, 500);
     		refFrame.setResizable(false);
     		refFrame.setVisible(true);
+    	}else if(e.getSource().equals(game_info)) {
+    		gameinfo = new GameInfo();
     	} else if(e.getSource().equals(exit)) {
     		//chat.user_exit();
     	} else if(e.getSource().equals(b_single)) {
@@ -174,6 +181,8 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     	}
       
     }
+
+
 
 }
       

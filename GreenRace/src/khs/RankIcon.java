@@ -14,29 +14,22 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import ocy.MultiServer;
+import ocy.UserDTO;
+
 
 public class RankIcon extends JButton implements ActionListener{
 	
 	Test test;
 	UserInfo userInfo;
-	RaceListMain raceListMain = new RaceListMain();
 	String imgIcon = "";
 	ImageIcon icon;
-	MultiServer multiServer;
 	JLabel jnickname, jmoney, jtotgame, jwin, jlose, jrank;
 	String user_id, nickname, money, totgame, win, lose, rank;
-//	ArrayList<String> user_nickname = new ArrayList<String>();
-//	ArrayList<String> user_money = new ArrayList<String>();
-//	ArrayList<String> user_totgame = new ArrayList<String>();
-//	ArrayList<String> user_win = new ArrayList<String>();
-//	ArrayList<String> user_lose = new ArrayList<String>();	
-//	ArrayList<String> user_rank = new ArrayList<String>();
-	
+	UserDTO userDTO;
 	
 		public RankIcon(String text) { //String imgIcon
 			
-			multiServer.current_User = text;
+			text = userDTO.getNickname();
 			setBounds(0, 0, 20, 20); 
 			
 //			icon = new ImageIcon(imgIcon);
@@ -64,7 +57,7 @@ public class RankIcon extends JButton implements ActionListener{
 				
 				
 				ResultSet rs = stmt.executeQuery("select nickname,money,totgame,win,lose,"
-						+ "rank from user where nickname = '"+multiServer.current_User+"'"); //그냥 nickname으로해도 특정 가능한가?
+						+ "rank from user where nickname = '"+userDTO.getNickname()+"'");
 				
 				
 				while(rs.next()) { 
@@ -133,7 +126,6 @@ public class RankIcon extends JButton implements ActionListener{
 		
 	}
 		
-	}
-	
+	}	
 
 
