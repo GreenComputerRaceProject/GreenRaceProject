@@ -18,7 +18,7 @@ public class HorseDAO {
 	public HorseDAO() {
 		
 		String url = "jdbc:mariadb://localhost:3306/race_db";
-		String username = "root";
+		String username = "race";
 		String password = "123456";
 		
 		try {

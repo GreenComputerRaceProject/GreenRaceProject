@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import ocy.MultiServer;
 import ocy.RaceReadyScreen;
@@ -31,6 +33,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     
     GameInfo gameinfo;
 	
+    JTextField field;
     JFrame refFrame;   //기능버튼클릭시 추가 생성되는 화면
     JButton user_info, m_charge, game_info, exit, b_single, b_yeon, b_bok;
          //회원정보,   게임머니충전,  경기정보조회,   게임종료,  단식,    연식,    복식
@@ -104,8 +107,57 @@ public class RaceProjFrame extends JFrame implements ActionListener{
       
        b_danglyul = new JPanel();
        b_danglyul.setBounds(0, 570, 800, 392);
-       b_danglyul.setBackground(Color.blue);
+       //b_danglyul.setBackground(Color.blue);
        add(b_danglyul);
+       
+       for (int i = 0; i < 120; i++) {
+			field = new JTextField();
+			field.setBounds(0, 0, 70, 70);
+			b_danglyul.setLayout(new GridLayout(12,90,0,0));
+			field.setText(i+""+"\n"+"0");
+			b_danglyul.add(field);	
+			field.setEditable(false);
+			field.setHorizontalAlignment(JTextField.CENTER);
+				
+				if(i==0) {
+					field.setText("마번");
+					field.setBackground(Color.GREEN);
+				}else if(i==10) {
+					field.setText("단식");
+					field.setBackground(Color.yellow);
+					}else if(i==20) {
+						field.setText("연식");
+						field.setBackground(Color.orange);
+					}else if(i==30) {
+						field.setText("복식");
+						field.setBackground(Color.pink);
+					}else if(i==40) {
+						field.setText("2");
+						field.setBackground(Color.red);
+					}else if(i==50) {
+						field.setText("3");
+						field.setBackground(new Color(177,244,211));
+					}else if(i==60) {
+						field.setText("4");
+						field.setBackground(Color.cyan);
+						}else if(i==70) {
+							field.setText("5");
+							field.setBackground(new Color(77,140,50));
+						}else if(i==80) {
+							field.setText("6");
+							field.setBackground(new Color(200,150,50));
+						}else if(i==90) {
+							field.setText("7");
+							field.setBackground(new Color(22,180,250));
+						}else if(i==100) {
+							field.setText("8");
+							field.setBackground(new Color(112,215,50));
+						}else if(i==110) {
+							field.setText("9");
+							field.setBackground(new Color(147,170,250));
+				}else 
+					field.setText(i+"");
+		}
       
        chat = new TCPChat(tc, this);
        chat.setBounds(800, 570, 400, 392);

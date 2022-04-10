@@ -3,6 +3,8 @@ package ohs;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ocy.TCPClient;
+
 public class TestFrameMain extends JFrame {
 	
 	TestFrameMain testFrameMain = this;
