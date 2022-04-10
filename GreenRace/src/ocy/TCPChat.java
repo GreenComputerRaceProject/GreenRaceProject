@@ -19,6 +19,7 @@ public class TCPChat extends JPanel implements ActionListener {
 	
 	public TCPChat(TCPClient tc) {
 		this.tc = tc;
+		tc.connect_chat_panel(this);
 		
 		setBackground(Color.pink);
 		setLayout(new BorderLayout());
@@ -39,11 +40,12 @@ public class TCPChat extends JPanel implements ActionListener {
 		
 		ta.append(response.user.nickname + " : " + response.msg + "\n");
 		ta.setCaretPosition(ta.getDocument().getLength());
-		tf.setText("");
+		//tf.setText("");
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		tc.chat(this, tf.getText());
+		tc.chat(tf.getText());
+		tf.setText("");
 	}
 }

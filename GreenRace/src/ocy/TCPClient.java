@@ -218,8 +218,12 @@ public class TCPClient {
 		}
 	}
 	
-	public void chat(TCPChat tcpChat, String msg) {
+	public void connect_chat_panel(TCPChat tcpChat) {
 		this.tcpChat = tcpChat;
+	}
+	
+	public void chat(String msg) {
+		//this.tcpChat = tcpChat;
 		try {
 			TCPData data = new TCPData();
 			data.src = local.getHostAddress();
@@ -247,7 +251,7 @@ public class TCPClient {
 //			local = InetAddress.getLocalHost();
 			
 			// 컴 하나로 임시테스트할때는 가짜 ip주소 넣어줌.  클라 켤때마다 숫자 바꿔줘야함
-			local = InetAddress.getByName("192.168.35.11");
+			local = InetAddress.getByName("192.168.35.14");
 			
 			new TCPClientReceiver().start();
 		} catch (Exception e1) {
