@@ -65,6 +65,8 @@ public class TCPClient {
 						if(tcpChat != null) { // 로그인중인데 챗 시그널 받으면 클라이언트 얼어버림. 예외처리
 							tcpChat.showChat(response);
 						}
+					} else if(response.src.equals("ENTRANCE_CHAT")) {
+						tcpChat.currentUserList(response);
 					}
 					
 				}
@@ -218,12 +220,23 @@ public class TCPClient {
 		}
 	}
 	
-	public void connect_chat_panel(TCPChat tcpChat) {
+	public void entrance_chat(TCPChat tcpChat) {
 		this.tcpChat = tcpChat;
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "ENTRANCE_CHAT";
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	
 	public void chat(String msg) {
-		//this.tcpChat = tcpChat;
 		try {
 			TCPData data = new TCPData();
 			data.src = local.getHostAddress();
@@ -244,14 +257,16 @@ public class TCPClient {
 		
 		try {
 			System.out.println("클라이언트 : 연결합니다");
+			// 서버 켠 컴퓨터의 로컬 ip주소 넣어주면 됨
 			Socket soc = new Socket("192.168.35.10", 8888);
+			
 			oos = new ObjectOutputStream(soc.getOutputStream());
 			ois = new ObjectInputStream(soc.getInputStream());
 			
 //			local = InetAddress.getLocalHost();
 			
 			// 컴 하나로 임시테스트할때는 가짜 ip주소 넣어줌.  클라 켤때마다 숫자 바꿔줘야함
-			local = InetAddress.getByName("192.168.35.14");
+			local = InetAddress.getByName("192.168.35.19");
 			
 			new TCPClientReceiver().start();
 		} catch (Exception e1) {

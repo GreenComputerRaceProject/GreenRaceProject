@@ -44,10 +44,12 @@ class TCPData implements Serializable{
 public class TCPServerMain {
 	
 	HashMap<String, ObjectOutputStream> map;
+	ArrayList<String> currentUser;
 	
 	public TCPServerMain() {
 		try {
 			map = new HashMap<String, ObjectOutputStream>();
+			currentUser = new ArrayList<String>();
 			
 			Collections.synchronizedMap(map);
 			
@@ -116,6 +118,8 @@ public class TCPServerMain {
 						responseFindID(data);
 					} else if(data.dst.equals("UPDATE_PW")) {
 						responseUpdatePW(data);
+					} else if(data.dst.equals("ENTRANCE_CHAT")) {
+						entranceChat(data);
 					} else {
 						sendToOne(data);
 					}
@@ -180,6 +184,7 @@ public class TCPServerMain {
 			response.src = "USER_INFO";
 			response.dst = data.src;
 			response.user = new UserDAO().user_info(data.user);
+			currentUser.add(response.user.nickname);
 			
 			sendToOne(response);
 		}
@@ -248,6 +253,14 @@ public class TCPServerMain {
 			response.src = "CHAT";
 			response.user.nickname = data.user.nickname;
 			response.msg = data.msg;
+			
+			sendToAll(response);
+		}
+		
+		void entranceChat(TCPData data) {
+			TCPData response = new TCPData();
+			response.src = "ENTRANCE_CHAT";
+			response.mems = currentUser;
 			
 			sendToAll(response);
 		}

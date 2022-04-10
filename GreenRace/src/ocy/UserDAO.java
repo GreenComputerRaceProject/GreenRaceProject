@@ -267,6 +267,10 @@ public class UserDAO {
 		return res;
 	}
 	
+	public ArrayList<String> entrance_chat() {
+		return null;
+	}
+	
 	void close() {
 		if(rs != null) try {rs.close();} catch (SQLException e) {}
 		if(stmt != null) try {stmt.close();} catch (SQLException e) {}

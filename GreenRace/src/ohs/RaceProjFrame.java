@@ -103,7 +103,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
        b_danglyul.setBackground(Color.blue);
        add(b_danglyul);
       
-       chat = new TCPChat(tc);
+       chat = new TCPChat(tc, this);
        chat.setBounds(800, 570, 400, 392);
        add(chat);
       
@@ -144,7 +144,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
        setVisible(true);
        setDefaultCloseOperation(EXIT_ON_CLOSE);
       
-       //chat.user_entrance();
+       chat.entranceChat();
       
     }
    
