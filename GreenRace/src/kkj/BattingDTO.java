@@ -54,17 +54,5 @@ public class BattingDTO {
 		return "BattingDTO [horse_num=" + horse_num + ", nickname=" + nickname + ", gambling_money=" + gambling_money
 				+ ", tot_money=" + tot_money + "]";
 	}
-
 	
-
-
-
-
-
-
-
-
-
-
-
 }

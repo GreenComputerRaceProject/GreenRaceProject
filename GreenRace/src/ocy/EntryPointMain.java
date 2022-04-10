@@ -20,19 +20,20 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
-import ohs.GameScreenMain;
 import ohs.RaceProjFrame;
 
 public class EntryPointMain extends JFrame {
 	
-	EntryPointMain entryframe = this;
+	EntryPointMain entryPointMain = this;
 	
 	LoginPanel loginPanel = new LoginPanel();
 	
+	TCPClient tc;
+	
+	JTextField idField;
+	JPasswordField pwField;
+	
 	class LoginPanel extends JPanel implements ActionListener {
-		
-		JTextField idField;
-		JPasswordField pwField;
 		
 		public LoginPanel() {
 			setSize(1600, 1000);
@@ -56,21 +57,21 @@ public class EntryPointMain extends JFrame {
 			JButton signUpButton = new JButton("회원가입");
 			signUpButton.setBounds(725, 600, 150, 75);
 			signUpButton.addActionListener(event -> {
-				new SignUp();
+				new SignUp(tc);
 			});
 			
 			JButton idFineButton = new JButton("ID 찾기");
 			idFineButton.setBounds(650, 675, 150, 75);
 			idFineButton.addActionListener(event -> {
 				// 아이디찾기 프레임 생성
-				new Find("ID 찾기");
+				new Find(tc, "ID 찾기");
 			});
 			
 			JButton pwFineButton = new JButton("PW 재설정");
 			pwFineButton.setBounds(800, 675, 150, 75);
 			pwFineButton.addActionListener(event -> {
 				// 비번찾기 프레임 생성
-				new Find("PW 재설정");
+				new Find(tc, "PW 재설정");
 			});
 			
 			add(titleLabel);
@@ -86,49 +87,24 @@ public class EntryPointMain extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			try {
-				Class.forName("org.mariadb.jdbc.Driver");
+			tc.requestLogIn(this, idField.getText(), pwField.getText());
+		}
+		
+		public void notice(String response) {
+			if(response.equals("ID_NOT_EXIST")) {
+				JOptionPane.showMessageDialog(null, "아이디가 존재하지 않습니다.", "로그인 실패", JOptionPane.PLAIN_MESSAGE);
+				idField.setText("");
+				pwField.setText("");
+			} else if(response.equals("PW_NOT_CORRECT")) {
+				JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.", "로그인 실패", JOptionPane.PLAIN_MESSAGE);
+				pwField.setText("");
+			} else if(response.equals("COMPLETE")) {
+				tc.requestUserInfo(this, idField.getText());
+				JOptionPane.showMessageDialog(null, "로그인하셨습니다!", "로그인 성공", JOptionPane.PLAIN_MESSAGE);
 				
-				Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/race_db","race","123456");
-				Statement stmt = con.createStatement();
-				
-				ResultSet rs = stmt.executeQuery("select * from user");
-				
-				boolean id_accordence = false;
-				boolean pw_accordence = false;
-				
-				while(rs.next()) { 
-					if(rs.getString("id").equals(idField.getText())) {
-						id_accordence = true;
-						
-						if(rs.getString("pw").equals(pwField.getText())) {
-							pw_accordence = true;
-						}
-					}
-				}
-				
-				rs.close();
-				stmt.close();
-				con.close();
-				
-				if(!id_accordence) {
-					JOptionPane.showMessageDialog(null, "아이디가 존재하지 않습니다.", "로그인 실패", JOptionPane.PLAIN_MESSAGE);
-					idField.setText("");
-					pwField.setText("");
-				} else if(!pw_accordence) {
-					JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.", "로그인 실패", JOptionPane.PLAIN_MESSAGE);
-					pwField.setText("");
-				} else if(id_accordence && pw_accordence) {
-					JOptionPane.showMessageDialog(null, "로그인하셨습니다!", "로그인 성공", JOptionPane.PLAIN_MESSAGE);
-					
-					entryframe.dispose();
-					new RaceProjFrame(idField.getText());
-					//new BGM();
-				}
-				
-				
-			} catch (Exception ex) {
-				ex.printStackTrace();
+				entryPointMain.dispose();
+				new RaceProjFrame(tc);
+				//new BGM();
 			}
 		}
 	}
@@ -139,6 +115,12 @@ public class EntryPointMain extends JFrame {
 		    //UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		} catch (Exception e) {
 		    e.printStackTrace();
+		}
+		
+		try {
+		    tc = new TCPClient();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		setSize(1600, 1000);
