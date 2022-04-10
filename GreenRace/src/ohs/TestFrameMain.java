@@ -19,9 +19,7 @@ public class TestFrameMain extends JFrame {
 		setLayout(null);
 		
 		
-		JPanel jp = new BattingScreen();
-		add(jp);
-		
+	
 		
 		
 		setVisible(true);
