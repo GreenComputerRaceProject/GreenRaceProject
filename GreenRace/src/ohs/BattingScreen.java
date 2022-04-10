@@ -97,7 +97,7 @@ public class BattingScreen extends JPanel{
 		public void run() {
 			
 			try {
-				for (int i = 1; i >= -1; i--) {
+				for (int i = 10; i >= -1; i--) {
 					timer.setText("배팅을 해주세요... 경기시작까지 남은시간 : " + i);
 					timer.setFont(new Font("휴먼둥근체", Font.BOLD, 32));
 					timer.repaint();
