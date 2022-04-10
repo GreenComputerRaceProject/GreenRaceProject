@@ -13,18 +13,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import khs.RankIcon;
 import ohs.RaceProjFrame;
 
 public class TCPChat extends JPanel implements ActionListener {
 
 	TCPClient tc;
 	RaceProjFrame frame;
-
+	
 	JTextArea ta;
 	JTextField tf;
-	
-	RankIcon rankicon;
 	
 	public TCPChat(TCPClient tc, RaceProjFrame frame) {
 		this.tc = tc;
@@ -68,11 +65,8 @@ public class TCPChat extends JPanel implements ActionListener {
 			jl.setOpaque(true);
 			jp.add(jl);
 			
-//			JButton jb = new JButton("인포");// RankIcon으로 바꿔야 함
-//			jp.add(jb);
-			
-			rankicon = new RankIcon(s);
-			jp.add(rankicon);
+			JButton jb = new JButton("인포");// RankIcon으로 바꿔야 함
+			jp.add(jb);
 			
 			frame.user_list.add(jp);
 		}
