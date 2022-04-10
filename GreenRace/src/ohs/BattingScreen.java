@@ -10,13 +10,15 @@ import javax.swing.JPanel;
 
 public class BattingScreen extends JPanel{
 	
+	RaceProjFrame rpf;
+	
 	BattingScreen battingScreen = this;
 	
 	JLabel timer = new JLabel();
 	
 	
 
-	public BattingScreen() {
+	public BattingScreen(RaceProjFrame rpf) {
 		
 		setBounds(0, 70, 1585, 500);
 		setLayout(null);

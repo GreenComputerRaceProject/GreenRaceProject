@@ -28,7 +28,7 @@ import khs.GameInfo;
 public class RaceProjFrame extends JFrame implements ActionListener{
 	
 	TCPClient tc;
-	RaceReadyScreen rrs;
+	BattingScreen rrs;
     public GameScreen2 gsm;
     
     GameInfo gameinfo;
@@ -99,7 +99,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
        add(game_screen);
      */ 
       
-       rrs = new RaceReadyScreen(this);
+       rrs = new BattingScreen(this);
        add(rrs);
       
 //     gsm = new GameScreen2();
