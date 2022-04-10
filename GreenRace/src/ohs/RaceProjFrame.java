@@ -14,6 +14,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import ocy.MultiServer;
@@ -140,6 +141,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
        m_charge.addActionListener(this);
        game_info.addActionListener(this);
        exit.addActionListener(this);
+       b_single.addActionListener(this);
       
        setVisible(true);
        setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -157,7 +159,16 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     	} else if(e.getSource().equals(exit)) {
     		//chat.user_exit();
     	} else if(e.getSource().equals(b_single)) {
-    	 
+    		String bet_name = JOptionPane.showInputDialog(null, "배팅하실 말 이름을 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
+    		
+    		if(bet_name != null) {
+    			String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
+    			
+    			if(bet_money != null) {
+        			tc.bet_single(bet_name, bet_money);
+        		}
+    		}
+			
     	} else {
     		return;
     	}

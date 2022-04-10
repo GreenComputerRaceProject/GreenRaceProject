@@ -252,9 +252,26 @@ public class TCPClient {
 			e1.printStackTrace();
 		}
 	}
+	
+	public void bet_single(String horse_name, String money) {
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "BET_SINGLE";
+			data.user.nickname = this.user.nickname;
+			data.bet_single.hname = horse_name;
+			data.bet_single.money = Long.parseLong(money);
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 
 	public TCPClient() {
-		
 		try {
 			System.out.println("클라이언트 : 연결합니다");
 			// 서버 켠 컴퓨터의 로컬 ip주소 넣어주면 됨

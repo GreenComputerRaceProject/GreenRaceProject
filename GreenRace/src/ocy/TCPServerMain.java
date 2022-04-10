@@ -26,12 +26,14 @@ class TCPData implements Serializable{
 	String dst, src;
 	
 	UserDTO user;
+	BetDTO_Single bet_single;
 	
 	ArrayList<String> mems;
 	
 	public TCPData() {
 		// TODO Auto-generated constructor stub
 		user = new UserDTO();
+		bet_single = new BetDTO_Single();
 	}
 
 	@Override
@@ -120,6 +122,8 @@ public class TCPServerMain {
 						responseUpdatePW(data);
 					} else if(data.dst.equals("ENTRANCE_CHAT")) {
 						entranceChat(data);
+					} else if(data.dst.equals("BET_SINGLE")) {
+						betSingle(data);
 					} else {
 						sendToOne(data);
 					}
@@ -261,6 +265,14 @@ public class TCPServerMain {
 			TCPData response = new TCPData();
 			response.src = "ENTRANCE_CHAT";
 			response.mems = currentUser;
+			
+			sendToAll(response);
+		}
+		
+		void betSingle(TCPData data) {
+			TCPData response = new TCPData();
+			response.src = "BET_SINGLE";
+			response.msg = new BetDAO_Single().betting(data);
 			
 			sendToAll(response);
 		}
