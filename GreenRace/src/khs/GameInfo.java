@@ -22,41 +22,50 @@ public class GameInfo extends JFrame{
 	String track_length, track_con;  
 	String horse_entry;
 	int horse_num;
-	JLabel jtrack_length, jtrack_con;
-	JButton jhorse_entry;
+	JLabel jltrack_length, jltrack_con, jlhorse_entry;
+	JButton jbhorse_entry;
 	ArrayList<String> ALtrack_length = new ArrayList<String>();
 	ArrayList<String> ALtrack_con = new ArrayList<String>();
 	ArrayList<String> ALhorse_entry= new ArrayList<String>();
 	ArrayList<Integer> ALhorse_num= new ArrayList<Integer>();
 	
 	public GameInfo() {
-		setBounds(100, 50, 300, 300);
+		
+		gameinfo();
+		
+		setBounds(100, 50, 800, 250);
 		setLayout(null);
 		Random r = new Random();
 		int a = 0;
-		int i = 0;
+		int b = 0;
 //		int [] b = new b [ ALhorse_entry.size()];
 //		ALhorse_entry.add(gameScreenMain.entrys(1));
-		gameinfo();
 		
 		
 		a = r.nextInt(ALtrack_length.size());
+		b = r.nextInt(ALtrack_con.size());
 		
-		jtrack_length = new JLabel("트랙 길이:"+ALtrack_length.get(a));
-		jtrack_length.setBounds(0, 0, 200, 50);
-		jtrack_con = new JLabel("트랙 상태:"+ALtrack_con.get(a));
-		jtrack_con.setBounds(0, 50, 200, 50);
+		jltrack_length = new JLabel("트랙 길이:"+ALtrack_length.get(a));
+		jltrack_length.setBounds(10, 0, 200, 50);
+		jltrack_con = new JLabel("트랙 상태:"+ALtrack_con.get(b));
+		jltrack_con.setBounds(10, 20, 200, 50);
+		jlhorse_entry = new JLabel("출전마");
+		jlhorse_entry.setBounds(10, 50, 200, 50);
 		
-		for (i = 0; i <= ALhorse_entry.size(); i++) {
-			int b = i;
-			jhorse_entry = new JButton(ALhorse_entry.get(i));
-			jhorse_entry.setBounds(1*i, 100, 50, 50);
-			jhorse_entry.addActionListener(new ActionListener() {
+		for (int i = 0; i < ALhorse_entry.size(); i++) {
+			int c = i;
+//			System.out.println(ALhorse_entry.size());
+			System.out.println(ALhorse_entry.get(i));
+			
+			jbhorse_entry = new JButton(ALhorse_entry.get(i));
+			jbhorse_entry.setBounds(50*i, 100, 50, 30);
+			add(jbhorse_entry);
+			jbhorse_entry.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
-					horseInfo = new HorseInfo(ALhorse_num.get(b));
+					horseInfo = new HorseInfo(ALhorse_num.get(c));
 					
 				}
 			});
@@ -65,8 +74,9 @@ public class GameInfo extends JFrame{
 		
 		
 		
-		add(jtrack_length);
-		add(jtrack_con);
+		add(jltrack_length);
+		add(jltrack_con);
+		add(jlhorse_entry);
 		
 		setVisible(true);
 		setResizable(false);
@@ -119,15 +129,18 @@ public class GameInfo extends JFrame{
 	}
 }
 	
-//	void horseinfo() {
-//		
-//	}
+	void horseinfo() {
+		
+		
+		
+		
+	}
 	
 	
-//	public static void main(String[] args) {
-//		
-//		new GameInfo(); 
-//
-//	}
+	public static void main(String[] args) {
+		
+		new GameInfo();
+
+	}
 
 }
