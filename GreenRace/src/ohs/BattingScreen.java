@@ -3,6 +3,7 @@ package ohs;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,14 +17,23 @@ public class BattingScreen extends JPanel{
 	
 	RaceProjFrame rpf;
 	
+	ArrayList<HorseClass2> entry2 = new ArrayList<HorseClass2>();
 	BattingScreen battingScreen = this;
 	
+	JPanel info;
+	
+	JLabel info1, info2, info3, info4, info5, info6, info7, info8, info9, info10, info11;
 	JLabel timer = new JLabel();
+	
+	RandomEntry re;
 	
 	int time;
 
+
 	public BattingScreen(TCPClient tc, RaceProjFrame rpf) {
 		this.tc = tc;
+		
+		
 		
 		setBounds(0, 70, 1585, 500);
 		setLayout(null);
@@ -31,8 +41,47 @@ public class BattingScreen extends JPanel{
 		timer.setBounds(0, 0, 1585, 50);
 		
 		add(timer);
+		
+		
+		
 		add(new showEntry());
 		
+
+		info = new JPanel();
+		info.setBounds(0, 50, 1585, 30);
+		info.setLayout(new GridLayout(1, 11));
+		info.setBackground(Color.orange);
+		
+		info1 = new JLabel("경주마 이름");
+		info2 = new JLabel("경주마 타입");
+		info3 = new JLabel("속도");
+		info4 = new JLabel("초속");
+		info5 = new JLabel("후속");
+		info6 = new JLabel("스태미나");
+		info7 = new JLabel("성별");
+		info8 = new JLabel("나이");
+		info9 = new JLabel("무게");
+		info10 = new JLabel("컨디션");
+		info11 = new JLabel("최근순위");
+		
+		info.add(info1);
+		info.add(info2);
+		info.add(info3);
+		info.add(info4);
+		info.add(info5);
+		info.add(info6);
+		info.add(info7);
+		info.add(info8);
+		info.add(info9);
+		info.add(info10);
+		info.add(info11);
+	
+		
+		add(info);
+		
+
+		
+
 		setVisible(true);
 		setOpaque(true);
 		setBackground(Color.gray);
@@ -53,7 +102,7 @@ public class BattingScreen extends JPanel{
 	
 	class showEntry extends JPanel{
 		
-		RandomEntry re = new RandomEntry();
+		
 		
 		JLabel hname, type, speed, firstspeed, lastspeed, stamina, gender, year,
 			   weight, state, recentrecord;
@@ -61,24 +110,27 @@ public class BattingScreen extends JPanel{
 		
 		public showEntry() {
 			
+			RandomEntry re = new RandomEntry();
 			re.shuffle();
 			
-			setBounds(0, 50, 1585, 450);
+			entry2 = re.entry;
+			
+			setBounds(0, 80, 1585, 420);
 			setBackground(Color.yellow);
 			setLayout(new GridLayout(8,11));
 			
 			for (int i = 0; i < 8; i++) {
-				 hname = new JLabel(re.entry.get(i).hname);
-				 type = new JLabel(re.entry.get(i).type);
-				 speed = new JLabel(Double.toString(re.entry.get(i).speed));
-				 firstspeed = new JLabel(Double.toString(re.entry.get(i).firstspeed));
-				 lastspeed = new JLabel(Double.toString(re.entry.get(i).lastspeed));
-				 stamina = new JLabel(Double.toString(re.entry.get(i).stamina));
-				 gender = new JLabel(Boolean.toString(re.entry.get(i).gender));
-				 year = new JLabel(Integer.toString(re.entry.get(i).year));
-				 weight = new JLabel(Double.toString(re.entry.get(i).weight));
-				 state = new JLabel(Double.toString(re.entry.get(i).state));
-				 recentrecord = new JLabel(re.entry.get(i).recentrecord);
+				 hname = new JLabel(entry2.get(i).hname);
+				 type = new JLabel(entry2.get(i).type);
+				 speed = new JLabel(Double.toString(entry2.get(i).speed));
+				 firstspeed = new JLabel(Double.toString(entry2.get(i).firstspeed));
+				 lastspeed = new JLabel(Double.toString(entry2.get(i).lastspeed));
+				 stamina = new JLabel(Double.toString(entry2.get(i).stamina));
+				 gender = new JLabel(Boolean.toString(entry2.get(i).gender));
+				 year = new JLabel(Integer.toString(entry2.get(i).year));
+				 weight = new JLabel(Double.toString(entry2.get(i).weight));
+				 state = new JLabel(Double.toString(entry2.get(i).state));
+				 recentrecord = new JLabel(entry2.get(i).recentrecord);
 				 
 				 add(hname);
 				 add(type);
@@ -105,11 +157,14 @@ public class BattingScreen extends JPanel{
 		public void run() {
 			
 			try {
+
 				for (int i = time; i >= 0; i--) {
+
 					timer.setText("배팅을 해주세요... 경기시작까지 남은시간 : " + i);
 					timer.setFont(new Font("휴먼둥근체", Font.BOLD, 32));
 					timer.repaint();
 					
+
 					sleep(1000);
 				} 
 				
@@ -125,9 +180,11 @@ public class BattingScreen extends JPanel{
 		
 		System.out.println("화면 체인지");
 		battingScreen.removeAll();
-		JPanel gs = new GameScreen3(); 
-		battingScreen.add(gs);
 		battingScreen.repaint();
+		JPanel gs = new GameScreen3(battingScreen); 
+		add(gs);
+		repaint();
+	
 		
 	}
 		

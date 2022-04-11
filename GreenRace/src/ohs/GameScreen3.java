@@ -13,16 +13,23 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import ocy.TCPClient;
+
 public class GameScreen3 extends JPanel{
 
+	TCPClient tc;
+	RaceProjFrame rpf;
+	
 	GameScreen3 gameScreen3 = this;
 
+	ArrayList<HorseClass2> entry3 = new ArrayList<HorseClass2>();
 	BattingScreen battingScreen;
 
 	ImageIcon goal = new ImageIcon("img/goalline.png");
 	ImageIcon icon = new ImageIcon("img/horse_unscreen.gif");
 
 	RandomEntry re = new RandomEntry();
+
 	ArrayList<JLabel> hos = new ArrayList<JLabel>();
 	ArrayList<Integer> running = new ArrayList<Integer>();
 	ArrayList<Integer> grading = new ArrayList<Integer>();
@@ -41,9 +48,13 @@ public class GameScreen3 extends JPanel{
 
 	JLabel racehorse;
 
-	public GameScreen3() {
+	public GameScreen3(BattingScreen battingScreen) {
 
-		re.shuffle();
+		System.out.println("게임스크린 생성");
+
+
+
+
 
 		goalline = new JLabel(goal);
 		goalline.setBounds(1400, 0, 20, 500);
@@ -53,9 +64,11 @@ public class GameScreen3 extends JPanel{
 		setBackground(Color.green);
 		setLayout(null);
 
+		entry3 = battingScreen.entry2;
+
 		for (int i = 0; i < 8; i++) {
 			JLabel racehorse = new JLabel(icon);
-			racehorse.setText(re.entry.get(i).hname);
+			racehorse.setText(entry3.get(i).hname);
 			racehorse.setHorizontalTextPosition(JLabel.RIGHT);
 			racehorse.setForeground(Color.black);
 
@@ -112,24 +125,24 @@ public class GameScreen3 extends JPanel{
 						hos.get(i).setLocation(running.get(i), 60 * i);
 						//   hos.get(i).setFont(f1);
 						hos.get(i).setForeground(Color.black);
-						hos.get(i).setText(re.entry.get(i).hname +"-" + a + "등");
+						hos.get(i).setText(entry3.get(i).hname +"-" + a + "등");
 						hos.get(i).setHorizontalTextPosition(JLabel.CENTER);
 
 						a++;
 					}
 
 					if( running.get(i) > 1200 && running.get(i) < 1430) { // lastspeed 구간
-						running.set(i, (int) (running.get(i) - re.entry.get(i).speed));
-						running.set(i, (int) (running.get(i) + re.entry.get(i).lastspeed));   
+						running.set(i, (int) (running.get(i) - entry3.get(i).speed));
+						running.set(i, (int) (running.get(i) + entry3.get(i).lastspeed));   
 					}
 
 					if (running.get(i) > 700 && running.get(i) < 1430) { // speed 구간
-						running.set(i, (int) (running.get(i) - re.entry.get(i).firstspeed));
-						running.set(i, (int) (running.get(i) + re.entry.get(i).speed));
+						running.set(i, (int) (running.get(i) - entry3.get(i).firstspeed));
+						running.set(i, (int) (running.get(i) + entry3.get(i).speed));
 					} 
 
 					if(running.get(i) < 1430) { // 시작 -  firstspeed 구간
-						running.set(i, (int) (running.get(i) + re.entry.get(i).firstspeed));
+						running.set(i, (int) (running.get(i) + entry3.get(i).firstspeed));
 						hos.get(i).setLocation((int)(running.get(i)), 60 * i);
 					}
 				} 
@@ -154,7 +167,7 @@ public class GameScreen3 extends JPanel{
 
 
 				for (int i = 0; i < hos.size(); i++) { // 8등 말이 들어왔을시 경기종료 반복문
-					if(hos.get(i).getText().equals(re.entry.get(i).hname +"-" + 8 + "등")) {
+					if(hos.get(i).getText().equals(entry3.get(i).hname +"-" + 8 + "등")) {
 
 						System.out.println("경기종료!");
 
@@ -180,14 +193,14 @@ public class GameScreen3 extends JPanel{
 			} // start 끝
 		}
 	}// run 끝
-	
+
 	void changeScreen2() {
-		System.out.println("다지워");
 		gameScreen3.removeAll();
 		gameScreen3.repaint();
-		JPanel jp = new CalculateScreen();
+		JPanel jp = new CalculateScreen(tc, rpf);
 		add(jp);
-		
+		repaint();
+
 	}
 
 }
