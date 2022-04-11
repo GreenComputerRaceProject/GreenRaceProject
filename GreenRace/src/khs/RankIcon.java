@@ -14,23 +14,31 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import ocy.TCPClient;
 import ocy.UserDTO;
-
 
 public class RankIcon extends JButton implements ActionListener{
 	
-	Test test;
-	UserInfo userInfo;
+	TCPClient tc;
 	String imgIcon = "";
 	ImageIcon icon;
 	JLabel jnickname, jmoney, jtotgame, jwin, jlose, jrank;
-	String user_id, nickname, money, totgame, win, lose, rank;
-	UserDTO userDTO;
+	String user_id, nickname;
+	int totgame, win, lose, rank;
+	long money;
+
 	
-		public RankIcon(String text) { //String imgIcon
+		public RankIcon(TCPClient tc) { //String imgIcon
+			this.tc = tc;
+			this.user_id = tc.user.getName();
+			this.nickname = tc.user.getNickname();
+			this.money = tc.user.getMoney();
+			this.totgame = tc.user.getTotGame();
+			this.win = tc.user.getWin();
+			this.lose = tc.user.getLose();
+			this.rank = tc.user.getRank();
 			
-			text = userDTO.getNickname();
-			setBounds(0, 0, 20, 20); 
+			setBounds(0, 0, 20, 20);
 			
 //			icon = new ImageIcon(imgIcon);
 //			setIcon(icon);
@@ -41,61 +49,12 @@ public class RankIcon extends JButton implements ActionListener{
 			
 		}
 		
-		void userNum() {
-			try {
-				Class.forName("org.mariadb.jdbc.Driver");
-				
-				
-				Connection con = DriverManager.getConnection(
-						"jdbc:mariadb://localhost:3306/race_db",  
-						"race",                             	
-						"123456"                                
-						);
-				
-				
-				Statement stmt = con.createStatement();
-				
-				
-				ResultSet rs = stmt.executeQuery("select nickname,money,totgame,win,lose,"
-						+ "rank from user where nickname = '"+userDTO.getNickname()+"'");
-				
-				
-				while(rs.next()) { 
-					
-					nickname = rs.getString("nickname");
-					money = rs.getString("money");
-					totgame = rs.getString("totgame");
-					win = rs.getString("win");
-					lose = rs.getString("lose");
-					rank = rs.getString("rank");
-				
-					
-					
-//					user_nickname.add(nickname);
-//					user_money.add(money);
-//					user_totgame.add(totgame);
-//					user_win.add(win);
-//					user_lose.add(lose);
-//					user_rank.add(rank);
-					
-				}
-				
-				rs.close();
-				stmt.close();
-				con.close();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-		
 	
 	@Override
 	public void actionPerformed(ActionEvent e) { //클릭 시 회원의 정보창 띄움
 		System.out.println("누름");
 		
-		userNum();
+//		userNum();
 		JFrame userInfo = new JFrame();
 		userInfo.setBounds(50, 50, 500, 400);
 		userInfo.setLayout(null);
@@ -126,6 +85,6 @@ public class RankIcon extends JButton implements ActionListener{
 		
 	}
 		
-	}	
+}	
 
 
