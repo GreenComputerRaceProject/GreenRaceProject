@@ -17,7 +17,7 @@ public class BattingScreen extends JPanel{
 	
 	RaceProjFrame rpf;
 	
-	ArrayList<HorseClass2> entry2 = new ArrayList<HorseClass2>();
+	ArrayList<HorseClass2> entry2;
 	BattingScreen battingScreen = this;
 	
 	JPanel info;
@@ -33,20 +33,14 @@ public class BattingScreen extends JPanel{
 	public BattingScreen(TCPClient tc, RaceProjFrame rpf) {
 		this.tc = tc;
 		
-		
-		
 		setBounds(0, 70, 1585, 500);
 		setLayout(null);
 		
 		timer.setBounds(0, 0, 1585, 50);
 		
 		add(timer);
+		getEntry();
 		
-		
-		
-		add(new showEntry());
-		
-
 		info = new JPanel();
 		info.setBounds(0, 50, 1585, 30);
 		info.setLayout(new GridLayout(1, 11));
@@ -76,24 +70,17 @@ public class BattingScreen extends JPanel{
 		info.add(info10);
 		info.add(info11);
 	
-		
 		add(info);
+		//add(new showEntry());
 		
-
-		
-
 		setVisible(true);
 		setOpaque(true);
 		setBackground(Color.gray);
 		
-		//new battingTimer().start();
 		getTime();
-		
-		System.out.println("?");
 	}
 	
 	public void getTime() {
-		System.out.println("겟타임 함수 발동 bettingscreen");
 		tc.get_time(this);
 	}
 	
@@ -102,6 +89,17 @@ public class BattingScreen extends JPanel{
 		System.out.println("남은 시간 : " + time);
 		
 		new battingTimer().start();
+	}
+	
+	public void getEntry() {
+		tc.get_entry(this);
+	}
+	
+	public void setEntry(ArrayList<HorseClass2> entry) {
+		System.out.println("드디어 받아왔다! ");
+		System.out.println(entry);
+		entry2 = entry;
+		add(new showEntry());
 	}
 	
 	class showEntry extends JPanel{
@@ -113,11 +111,10 @@ public class BattingScreen extends JPanel{
 		
 		
 		public showEntry() {
-			RandomEntry re = new RandomEntry();
-			re.shuffle();
-			
-			entry2 = re.entry;
-			
+//			RandomEntry re = new RandomEntry();
+//			re.shuffle();
+//			entry2 = re.entry;
+			System.out.println("찍힘?");
 			setBounds(0, 80, 1585, 420);
 			setBackground(Color.yellow);
 			setLayout(new GridLayout(8,11));
@@ -180,8 +177,6 @@ public class BattingScreen extends JPanel{
 		}
 		
 	public void chageScreen1() {
-		
-		System.out.println("화면 체인지");
 		battingScreen.removeAll();
 		battingScreen.repaint();
 		JPanel gs = new GameScreen3(tc, battingScreen); 

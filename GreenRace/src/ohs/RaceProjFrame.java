@@ -224,7 +224,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     	} else if(e.getSource().equals(exit)) {
     		//chat.user_exit();
     	} else if(e.getSource().equals(b_single)) {
-    		String bet_name = JOptionPane.showInputDialog(null, "배팅하실 말 이름을 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
+    		String bet_name = JOptionPane.showInputDialog(null, "배팅하실 말 번호를 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
     		
     		if(bet_name != null) {
     			String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);

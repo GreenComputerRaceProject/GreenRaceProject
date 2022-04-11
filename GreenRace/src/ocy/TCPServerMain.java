@@ -17,6 +17,9 @@ import java.util.Map.Entry;
 
 import javax.swing.JOptionPane;
 
+import ohs.HorseClass2;
+import ohs.RandomEntry;
+
 
 class TCPData implements Serializable{
 	
@@ -29,6 +32,7 @@ class TCPData implements Serializable{
 	BetDTO_Single bet_single;
 	
 	ArrayList<String> mems;
+	ArrayList<HorseClass2> entry;
 	
 	int time;
 	
@@ -49,6 +53,7 @@ public class TCPServerMain {
 	
 	HashMap<String, ObjectOutputStream> map;
 	ArrayList<String> currentUser;
+	ArrayList<HorseClass2> entry = new RandomEntry().shuffle();;
 	
 	Timer timer;
 	
@@ -76,7 +81,7 @@ public class TCPServerMain {
 	
 	class Timer extends Thread {
 		
-		public int i = 30;
+		public int i = 40;
 		
 		@Override
 		public void run() {
@@ -84,6 +89,7 @@ public class TCPServerMain {
 				for (; i >= 0; i--) {
 					sleep(1000);
 				}
+				entry = new RandomEntry().shuffle();
 				timer = null;
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -155,6 +161,8 @@ public class TCPServerMain {
 						betSingle(data);
 					} else if(data.dst.equals("GET_TIME")) {
 						sendTime(data);
+					} else if(data.dst.equals("GET_ENTRY")) {
+						responseHorseEntry(data);
 					} else {
 						sendToOne(data);
 					}
@@ -321,6 +329,17 @@ public class TCPServerMain {
 			response.dst = data.src;
 			startTimer();
 			response.time = timer.send_time();
+			
+			sendToOne(response);
+		}
+		
+		void responseHorseEntry(TCPData data) {
+			TCPData response = new TCPData();
+			response.src = "GET_ENTRY";
+			response.dst = data.src;
+			response.entry = entry;
+			
+			System.out.println(entry);
 			
 			sendToOne(response);
 		}

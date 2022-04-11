@@ -13,7 +13,7 @@ public class RandomEntry {
 	
 	ArrayList<HorseClass2> entry;
 	
-	public void shuffle () {
+	public ArrayList<HorseClass2> shuffle () {
 		
 		entry = new ArrayList<HorseClass2>();
 		
@@ -44,7 +44,8 @@ public class RandomEntry {
 	      } catch (Exception e) {
 
 	      }
-		
+		 
+		 return entry;
 	}
 
 }

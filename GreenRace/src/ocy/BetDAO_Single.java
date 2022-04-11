@@ -46,7 +46,7 @@ public class BetDAO_Single {
 			ex.printStackTrace();
 		}
 		
-		sql = "update bet_single set money = money + '"+data.bet_single.money+"' where hname = '"+data.bet_single.hname+"'";
+		sql = "update bet_single set money = money + '"+data.bet_single.money+"' where num = '"+data.bet_single.hname+"'";
 		
 		
 		try {

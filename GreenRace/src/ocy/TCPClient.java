@@ -77,6 +77,10 @@ public class TCPClient {
 						if(battingScreen != null) {
 							battingScreen.goTimer(response.time);
 						}
+					} else if(response.src.equals("GET_ENTRY")) {
+						if(battingScreen != null) {
+							battingScreen.setEntry(response.entry);
+						}
 					}
 					
 				}
@@ -283,7 +287,6 @@ public class TCPClient {
 	}
 	
 	public void get_time(BattingScreen battingScreen) {
-		System.out.println("tc : 겟타임");
 		this.battingScreen = battingScreen;
 		try {
 			TCPData data = new TCPData();
@@ -298,6 +301,23 @@ public class TCPClient {
 			e1.printStackTrace();
 		}
 	}
+	
+	public void get_entry(BattingScreen battingScreen) {
+		this.battingScreen = battingScreen;
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "GET_ENTRY";
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
 
 	public TCPClient() {
 		try {
@@ -311,7 +331,7 @@ public class TCPClient {
 //			local = InetAddress.getLocalHost();
 			
 			// 컴 하나로 임시테스트할때는 가짜 ip주소 넣어줌.  클라 켤때마다 숫자 바꿔줘야함
-			local = InetAddress.getByName("192.168.35.16");
+			local = InetAddress.getByName("192.168.35.12");
 			
 			new TCPClientReceiver().start();
 		} catch (Exception e1) {

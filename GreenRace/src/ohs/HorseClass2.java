@@ -1,6 +1,10 @@
 package ohs;
 
-public class HorseClass2 {
+import java.io.Serializable;
+
+public class HorseClass2 implements Serializable{
+	
+	private static final long serialVersionUID = 54868L;
 
 	String hname;
 	String type;

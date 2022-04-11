@@ -51,11 +51,6 @@ public class GameScreen3 extends JPanel{
 	public GameScreen3(TCPClient tc, BattingScreen battingScreen) {
 
 		this.tc = tc;
-		System.out.println("게임스크린 생성");
-
-
-
-
 
 		goalline = new JLabel(goal);
 		goalline.setBounds(1400, 0, 20, 500);
