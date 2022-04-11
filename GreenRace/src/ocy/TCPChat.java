@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import khs.RankIcon;
 import ohs.RaceProjFrame;
 
 public class TCPChat extends JPanel implements ActionListener {
@@ -22,6 +23,8 @@ public class TCPChat extends JPanel implements ActionListener {
 	
 	JTextArea ta;
 	JTextField tf;
+	
+	RankIcon rankIcon;
 	
 	public TCPChat(TCPClient tc, RaceProjFrame frame) {
 		this.tc = tc;

@@ -17,7 +17,6 @@ import ohs.GameScreenMain;
 
 public class GameInfo extends JFrame{
 
-	GameScreenMain gameScreenMain = new GameScreenMain();
 	HorseInfo horseInfo;
 	String track_length, track_con;  
 	String horse_entry;
@@ -52,12 +51,12 @@ public class GameInfo extends JFrame{
 		jlhorse_entry = new JLabel("출전마");
 		jlhorse_entry.setBounds(10, 50, 200, 50);
 		
-		for (int i = 0; i < ALhorse_entry.size(); i++) {
-			int c = i;
+		for (int i = 0; i < 8; i++) {
+			int c = r.nextInt(ALhorse_entry.size());
 //			System.out.println(ALhorse_entry.size());
-			System.out.println(ALhorse_entry.get(i));
+			System.out.println(ALhorse_entry.get(c));
 			
-			jbhorse_entry = new JButton(ALhorse_entry.get(i));
+			jbhorse_entry = new JButton(ALhorse_entry.get(c));
 			jbhorse_entry.setBounds(50*i, 100, 50, 30);
 			add(jbhorse_entry);
 			jbhorse_entry.addActionListener(new ActionListener() {
@@ -128,15 +127,7 @@ public class GameInfo extends JFrame{
 		e.printStackTrace();
 	}
 }
-	
-	void horseinfo() {
 		
-		
-		
-		
-	}
-	
-	
 	public static void main(String[] args) {
 		
 		new GameInfo();
