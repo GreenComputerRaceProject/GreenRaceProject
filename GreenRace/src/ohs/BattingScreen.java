@@ -87,9 +87,13 @@ public class BattingScreen extends JPanel{
 		setBackground(Color.gray);
 		
 		//new battingTimer().start();
+		getTime();
+		
+		System.out.println("?");
 	}
 	
 	public void getTime() {
+		System.out.println("겟타임 함수 발동 bettingscreen");
 		tc.get_time(this);
 	}
 	
@@ -109,7 +113,6 @@ public class BattingScreen extends JPanel{
 		
 		
 		public showEntry() {
-			
 			RandomEntry re = new RandomEntry();
 			re.shuffle();
 			
@@ -181,7 +184,7 @@ public class BattingScreen extends JPanel{
 		System.out.println("화면 체인지");
 		battingScreen.removeAll();
 		battingScreen.repaint();
-		JPanel gs = new GameScreen3(battingScreen); 
+		JPanel gs = new GameScreen3(tc, battingScreen); 
 		add(gs);
 		repaint();
 	

@@ -48,8 +48,9 @@ public class GameScreen3 extends JPanel{
 
 	JLabel racehorse;
 
-	public GameScreen3(BattingScreen battingScreen) {
+	public GameScreen3(TCPClient tc, BattingScreen battingScreen) {
 
+		this.tc = tc;
 		System.out.println("게임스크린 생성");
 
 

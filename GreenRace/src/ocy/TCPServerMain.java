@@ -76,14 +76,15 @@ public class TCPServerMain {
 	
 	class Timer extends Thread {
 		
-		public int i;
+		public int i = 30;
 		
 		@Override
 		public void run() {
 			try {
-				for (i = 60; i >= 0; i--) {
+				for (; i >= 0; i--) {
 					sleep(1000);
 				}
+				timer = null;
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
@@ -226,8 +227,6 @@ public class TCPServerMain {
 			response.user = new UserDAO().user_info(data.user);
 			currentUser.add(response.user.nickname);
 			
-			startTimer();
-			
 			sendToOne(response);
 		}
 	
@@ -320,6 +319,7 @@ public class TCPServerMain {
 			TCPData response = new TCPData();
 			response.src = "GET_TIME";
 			response.dst = data.src;
+			startTimer();
 			response.time = timer.send_time();
 			
 			sendToOne(response);

@@ -206,7 +206,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
        setDefaultCloseOperation(EXIT_ON_CLOSE);
       
        chat.entranceChat();
-       battingScreen.getTime();
+       //battingScreen.getTime();
        //tc.get_time(this);
       
     }
