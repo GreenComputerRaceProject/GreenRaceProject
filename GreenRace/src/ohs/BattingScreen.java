@@ -8,7 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import ocy.TCPClient;
+
 public class BattingScreen extends JPanel{
+	
+	TCPClient tc;
 	
 	RaceProjFrame rpf;
 	
@@ -16,9 +20,10 @@ public class BattingScreen extends JPanel{
 	
 	JLabel timer = new JLabel();
 	
-	
+	int time;
 
-	public BattingScreen(RaceProjFrame rpf) {
+	public BattingScreen(TCPClient tc, RaceProjFrame rpf) {
+		this.tc = tc;
 		
 		setBounds(0, 70, 1585, 500);
 		setLayout(null);
@@ -28,22 +33,25 @@ public class BattingScreen extends JPanel{
 		add(timer);
 		add(new showEntry());
 		
-
-		
 		setVisible(true);
 		setOpaque(true);
 		setBackground(Color.gray);
 		
-
-		new battingTimer().start();
-		
-		
+		//new battingTimer().start();
+	}
 	
+	public void getTime() {
+		tc.get_time(this);
+	}
+	
+	public void goTimer(int time) {
+		this.time = time;
+		System.out.println("남은 시간 : " + time);
 		
+		new battingTimer().start();
 	}
 	
 	class showEntry extends JPanel{
-		
 		
 		RandomEntry re = new RandomEntry();
 		
@@ -92,26 +100,20 @@ public class BattingScreen extends JPanel{
 	}
 	
 	class battingTimer extends Thread{
-	
+		
 		@Override
 		public void run() {
 			
 			try {
-				for (int i = 10; i >= -1; i--) {
+				for (int i = time; i >= 0; i--) {
 					timer.setText("배팅을 해주세요... 경기시작까지 남은시간 : " + i);
 					timer.setFont(new Font("휴먼둥근체", Font.BOLD, 32));
 					timer.repaint();
 					
-					if (i == -1) {
-						
-						chageScreen1();
-						
-					}
-					
-					
-					
 					sleep(1000);
 				} 
+				
+				chageScreen1();
 				
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -120,14 +122,15 @@ public class BattingScreen extends JPanel{
 		}
 		
 	public void chageScreen1() {
-			
+		
+		System.out.println("화면 체인지");
 		battingScreen.removeAll();
 		JPanel gs = new GameScreen3(); 
 		battingScreen.add(gs);
 		battingScreen.repaint();
 		
-		}
-		
 	}
+		
+}
 	
 }

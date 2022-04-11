@@ -28,7 +28,7 @@ import khs.GameInfo;
 public class RaceProjFrame extends JFrame implements ActionListener{
 	
 	TCPClient tc;
-	BattingScreen rrs;
+	BattingScreen battingScreen;
     public GameScreen2 gsm;
     
     GameInfo gameinfo;
@@ -99,8 +99,8 @@ public class RaceProjFrame extends JFrame implements ActionListener{
        add(game_screen);
      */ 
       
-       rrs = new BattingScreen(this);
-       add(rrs);
+       battingScreen = new BattingScreen(tc, this);
+       add(battingScreen);
       
 //     gsm = new GameScreen2();
 //     add(gsm);
@@ -202,6 +202,8 @@ public class RaceProjFrame extends JFrame implements ActionListener{
        setDefaultCloseOperation(EXIT_ON_CLOSE);
       
        chat.entranceChat();
+       battingScreen.getTime();
+       //tc.get_time(this);
       
     }
    

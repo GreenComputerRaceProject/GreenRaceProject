@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import ocy.EntryPointMain.LoginPanel;
 import ocy.Find.InnerFind;
 import ocy.SignUp.InnerSignUp;
+import ohs.BattingScreen;
 import ohs.RaceProjFrame;
 
 public class TCPClient {
@@ -22,6 +23,7 @@ public class TCPClient {
 	InnerFind innerFind;
 	TCPChat tcpChat;
 	RaceProjFrame raceProjFrame;
+	BattingScreen battingScreen;
 	
 	ObjectOutputStream oos;
 	ObjectInputStream ois;
@@ -71,6 +73,10 @@ public class TCPClient {
 						tcpChat.currentUserList(response);
 					} else if(response.src.equals("BET_SINGLE")) {
 						raceProjFrame.notice(response.msg);
+					} else if(response.src.equals("GET_TIME")) {
+						if(battingScreen != null) {
+							battingScreen.goTimer(response.time);
+						}
 					}
 					
 				}
@@ -275,6 +281,22 @@ public class TCPClient {
 			e1.printStackTrace();
 		}
 	}
+	
+	public void get_time(BattingScreen battingScreen) {
+		this.battingScreen = battingScreen;
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "GET_TIME";
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 
 	public TCPClient() {
 		try {
@@ -288,7 +310,7 @@ public class TCPClient {
 //			local = InetAddress.getLocalHost();
 			
 			// 컴 하나로 임시테스트할때는 가짜 ip주소 넣어줌.  클라 켤때마다 숫자 바꿔줘야함
-			local = InetAddress.getByName("192.168.35.19");
+			local = InetAddress.getByName("192.168.35.14");
 			
 			new TCPClientReceiver().start();
 		} catch (Exception e1) {

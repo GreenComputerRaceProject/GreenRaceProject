@@ -30,6 +30,8 @@ class TCPData implements Serializable{
 	
 	ArrayList<String> mems;
 	
+	int time;
+	
 	public TCPData() {
 		// TODO Auto-generated constructor stub
 		user = new UserDTO();
@@ -47,6 +49,8 @@ public class TCPServerMain {
 	
 	HashMap<String, ObjectOutputStream> map;
 	ArrayList<String> currentUser;
+	
+	Timer timer;
 	
 	public TCPServerMain() {
 		try {
@@ -70,7 +74,31 @@ public class TCPServerMain {
 		}
 	}
 	
-	class TCPSeverReceiver extends Thread{
+	class Timer extends Thread {
+		
+		public int i;
+		
+		@Override
+		public void run() {
+			try {
+				for (i = 60; i >= 0; i--) {
+					sleep(1000);
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		
+		public Timer() {
+			start();
+		}
+		
+		public int send_time() {
+			return i;
+		}
+	}
+	
+	class TCPSeverReceiver extends Thread {
 		
 		ObjectInputStream ois;
 		ObjectOutputStream oos;
@@ -124,6 +152,8 @@ public class TCPServerMain {
 						entranceChat(data);
 					} else if(data.dst.equals("BET_SINGLE")) {
 						betSingle(data);
+					} else if(data.dst.equals("GET_TIME")) {
+						sendTime(data);
 					} else {
 						sendToOne(data);
 					}
@@ -139,6 +169,12 @@ public class TCPServerMain {
 				data.dst = "서버";
 				data.msg = "퇴장";
 				firstGo(data);
+			}
+		}
+		
+		void startTimer() {
+			if(timer == null) {
+				timer = new Timer();
 			}
 		}
 		
@@ -189,6 +225,8 @@ public class TCPServerMain {
 			response.dst = data.src;
 			response.user = new UserDAO().user_info(data.user);
 			currentUser.add(response.user.nickname);
+			
+			startTimer();
 			
 			sendToOne(response);
 		}
@@ -274,6 +312,15 @@ public class TCPServerMain {
 			response.src = "BET_SINGLE";
 			response.dst = data.src;
 			response.msg = new BetDAO_Single().betting(data);
+			
+			sendToOne(response);
+		}
+		
+		void sendTime(TCPData data) {
+			TCPData response = new TCPData();
+			response.src = "GET_TIME";
+			response.dst = data.src;
+			response.time = timer.send_time();
 			
 			sendToOne(response);
 		}
