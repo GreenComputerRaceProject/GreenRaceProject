@@ -224,7 +224,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     			String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
     			
     			if(bet_money != null) {
-        			tc.bet_single(bet_name, bet_money);
+        			tc.bet_single(this, bet_name, bet_money);
         		}
     		}
 			
@@ -233,8 +233,14 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     	}
       
     }
-
-
+    
+    public void notice(String response) {
+    	if(response.equals("COMPLETE")) {
+			JOptionPane.showMessageDialog(null, "배팅이 완료되었습니다.", "배팅 성공", JOptionPane.PLAIN_MESSAGE);
+		} else if(response.equals("WRONG")) {
+			JOptionPane.showMessageDialog(null, "배팅이 실패하였습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+		}
+    }
 
 }
       

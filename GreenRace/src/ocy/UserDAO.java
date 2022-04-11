@@ -94,6 +94,7 @@ public class UserDAO {
 				res.totgame = rs.getInt("totgame");
 				res.win = rs.getInt("win");
 				res.lose = rs.getInt("lose");
+				res.rank = rs.getInt("rank");
 			}
 			
 		} catch (Exception ex) {

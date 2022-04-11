@@ -272,9 +272,10 @@ public class TCPServerMain {
 		void betSingle(TCPData data) {
 			TCPData response = new TCPData();
 			response.src = "BET_SINGLE";
+			response.dst = data.src;
 			response.msg = new BetDAO_Single().betting(data);
 			
-			sendToAll(response);
+			sendToOne(response);
 		}
 	}
 

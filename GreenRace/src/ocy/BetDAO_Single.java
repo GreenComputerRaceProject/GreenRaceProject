@@ -35,9 +35,19 @@ public class BetDAO_Single {
 	}
 	
 	public String betting(TCPData data) {
-		sql = "update bet_single set money = money + '"+data.bet_single.money+"' where hname = '"+data.bet_single.hname+"'";
+		
+		sql = "update user set money = money - '"+data.bet_single.money+"' where nickname = '"+data.user.nickname+"'";
 		
 		String res = "";
+		
+		try {
+			int rs = stmt.executeUpdate(sql);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		sql = "update bet_single set money = money + '"+data.bet_single.money+"' where hname = '"+data.bet_single.hname+"'";
+		
 		
 		try {
 			int rs = stmt.executeUpdate(sql);

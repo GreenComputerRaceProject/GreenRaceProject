@@ -16,7 +16,7 @@ public class BGM {
         AudioFormat format;
         DataLine.Info info;
 
-        bgm = new File("bgm/pikachu_bgm.wav");
+        bgm = new File("bgm/wangbau.wav");
         
         Clip clip;
         
