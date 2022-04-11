@@ -58,6 +58,8 @@ public class TCPChat extends JPanel implements ActionListener {
 	public void currentUserList(TCPData response) {
 		frame.user_list.removeAll();
 		
+		System.out.println(response);
+		
 		for (String s : response.mems) {
 			JPanel jp = new JPanel();
 			jp.setPreferredSize(new Dimension(380, 35));

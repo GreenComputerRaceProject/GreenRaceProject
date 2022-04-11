@@ -53,6 +53,7 @@ public class TCPClient {
 						loginPanel.notice(response.msg);
 					} else if(response.src.equals("USER_INFO")) {
 						user = new UserDTO(response);
+						raceProjFrame.getMoney();
 					} else if(response.src.equals("VERIFICATION_ID")) {
 						innerSignUp.id_verification_notice(response.msg);
 					} else if(response.src.equals("VERIFICATION_NICKNAME")) {
@@ -109,8 +110,9 @@ public class TCPClient {
 		}
 	}
 	
-	public void requestUserInfo(LoginPanel loginPanel, String id) {
+	public void requestUserInfo(LoginPanel loginPanel, RaceProjFrame frame, String id) {
 		this.loginPanel = loginPanel;
+		this.raceProjFrame = frame;
 		try {
 			TCPData data = new TCPData();
 			data.src = local.getHostAddress();
@@ -318,6 +320,15 @@ public class TCPClient {
 		}
 	}
 	
+	public void get_money(RaceProjFrame raceProjFrame) {
+		this.raceProjFrame = raceProjFrame;
+		
+		if(user != null) {
+			this.raceProjFrame.setMoney(user.money);
+		} else {
+			System.out.println("정보가 없어!");
+		}
+	}
 
 	public TCPClient() {
 		try {

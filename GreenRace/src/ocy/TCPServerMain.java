@@ -56,6 +56,7 @@ public class TCPServerMain {
 	ArrayList<HorseClass2> entry = new RandomEntry().shuffle();;
 	
 	Timer timer;
+	boolean isTimer = true; // 정산할때 다시 true로 해줘야함
 	
 	public TCPServerMain() {
 		try {
@@ -91,6 +92,7 @@ public class TCPServerMain {
 				}
 				entry = new RandomEntry().shuffle();
 				timer = null;
+				isTimer = false;
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
@@ -182,7 +184,7 @@ public class TCPServerMain {
 		}
 		
 		void startTimer() {
-			if(timer == null) {
+			if(timer == null && isTimer == true) {
 				timer = new Timer();
 			}
 		}

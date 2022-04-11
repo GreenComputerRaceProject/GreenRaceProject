@@ -25,6 +25,7 @@ import ohs.RaceProjFrame;
 public class EntryPointMain extends JFrame {
 	
 	EntryPointMain entryPointMain = this;
+	RaceProjFrame frame;
 	
 	LoginPanel loginPanel = new LoginPanel();
 	
@@ -99,11 +100,12 @@ public class EntryPointMain extends JFrame {
 				JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.", "로그인 실패", JOptionPane.PLAIN_MESSAGE);
 				pwField.setText("");
 			} else if(response.equals("COMPLETE")) {
-				tc.requestUserInfo(this, idField.getText());
+				tc.requestUserInfo(this, frame, idField.getText());
 				JOptionPane.showMessageDialog(null, "로그인하셨습니다!", "로그인 성공", JOptionPane.PLAIN_MESSAGE);
 				
 				entryPointMain.dispose();
-				new RaceProjFrame(tc);
+				frame = new RaceProjFrame(tc);
+				tc.raceProjFrame = frame;
 				//new BGM();
 			}
 		}

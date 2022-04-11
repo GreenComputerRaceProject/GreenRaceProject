@@ -73,7 +73,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
        user_info.setBackground(Color.white);
        jp.add(user_info);
       
-       my_money = new JLabel("보유머니");
+       my_money = new JLabel("보유 머니 : ");
        my_money.setBounds(317, 0, 317, 70);
        my_money.setHorizontalAlignment(JLabel.CENTER);
        my_money.setBackground(Color.cyan);
@@ -206,9 +206,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
        setDefaultCloseOperation(EXIT_ON_CLOSE);
       
        chat.entranceChat();
-       //battingScreen.getTime();
-       //tc.get_time(this);
-      
+//     getMoney();
     }
    
     @Override
@@ -238,6 +236,16 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     		return;
     	}
       
+    }
+    
+    public void getMoney() {
+    	tc.get_money(this);
+    }
+    
+    public void setMoney(long money) {
+    	my_money.setText("보유 머니 : " + money);
+    	my_money.revalidate();
+    	my_money.repaint();
     }
     
     public void notice(String response) {
