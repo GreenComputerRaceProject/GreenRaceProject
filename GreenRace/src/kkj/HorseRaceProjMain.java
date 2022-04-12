@@ -2,15 +2,11 @@ package kkj;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.security.MessageDigestSpi;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import javax.swing.JButton;
@@ -21,9 +17,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import net.nurigo.java_sdk.api.Message;
-
 public class HorseRaceProjMain extends JFrame implements ActionListener{
+	
+	int horse_num = 0;
+	int[] score = new int[120];
+	ArrayList<Long>	Batting_money = new ArrayList<Long>();
 	
 	JFrame reFrame;		//기능버튼클릭시 추가 생성되는 화면
 	JTextField field;	
@@ -37,13 +35,15 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 	JPanel game_screen, b_danglyul,	game_rule, chat, user_list, top_panel, b_single_inpanel, lyul_panel;
 			//게임화면,	  배당률,		 배팅방식,	    채팅,	  참가자리스트,  상단나열바, 단식버튼클릭했을때 열리는 기능화면에서 버튼들 마번 묶는 패널
 
+//	BattingDAO dao;
+	
 	public HorseRaceProjMain() {
 		super("달려라 왕바우");
 		setSize(1600,1000);
 		setLayout(null);
 		setLocationRelativeTo(null);
 		
-		
+//		dao = new BattingDAO();
 //		try {
 //
 //			Class.forName("org.mariadb.jdbc.Driver");
@@ -129,15 +129,61 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 //		lyul_panel.setBounds(0,0,800,70);
 //		b_danglyul.add(lyul_panel);
 			
-		for (int i = 0; i < 120; i++) {
+		
+//		int su = 0;
+//		int su_2 = 0;
+		for (int i = 0; i < score.length; i++) {
+//			su =+ score[i]; 
 			field = new JTextField();
-			field.setBounds(0, 0, 70, 70);
-			b_danglyul.setLayout(new GridLayout(12,90,0,0));
-			field.setText(i+""+"\n"+"0");
+//			field.setSize(70,70);
+			b_danglyul.setLayout(new GridLayout(12,90));
+			field.setText(i+"");
 			b_danglyul.add(field);	
 			field.setEditable(false);
 			field.setHorizontalAlignment(JTextField.CENTER);
-				
+			if(i==11 || i==12 || i==13 || i==14 || i==15 || i==16 || i==17 || 
+				i==18 || i==19 || i==20 || i==21 || i==22 || i==23 || i==24 || i==25 || i==26 || i==27 || i==28 || i==29 ||
+				i==32 || i==33 || i==34 || i==35 || i==36 || i==37 || i==38 || 
+				i==39 || i==43 || i==44 || i==45 || i==46 || i==47 || i==48 || i==49 || i==54 || i==55 || i==56 || i==57 || i==58 || i==59 ||
+				i==65 || i==66 || i==67 || i==68 || i==69 || i==76 || i==77 || 
+				i==78 || i==79 || i==87 || i==88 || i==89 || i==98 || i==99 || i == 109) { 
+				field.setText("");
+			}else if(i==31) {
+				field.setText("1");
+				field.setBackground(new Color(190, 196, 211));
+			}else if(i==42) {
+				field.setText("2");
+				field.setBackground(new Color(190, 196, 211));
+			}
+			else if(i==53) {
+				field.setText("3");
+				field.setBackground(new Color(190, 196, 211));
+			}
+			else if(i==64) {
+				field.setText("4");
+				field.setBackground(new Color(190, 196, 211));
+			}
+			else if(i==75) {
+				field.setText("5");
+				field.setBackground(new Color(190, 196, 211));
+			}		
+			else if(i==86) {
+				field.setText("6");
+				field.setBackground(new Color(190, 196, 211));
+			}
+			else if(i==97) {
+				field.setText("7");
+				field.setBackground(new Color(190, 196, 211));
+			}
+			else if(i==108) {
+				field.setText("8");
+				field.setBackground(new Color(190, 196, 211));
+			}
+			else if(i==119) {
+				field.setText("9");
+				field.setBackground(new Color(190, 196, 211));
+			}
+						
 				if(i==0) {
 					field.setText("마번");
 					field.setBackground(Color.GREEN);
@@ -174,10 +220,13 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 						}else if(i==110) {
 							field.setText("9");
 							field.setBackground(new Color(147,170,250));
-				}else 
-					field.setText(i+"");
-		}	
-		
+//				}else 
+//					field.setText(i+"");
+//		
+		}
+						}
+						
+						
 		chat = new JPanel();		//채팅
 		chat.setBounds(800, 570, 400, 392);
 		chat.setBackground(Color.black);
@@ -191,17 +240,17 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 		
 		b_single = new JButton("단식");
 		b_single.setBounds(0, 0, 128, 80);
-		b_single.setBackground(Color.pink);
+		b_single.setBackground(Color.yellow);
 		game_rule.add(b_single);
 		
 		b_yeon = new JButton("연식");
 		b_yeon.setBounds(128, 0, 129, 80);
-		b_yeon.setBackground(Color.green);
+		b_yeon.setBackground(Color.orange);
 		game_rule.add(b_yeon);
 		
 		b_bok = new JButton("복식");
 		b_bok.setBounds(257, 0, 128, 80);
-		b_bok.setBackground(Color.yellow);
+		b_bok.setBackground(Color.pink);
 		game_rule.add(b_bok);
 		
 		user_list = new JPanel();		//참가자리스트
@@ -224,7 +273,15 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
+	public void game_continue() {
+	
 		
+	}
+	
+	public void exit() {
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}	
+	
 	public static void main(String[] args) {
 		
 	
@@ -259,15 +316,34 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 			else if(e.getSource().equals(exit)) {
 				int answer = JOptionPane.showConfirmDialog(null, "종료하시겠습니까?", "게임종료", 
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-					if(answer==0) {
-						//왜안나감? 어떻게나감..?
-					}
+//					if(answer==0) {
+//						exit();
+//						System.out.println(answer);
+//					}else if(answer==1) {
+//						repaint();
+//					}
+					
 				
 				
 		}
 			else if(e.getSource().equals(b_single)) {
-				String msg = JOptionPane.showInputDialog(null, "배팅하실 말 번호를 입력하세요",
-						"단식", JOptionPane.INFORMATION_MESSAGE);
+				if(true) {
+					String msg_horsenum = JOptionPane.showInputDialog(null, "말 번호를 입력하세요", 
+							"단식", JOptionPane.INFORMATION_MESSAGE);
+								horse_num = Integer.parseInt(msg_horsenum);
+								System.out.println(msg_horsenum);
+					String msg_horsenum2 = JOptionPane.showInputDialog(null, "배팅금액을 입력하세요",
+							"단식", JOptionPane.INFORMATION_MESSAGE);
+								System.out.println(msg_horsenum2);
+								
+//				}else if() {
+//								JOptionPane.showMessageDialog(null,  "숫자만 입력해주세요",
+//										"단식", JOptionPane.ERROR_MESSAGE);
+//								
+//									System.out.println(field.getText());
+//				
+				}
+	
 					ActionListener listener = new ActionListener() {
 					
 					@Override
@@ -276,12 +352,6 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 							field.setText("");
 					}
 				};
-				if(field.getText().matches(".*[0-9].*")) {
-					JOptionPane.showMessageDialog(null, "숫자만 입력해주세요",
-							"단식", JOptionPane.ERROR_MESSAGE);
-				}else 
-					JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", 
-							"단식", JOptionPane.INFORMATION_MESSAGE);
 //				reFrame = new JFrame("단식");
 //				reFrame.setSize(400,100);
 //				reFrame.setLocationRelativeTo(null); 
