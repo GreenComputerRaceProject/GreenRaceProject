@@ -76,7 +76,7 @@ public class GameInfo extends JFrame{
 		JLhorse_entry.setBounds(10, 110, 200, 30);
 
 //		randomEntry.shuffle(); 서버에서 셔플해야 값이 들어감
-		System.out.println("엔트리사이즈:"+randomEntry.entry.size());
+		System.out.println("엔트리사이즈:"+randomEntry.entry.size()); 
 		for (int i = 0; i < randomEntry.entry.size(); i++) {
 			int c = i;
 			
@@ -90,7 +90,7 @@ public class GameInfo extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
-					horseInfo = new HorseInfo(randomEntry.entry.get(c).hname);
+					horseInfo = new HorseInfo(randomEntry.entry.get(c));
 				}
 			});
 		}
@@ -110,7 +110,7 @@ public class GameInfo extends JFrame{
 	}
 	
 	
-	void gameinfo() {
+	void gameinfo() { //임의로 DB만듬
 	
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
