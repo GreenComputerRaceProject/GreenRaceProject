@@ -14,14 +14,14 @@ public class Test extends JFrame {
 	
 	GameInfo gameInfo;
 	HorseInfo horseInfo;
-	ChattingList chattingList;
+//	ChattingList chattingList;
 	RankIcon rankIcon; 
 	RaceListMain raceListMain = new RaceListMain();
 	String imgIcon = "";
-//	JButton user_grade;	// 회원 랭크
+//	JButton user_grade;	// ?��?�� ?��?��
 	JButton my_money;	// 보유머니
 	JButton m_charge;	// 게임머니충전
-	JButton game_info;	// 경기정보
+	JButton game_info;	// 경기?���?
 	JButton exit;		// 게임종료
 	
 	JPanel jp;
@@ -40,7 +40,7 @@ public class Test extends JFrame {
 //		if(raceListMain.user_rank.get(i)) {
 //			imgIcon = "fff3/"+raceListMain.user_rank.get(i)+".jpg";
 //		}
-		rankIcon = new RankIcon("랭크 버튼"); //imgIcon 
+		rankIcon = new RankIcon("?��?�� 버튼"); //imgIcon 
 		rankIcon.setBounds(10, 20, 20, 20);
 		add(rankIcon);
 		
