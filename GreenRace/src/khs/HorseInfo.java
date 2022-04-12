@@ -21,39 +21,37 @@ public class HorseInfo extends JFrame {
 	JLabel jhname, jrecentrecord, jtype, jgender, jyear, jstate,
 		jspeed, jfirstspeed, jlastspeed, jstamina, jweight;
 	
-	int horseNum;
-	
-	public HorseInfo(int horseNum) { //String horseName
+	public HorseInfo(String horseName) {
 		
-		this.horseNum = horseNum;
+		this.horseName = horseName;
 		
 //		this.horseName = horseName;
-		setBounds(100, 100, 400, 400); //ë§ ì—”íŠ¸ë¦¬ ì˜†ì— ìœ„ì¹˜
+		setBounds(100, 100, 400, 400); //ë§? ?—”?Š¸ë¦? ?˜†?— ?œ„ì¹?
 		setLayout(null);
 		
 		horseDB();
 		
-		jhname = new JLabel("ì´ë¦„:"+hname); 
+		jhname = new JLabel("?´ë¦?:"+hname); 
 		jhname.setBounds(20,10,200,30);
-		jtype = new JLabel("íƒ€ì…:"+type); 
+		jtype = new JLabel("???…:"+type); 
 		jtype.setBounds(20,40,200,30); 
-		jgender = new JLabel("ì„±ë³„:"+gender);
+		jgender = new JLabel("?„±ë³?:"+gender);
 		jgender.setBounds(20,70,200,30);
-		jyear = new JLabel("ë‚˜ì´:"+year); 
+		jyear = new JLabel("?‚˜?´:"+year); 
 		jyear.setBounds(20,100,200,30); 
-		jstate = new JLabel("ì»¨ë””ì…˜:"+state); 
+		jstate = new JLabel("ì»¨ë””?…˜:"+state); 
 		jstate.setBounds(20,130,200,30);
-		jspeed = new JLabel("í‰ê·  ì†ë„:"+speed); 
+		jspeed = new JLabel("?‰ê·? ?†?„:"+speed); 
 		jspeed.setBounds(20,160,200,30);
-		jfirstspeed = new JLabel("ì´ˆë°˜ ì†ë„:"+firstspeed); 
+		jfirstspeed = new JLabel("ì´ˆë°˜ ?†?„:"+firstspeed); 
 		jfirstspeed.setBounds(20,190,200,30);
-		jlastspeed = new JLabel("í›„ë°˜ ì†ë„:"+lastspeed); 
+		jlastspeed = new JLabel("?›„ë°? ?†?„:"+lastspeed); 
 		jlastspeed.setBounds(20,220,200,30);
-		jstamina = new JLabel("ìŠ¤í…Œë¯¸ë‚˜:"+stamina); 
+		jstamina = new JLabel("?Š¤?…Œë¯¸ë‚˜:"+stamina); 
 		jstamina.setBounds(20,250,200,30);
 		jweight = new JLabel("ë¬´ê²Œ:"+weight); 
 		jweight.setBounds(20,280,200,30);
-		jrecentrecord = new JLabel("ìµœê·¼ ì„±ì :"+recentrecord); 
+		jrecentrecord = new JLabel("ìµœê·¼ ?„±? :"+recentrecord); 
 		jrecentrecord.setBounds(20,310,200,30);
 	
 		add(jhname);
@@ -89,7 +87,7 @@ public class HorseInfo extends JFrame {
 			Statement stmt = con.createStatement();
 			
 			
-			ResultSet rs = stmt.executeQuery("select * from horse where hid = '"+horseNum+"'"); //ì—¬ê¸° ë§ ì—”íŠ¸ë¦¬ì˜ ì´ë¦„ ì—°ê²° where hname = '"+horseName+"'"
+			ResultSet rs = stmt.executeQuery("select * from horse where hname = '"+horseName+"'"); //?—¬ê¸? ë§? ?—”?Š¸ë¦¬ì˜ ?´ë¦? ?—°ê²? where hname = '"+horseName+"'"
 			
 			
 			while(rs.next()) { 

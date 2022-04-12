@@ -28,7 +28,7 @@ public class RankIcon extends JButton implements ActionListener{
 	long money;
 
 	
-		public RankIcon(TCPClient tc) { //String imgIcon
+		public RankIcon(TCPClient tc) { //,String imgIcon
 			this.tc = tc;
 			this.user_id = tc.user.getName();
 			this.nickname = tc.user.getNickname();
@@ -42,7 +42,7 @@ public class RankIcon extends JButton implements ActionListener{
 			
 //			icon = new ImageIcon(imgIcon);
 //			setIcon(icon);
-			System.out.println("ë²„íŠ¼ ìƒì„±");
+			System.out.println("ë²„íŠ¼ ?ƒ?„±");
 
 			
 			addActionListener(this);
@@ -51,24 +51,24 @@ public class RankIcon extends JButton implements ActionListener{
 		
 	
 	@Override
-	public void actionPerformed(ActionEvent e) { //í´ë¦­ ì‹œ íšŒì›ì˜ ì •ë³´ì°½ ë„ì›€
-		System.out.println("ëˆ„ë¦„");
+	public void actionPerformed(ActionEvent e) { //?´ë¦? ?‹œ ?šŒ?›?˜ ? •ë³´ì°½ ?„??
+		System.out.println("?ˆ„ë¦?");
 		
 //		userNum();
 		JFrame userInfo = new JFrame();
 		userInfo.setBounds(50, 50, 500, 400);
 		userInfo.setLayout(null);
-		jnickname = new JLabel("ë‹‰ë„¤ì„:"+nickname); 
+		jnickname = new JLabel("?‹‰?„¤?„:"+nickname); 
 		jnickname.setBounds(20,20,200,30);
 		jmoney = new JLabel("ë¨¸ë‹ˆ:"+money); 
 		jmoney.setBounds(20,60,200,30); 
-		jtotgame = new JLabel("íŒìˆ˜:"+totgame);
+		jtotgame = new JLabel("?Œ?ˆ˜:"+totgame);
 		jtotgame.setBounds(20,100,200,30);
-		jwin = new JLabel("ìŠ¹ë¦¬:"+win); 
+		jwin = new JLabel("?Š¹ë¦?:"+win); 
 		jwin.setBounds(20,140,200,30); 
-		jlose = new JLabel("íŒ¨ë°°:"+lose); 
+		jlose = new JLabel("?Œ¨ë°?:"+lose); 
 		jlose.setBounds(20,180,200,30);
-		jrank = new JLabel("ë­í¬:"+rank); 
+		jrank = new JLabel("?­?¬:"+rank); 
 		jrank.setBounds(20,220,200,30);
 		
 		
@@ -82,6 +82,7 @@ public class RankIcon extends JButton implements ActionListener{
 		
 		userInfo.setVisible(true);
 		userInfo.setResizable(false);
+		userInfo.setDefaultCloseOperation(userInfo.EXIT_ON_CLOSE);
 		
 	}
 		

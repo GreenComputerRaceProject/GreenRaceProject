@@ -31,18 +31,18 @@ public class RaceListMain {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mariadb://localhost:3306/race_db", //URL  
 					"race",                             	 //ê³„ì •
-					"123456"                                 //ì•”í˜¸
+					"123456"                                 //?•”?˜¸
 					);
 			
-			//3.sql êµ¬ë¬¸ ì‹¤í–‰ ê°ì²´ 
+			//3.sql êµ¬ë¬¸ ?‹¤?–‰ ê°ì²´ 
 			Statement stmt = con.createStatement();
 			
-			//4.sql ì‹¤í–‰ ê²°ê³¼ ê°ì²´
+			//4.sql ?‹¤?–‰ ê²°ê³¼ ê°ì²´
 			ResultSet rs = stmt.executeQuery("select * from user");
 			
-			//5.ê²°ê³¼ ì‹¤í–‰
-			while(rs.next()) { // rs.next() --> ì‹¤í–‰ ê²°ê³¼ë¥¼ recordë‹¨ìœ„ë¡œ í•œ í–‰ì”© ì»¤ì„œê°€ ë„˜ì–´ê°„ë‹¤.
-				System.out.println(rs.getString("name")); // ìë£Œí˜•ì— ë§ì¶° ì»¬ëŸ¼ì˜ ê°’ì„ ê°€ì ¸ì˜¨ë‹¤.
+			//5.ê²°ê³¼ ?‹¤?–‰
+			while(rs.next()) { // rs.next() --> ?‹¤?–‰ ê²°ê³¼ë¥? record?‹¨?œ„ë¡? ?•œ ?–‰?”© ì»¤ì„œê°? ?„˜?–´ê°„ë‹¤.
+				System.out.println(rs.getString("name")); // ?ë£Œí˜•?— ë§ì¶° ì»¬ëŸ¼?˜ ê°’ì„ ê°?? ¸?˜¨?‹¤.
 				System.out.println(rs.getString("nickname")); 
 				System.out.println(rs.getString("money")); 
 				System.out.println(rs.getString("totgame")); 

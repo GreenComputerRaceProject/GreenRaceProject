@@ -14,25 +14,28 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import ohs.GameScreenMain;
+import ohs.RandomEntry;
 
 public class GameInfo extends JFrame{
 
 	HorseInfo horseInfo;
-	String track_length, track_con;  
-	String horse_entry;
+	RecentlyTenGame recentlyTenGame;
+	String track_length, track_con, horse_entry;
 	int horse_num;
-	JLabel jltrack_length, jltrack_con, jlhorse_entry;
-	JButton jbhorse_entry;
+	JLabel JLtrack_length, JLtrack_con, JLhorse_entry, JLten_game;
+	JButton JBhorse_entry, JBten_game;
 	ArrayList<String> ALtrack_length = new ArrayList<String>();
 	ArrayList<String> ALtrack_con = new ArrayList<String>();
 	ArrayList<String> ALhorse_entry= new ArrayList<String>();
 	ArrayList<Integer> ALhorse_num= new ArrayList<Integer>();
+	RandomEntry randomEntry = new RandomEntry();
+
 	
 	public GameInfo() {
 		
 		gameinfo();
 		
-		setBounds(100, 50, 800, 250);
+		setBounds(100, 50, 800, 450);
 		setLayout(null);
 		Random r = new Random();
 		int a = 0;
@@ -41,45 +44,69 @@ public class GameInfo extends JFrame{
 //		ALhorse_entry.add(gameScreenMain.entrys(1));
 		
 		
-		a = r.nextInt(ALtrack_length.size());
+		a = r.nextInt(ALtrack_length.size()); //?„?˜ë¡? ?œ?¤ê°? ì¤?, ?•©ì¹? ?•Œ ?„œë²„ê? ?„ ?ƒ?•œ ê°’ì´ ?“¤?–´ê°??•¼ ?•¨
 		b = r.nextInt(ALtrack_con.size());
 		
-		jltrack_length = new JLabel("íŠ¸ë™ ê¸¸ì´:"+ALtrack_length.get(a));
-		jltrack_length.setBounds(10, 0, 200, 50);
-		jltrack_con = new JLabel("íŠ¸ë™ ìƒíƒœ:"+ALtrack_con.get(b));
-		jltrack_con.setBounds(10, 20, 200, 50);
-		jlhorse_entry = new JLabel("ì¶œì „ë§ˆ");
-		jlhorse_entry.setBounds(10, 50, 200, 50);
+		JLtrack_length = new JLabel("?Š¸?™ ê¸¸ì´:"+ALtrack_length.get(a));
+		JLtrack_length.setBounds(10, 0, 200, 20);
+		JLtrack_con = new JLabel("?Š¸?™ ?ƒ?ƒœ:"+ALtrack_con.get(b));
+		JLtrack_con.setBounds(10, 20, 200, 20);
+		JLten_game = new JLabel("ìµœê·¼ 10 ê²½ê¸° ?“±?ˆ˜");
+		JLten_game.setBounds(10, 50, 200, 20);
 		
-		for (int i = 0; i < 8; i++) {
-			int c = r.nextInt(ALhorse_entry.size());
-//			System.out.println(ALhorse_entry.size());
-			System.out.println(ALhorse_entry.get(c));
-			
-			jbhorse_entry = new JButton(ALhorse_entry.get(c));
-			jbhorse_entry.setBounds(50*i, 100, 50, 30);
-			add(jbhorse_entry);
-			jbhorse_entry.addActionListener(new ActionListener() {
+		for (int i = 0; i < 10; i++) {
+			int d = i;
+			JBten_game = new JButton();
+			JBten_game.setBounds(50*i, 80, 50, 30);
+			add(JBten_game);
+			JBten_game.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
-					horseInfo = new HorseInfo(ALhorse_num.get(c));
+//					recentlyTenGame = new RecentlyTenGame(d);
 					
 				}
 			});
-			
 		}
 		
 		
 		
-		add(jltrack_length);
-		add(jltrack_con);
-		add(jlhorse_entry);
+		JLhorse_entry = new JLabel("ì¶œì „ë§?");
+		JLhorse_entry.setBounds(10, 110, 200, 30);
+
+//		randomEntry.shuffle(); ?„œë²„ì—?„œ ?…”?”Œ?•´?•¼ ê°’ì´ ?“¤?–´ê°?
+		System.out.println("?—”?Š¸ë¦¬ì‚¬?´ì¦?:"+randomEntry.entry.size());
+		for (int i = 0; i < randomEntry.entry.size(); i++) {
+			int c = i;
+			
+			System.out.println(randomEntry.entry.get(i).hname);
+			
+			JBhorse_entry = new JButton(randomEntry.entry.get(i).hname);
+			JBhorse_entry.setBounds(50*i, 140, 50, 30);
+			add(JBhorse_entry);
+			JBhorse_entry.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					horseInfo = new HorseInfo(randomEntry.entry.get(c).hname);
+				}
+			});
+		}
+		
+		
+		
+		add(JLtrack_length);
+		add(JLtrack_con);
+		add(JLten_game);
+		add(JLhorse_entry);
+	
+//		add(jlhorse_entry);
 		
 		setVisible(true);
 		setResizable(false);
-		
+		setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 	}
 	
 	
