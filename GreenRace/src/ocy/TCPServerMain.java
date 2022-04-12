@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
@@ -30,9 +31,12 @@ class TCPData implements Serializable{
 	
 	UserDTO user;
 	BetDTO_Single bet_single;
+	BetDTO_Place bet_place;
+	BetDTO_Quinella bet_quinella;
 	
 	ArrayList<String> mems;
 	ArrayList<HorseClass2> entry;
+	ArrayList<Double> single_rate;
 	
 	int time;
 	
@@ -53,7 +57,7 @@ public class TCPServerMain {
 	
 	HashMap<String, ObjectOutputStream> map;
 	ArrayList<String> currentUser;
-	ArrayList<HorseClass2> entry = new RandomEntry().shuffle();;
+	ArrayList<HorseClass2> entry = new RandomEntry().shuffle();
 	
 	Timer timer;
 	boolean isTimer = true; // 정산할때 다시 true로 해줘야함
@@ -161,10 +165,16 @@ public class TCPServerMain {
 						entranceChat(data);
 					} else if(data.dst.equals("BET_SINGLE")) {
 						betSingle(data);
+					} else if(data.dst.equals("BET_PLACE")) {
+						betSingle(data); // 새로 만들어야함
+					} else if(data.dst.equals("BET_QUINELLA")) {
+						betSingle(data); // 새로 만들어야함
 					} else if(data.dst.equals("GET_TIME")) {
 						sendTime(data);
 					} else if(data.dst.equals("GET_ENTRY")) {
 						responseHorseEntry(data);
+					} else if(data.dst.equals("GET_BET_RATE_SINGLE")) {
+						responseBetRateSingle(data);
 					} else {
 						sendToOne(data);
 					}
@@ -325,6 +335,8 @@ public class TCPServerMain {
 			sendToOne(response);
 		}
 		
+		// 연식 복식 배팅DAO 만들어야함
+		
 		void sendTime(TCPData data) {
 			TCPData response = new TCPData();
 			response.src = "GET_TIME";
@@ -344,6 +356,15 @@ public class TCPServerMain {
 			System.out.println(entry);
 			
 			sendToOne(response);
+		}
+		
+		void responseBetRateSingle(TCPData data) {
+			TCPData response = new TCPData();
+			response.src = "GET_BET_RATE_SINGLE";
+			response.dst = data.src;
+			response.single_rate = new BetDAO_Single().rate(data);
+			
+			sendToAll(response);
 		}
 	}
 

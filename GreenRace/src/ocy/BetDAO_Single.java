@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class BetDAO_Single {
 
@@ -56,6 +57,28 @@ public class BetDAO_Single {
 				res = "COMPLETE";
 			} else {
 				res = "WRONG";
+			}
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return res;
+	}
+	
+	public ArrayList<Double> rate(TCPData data) {
+		
+		sql = "select rate from bet_single";
+		
+		ArrayList<Double> res = new ArrayList<Double>();
+		
+		try {
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next()) {
+				res.add(rs.getDouble("rate"));
 			}
 			
 		} catch (Exception ex) {

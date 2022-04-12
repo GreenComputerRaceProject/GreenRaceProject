@@ -6,10 +6,12 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -19,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import ocy.BetDTO_Single;
 import ocy.MultiServer;
 import ocy.RaceReadyScreen;
 import ocy.TCPChat;
@@ -48,6 +51,8 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     JPanel jp;          //상단나열바
    
     TCPChat chat;
+    
+    ArrayList<JTextField> rate_single;
    
     public RaceProjFrame(TCPClient tc) {
        super("달려라 왕바우");
@@ -94,73 +99,100 @@ public class RaceProjFrame extends JFrame implements ActionListener{
        exit.setBounds(1268, 0, 317, 70);
        exit.setBackground(Color.white);
        jp.add(exit);
-    /* 
-       game_screen = new JPanel();
-       game_screen.setBounds(0, 70, 1585, 500);
-       game_screen.setBackground(Color.red);
-       add(game_screen);
-     */ 
-      
 
        battingScreen = new BattingScreen(tc, this);
        add(battingScreen);
 
-      
-//     gsm = new GameScreen2();
-//     add(gsm);
-      
        b_danglyul = new JPanel();
        b_danglyul.setBounds(0, 570, 800, 392);
        //b_danglyul.setBackground(Color.blue);
        add(b_danglyul);
        
-       for (int i = 0; i < 120; i++) {
+       rate_single = new ArrayList<JTextField>();
+       
+       for (int i = 0; i < 99; i++) {
 			field = new JTextField();
-			field.setBounds(0, 0, 70, 70);
-			b_danglyul.setLayout(new GridLayout(12,90,0,0));
-			field.setText(i+""+"\n"+"0");
+			b_danglyul.setLayout(new GridLayout(11,90));
 			b_danglyul.add(field);	
 			field.setEditable(false);
 			field.setHorizontalAlignment(JTextField.CENTER);
-				
-				if(i==0) {
-					field.setText("마번");
-					field.setBackground(Color.GREEN);
-				}else if(i==10) {
-					field.setText("단식");
-					field.setBackground(Color.yellow);
-					}else if(i==20) {
-						field.setText("연식");
-						field.setBackground(Color.orange);
-					}else if(i==30) {
-						field.setText("복식");
-						field.setBackground(Color.pink);
-					}else if(i==40) {
-						field.setText("2");
-						field.setBackground(Color.red);
-					}else if(i==50) {
-						field.setText("3");
-						field.setBackground(new Color(177,244,211));
-					}else if(i==60) {
-						field.setText("4");
-						field.setBackground(Color.cyan);
-						}else if(i==70) {
-							field.setText("5");
-							field.setBackground(new Color(77,140,50));
-						}else if(i==80) {
-							field.setText("6");
-							field.setBackground(new Color(200,150,50));
-						}else if(i==90) {
-							field.setText("7");
-							field.setBackground(new Color(22,180,250));
-						}else if(i==100) {
-							field.setText("8");
-							field.setBackground(new Color(112,215,50));
-						}else if(i==110) {
-							field.setText("9");
-							field.setBackground(new Color(147,170,250));
-				}else 
-					field.setText(i+"");
+			
+			if(i >= 1 && i <= 8) {
+				field.setText(Integer.toString(i));
+				field.setBackground(new Color(190, 196, 211));
+			}
+			
+			if(i >= 10 && i <= 17) {
+//				field.setText("단식률");
+//				field.setBackground(new Color(190, 196, 211));
+				rate_single.add(field);
+			}
+			
+			if(i >= 19 && i <= 26) {
+				field.setText("연식률");
+				field.setBackground(new Color(190, 196, 211));
+			}
+			
+			if(i==28) {
+				field.setText("1");
+				field.setBackground(new Color(190, 196, 211));
+			}else if(i==38) {
+				field.setText("2");
+				field.setBackground(new Color(190, 196, 211));
+			}else if(i==48) {
+				field.setText("3");
+				field.setBackground(new Color(190, 196, 211));
+			}else if(i==58) {
+				field.setText("4");
+				field.setBackground(new Color(190, 196, 211));
+			}else if(i==68) {
+				field.setText("5");
+				field.setBackground(new Color(190, 196, 211));
+			}else if(i==78) {
+				field.setText("6");
+				field.setBackground(new Color(190, 196, 211));
+			}else if(i==88) {
+				field.setText("7");
+				field.setBackground(new Color(190, 196, 211));
+			}else if(i==98) {
+				field.setText("8");
+				field.setBackground(new Color(190, 196, 211));
+			}
+					
+			if(i==0) {
+				field.setText("마번");
+				field.setBackground(Color.GREEN);
+			}else if(i==9) {
+				field.setText("단식");
+				field.setBackground(Color.yellow);
+			}else if(i==18) {
+				field.setText("연식");
+				field.setBackground(Color.orange);
+			}else if(i==27) {
+				field.setText("복식");
+				field.setBackground(Color.pink);
+			}else if(i==36) {
+				field.setText("2");
+				field.setBackground(Color.red);
+			}else if(i==45) {
+				field.setText("3");
+				field.setBackground(new Color(177,244,211));
+			}else if(i==54) {
+				field.setText("4");
+				field.setBackground(Color.cyan);
+			}else if(i==63) {
+				field.setText("5");
+				field.setBackground(new Color(77,140,50));
+			}else if(i==72) {
+				field.setText("6");
+				field.setBackground(new Color(200,150,50));
+			}else if(i==81) {
+				field.setText("7");
+				field.setBackground(new Color(22,180,250));
+			}else if(i==90) {
+				field.setText("8");
+				field.setBackground(new Color(147,170,250));
+			}
 		}
       
        chat = new TCPChat(tc, this);
@@ -201,6 +233,8 @@ public class RaceProjFrame extends JFrame implements ActionListener{
        game_info.addActionListener(this);
        exit.addActionListener(this);
        b_single.addActionListener(this);
+       b_yeon.addActionListener(this);
+       b_bok.addActionListener(this);
       
        setVisible(true);
        setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -221,13 +255,40 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     	} else if(e.getSource().equals(exit)) {
     		//chat.user_exit();
     	} else if(e.getSource().equals(b_single)) {
-    		String bet_name = JOptionPane.showInputDialog(null, "배팅하실 말 번호를 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
+    		String bet_num = JOptionPane.showInputDialog(null, "배팅하실 말 번호를 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
     		
-    		if(bet_name != null) {
+    		if(bet_num != null) {
     			String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
     			
     			if(bet_money != null) {
-        			tc.bet_single(this, bet_name, bet_money);
+        			tc.bet_single(this, bet_num, bet_money);
+        		}
+    		}
+			
+    	} else if(e.getSource().equals(b_yeon)) {
+    		String bet_num = JOptionPane.showInputDialog(null, "배팅하실 말 번호를 입력하세요", "연식", JOptionPane.INFORMATION_MESSAGE);
+    		
+    		if(bet_num != null) {
+    			String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "연식", JOptionPane.INFORMATION_MESSAGE);
+    			
+    			if(bet_money != null) {
+        			tc.bet_place(this, bet_num, bet_money); // 연식 메소드 만들어서 넣기
+        		}
+    		}
+			
+    	} else if(e.getSource().equals(b_bok)) {
+    		String bet_num1 = JOptionPane.showInputDialog(null, "배팅하실 첫번째 말 번호를 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
+    		
+    		if(bet_num1 != null) {
+    			String bet_num2 = JOptionPane.showInputDialog(null, "배팅하실 두번째 말 번호를 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
+    			
+    			if(bet_num2 != null) {
+        			
+    				String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
+    				
+    				if(bet_money != null) {
+    					tc.bet_quinella(this, bet_num1, bet_num2, bet_money); // 복식 메소드 만들어서 넣기
+    				}
         		}
     		}
 			
@@ -247,11 +308,29 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     	my_money.repaint();
     }
     
+    public void getBetRate_Single() {
+    	tc.get_bet_rate_single(this);
+    }
+    
+    public void setBetRate_Single(ArrayList<Double> rates) {
+    	System.out.println(rate_single);
+    	for (int i = 0; i < rates.size(); i++) {
+			rate_single.get(i).setText(Double.toString(rates.get(i)));
+		}
+    	b_danglyul.revalidate();
+    	b_danglyul.repaint();
+    	
+    	System.out.println("단식율 갱신 성공");
+    }
+    
+    // 연식 복식 배당률 게터 세터 필요함
+    
     public void notice(String response) {
     	if(response.equals("COMPLETE")) {
 			JOptionPane.showMessageDialog(null, "배팅이 완료되었습니다.", "배팅 성공", JOptionPane.PLAIN_MESSAGE);
 			tc.requestUserInfo(this, tc.user.getId()); // 배팅 후 유저인포 다시 받고 머니 표시 갱신
 			getMoney();
+			getBetRate_Single();
 		} else if(response.equals("WRONG")) {
 			JOptionPane.showMessageDialog(null, "배팅이 실패하였습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
 		}

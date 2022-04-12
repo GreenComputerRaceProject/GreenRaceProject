@@ -2,18 +2,18 @@ package ocy;
 
 import java.io.Serializable;
 
-public class BetDTO_Single implements Serializable {
+public class BetDTO_Place implements Serializable {
 	
-	private static final long serialVersionUID = 54896L;
-	
+	private static final long serialVersionUID = 54599L;
+
 	String hname;
 	long money;
 	
-	public BetDTO_Single() {
+	public BetDTO_Place() {
 		
 	}
 
-	public BetDTO_Single(String hname, long money) {
+	public BetDTO_Place(String hname, long money) {
 		super();
 		this.hname = hname;
 		this.money = money;
@@ -37,7 +37,6 @@ public class BetDTO_Single implements Serializable {
 
 	@Override
 	public String toString() {
-		return "[" + hname + "," + money + "]";
+		return "BetDTO_Place [hname=" + hname + ", money=" + money + "]";
 	}
-
 }

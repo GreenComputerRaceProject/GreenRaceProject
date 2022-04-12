@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 
@@ -17,6 +18,7 @@ import ohs.RaceProjFrame;
 public class TCPClient {
 	
 	public UserDTO user;
+	public BetDTO_list bet_list;
 	
 	LoginPanel loginPanel;
 	InnerSignUp innerSignUp;
@@ -51,9 +53,11 @@ public class TCPClient {
 					
 					if(response.src.equals("LOGIN")) {
 						loginPanel.notice(response.msg);
+						bet_list = new BetDTO_list();
 					} else if(response.src.equals("USER_INFO")) {
 						user = new UserDTO(response);
 						raceProjFrame.getMoney();
+						raceProjFrame.getBetRate_Single();
 					} else if(response.src.equals("VERIFICATION_ID")) {
 						innerSignUp.id_verification_notice(response.msg);
 					} else if(response.src.equals("VERIFICATION_NICKNAME")) {
@@ -81,6 +85,10 @@ public class TCPClient {
 					} else if(response.src.equals("GET_ENTRY")) {
 						if(battingScreen != null) {
 							battingScreen.setEntry(response.entry);
+						}
+					} else if(response.src.equals("GET_BET_RATE_SINGLE")) {
+						if(battingScreen != null) {
+							raceProjFrame.setBetRate_Single(response.single_rate);
 						}
 					}
 					
@@ -111,7 +119,6 @@ public class TCPClient {
 	}
 	
 	public void requestUserInfo(RaceProjFrame frame, String id) {
-		//this.loginPanel = loginPanel;
 		this.raceProjFrame = frame;
 		try {
 			TCPData data = new TCPData();
@@ -271,6 +278,8 @@ public class TCPClient {
 	
 	public void bet_single(RaceProjFrame raceProjFrame, String horse_name, String money) {
 		this.raceProjFrame = raceProjFrame;
+		this.bet_list.single.add(new BetDTO_Single(horse_name, Long.parseLong(money)));
+		System.out.println(this.bet_list);
 		try {
 			TCPData data = new TCPData();
 			data.src = local.getHostAddress();
@@ -278,6 +287,49 @@ public class TCPClient {
 			data.user.nickname = this.user.nickname;
 			data.bet_single.hname = horse_name;
 			data.bet_single.money = Long.parseLong(money);
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public void bet_place(RaceProjFrame raceProjFrame, String horse_name, String money) {
+		this.raceProjFrame = raceProjFrame;
+		this.bet_list.place.add(new BetDTO_Place(horse_name, Long.parseLong(money)));
+		System.out.println(this.bet_list);
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "BET_PLACE";
+			data.user.nickname = this.user.nickname;
+			data.bet_place.hname = horse_name;
+			data.bet_place.money = Long.parseLong(money);
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public void bet_quinella(RaceProjFrame raceProjFrame, String horse_name1, String horse_name2, String money) {
+		this.raceProjFrame = raceProjFrame;
+		this.bet_list.quinella.add(new BetDTO_Quinella(horse_name1, horse_name2, Long.parseLong(money)));
+		System.out.println(this.bet_list);
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "BET_QUINELLA";
+			data.user.nickname = this.user.nickname;
+			data.bet_quinella.hname1 = horse_name1;
+			data.bet_quinella.hname2 = horse_name2;
+			data.bet_quinella.money = Long.parseLong(money);
 			
 			oos.writeObject(data);
 			oos.flush();
@@ -327,6 +379,38 @@ public class TCPClient {
 			this.raceProjFrame.setMoney(user.money);
 		} else {
 			System.out.println("정보가 없어!");
+		}
+	}
+	
+	public void get_bet_rate_single(RaceProjFrame raceProjFrame) {
+		this.raceProjFrame = raceProjFrame;
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "GET_BET_RATE_SINGLE";
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public void bet_adjustment(RaceProjFrame raceProjFrame) {
+		this.raceProjFrame = raceProjFrame;
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "BET_ADJUSTMENT";
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 

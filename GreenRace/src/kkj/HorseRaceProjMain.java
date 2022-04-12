@@ -134,12 +134,12 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 		
 		for (int i = 0; i < 99; i++) {
 			field = new JTextField();
-//			field.setSize(70,70);
 			b_danglyul.setLayout(new GridLayout(11,90));
 			field.setText(i+"");
 			b_danglyul.add(field);	
 			field.setEditable(false);
 			field.setHorizontalAlignment(JTextField.CENTER);
+			
 			if(i==10 || i==11 || i==12 || i==13 || i==14 || i==15 || i==16 || 
 				i==17 || i==19 || i==20 || i==21 || i==22 || i==23 || i==24 || i==25 || i==26 || i==29 || i==30 || i==31 || i==61 || i==60 || i==59 ||i==62 ||
 				i==32 || i==33 || i==34 || i==35 ||i==39 || i==43 || i==44 || i==49 || i==53 || i==50 || i==51 || i==52 || i==40 || i==41 || i==42 ||
@@ -151,72 +151,61 @@ public class HorseRaceProjMain extends JFrame implements ActionListener{
 			}else if(i==38) {
 				field.setText("2");
 				field.setBackground(new Color(190, 196, 211));
-			}
-			else if(i==48) {
+			}else if(i==48) {
 				field.setText("3");
 				field.setBackground(new Color(190, 196, 211));
-			}
-			else if(i==58) {
+			}else if(i==58) {
 				field.setText("4");
 				field.setBackground(new Color(190, 196, 211));
-			}
-			else if(i==68) {
+			}else if(i==68) {
 				field.setText("5");
 				field.setBackground(new Color(190, 196, 211));
-			}		
-			else if(i==78) {
+			}else if(i==78) {
 				field.setText("6");
 				field.setBackground(new Color(190, 196, 211));
-			}
-			else if(i==88) {
+			}else if(i==88) {
 				field.setText("7");
 				field.setBackground(new Color(190, 196, 211));
-			}
-			else if(i==98) {
+			}else if(i==98) {
 				field.setText("8");
 				field.setBackground(new Color(190, 196, 211));
 			}
 					
-				if(i==0) {
-					field.setText("마번");
-					field.setBackground(Color.GREEN);
-				}else if(i==9) {
-					field.setText("단식");
-					field.setBackground(Color.yellow);
-					}else if(i==18) {
-						field.setText("연식");
-						field.setBackground(Color.orange);
-					}else if(i==27) {
-						field.setText("복식");
-						field.setBackground(Color.pink);
-					}else if(i==36) {
-						field.setText("2");
-						field.setBackground(Color.red);
-					}else if(i==45) {
-						field.setText("3");
-						field.setBackground(new Color(177,244,211));
-					}else if(i==54) {
-						field.setText("4");
-						field.setBackground(Color.cyan);
-						}else if(i==63) {
-							field.setText("5");
-							field.setBackground(new Color(77,140,50));
-						}else if(i==72) {
-							field.setText("6");
-							field.setBackground(new Color(200,150,50));
-						}else if(i==81) {
-							field.setText("7");
-							field.setBackground(new Color(22,180,250));
-						}else if(i==90) {
-							field.setText("8");
-							field.setBackground(new Color(147,170,250));
-//					
-//							
-//				}else 
-//					field.setText(i+"");
-//		
+			if(i==0) {
+				field.setText("마번");
+				field.setBackground(Color.GREEN);
+			}else if(i==9) {
+				field.setText("단식");
+				field.setBackground(Color.yellow);
+			}else if(i==18) {
+				field.setText("연식");
+				field.setBackground(Color.orange);
+			}else if(i==27) {
+				field.setText("복식");
+				field.setBackground(Color.pink);
+			}else if(i==36) {
+				field.setText("2");
+				field.setBackground(Color.red);
+			}else if(i==45) {
+				field.setText("3");
+				field.setBackground(new Color(177,244,211));
+			}else if(i==54) {
+				field.setText("4");
+				field.setBackground(Color.cyan);
+			}else if(i==63) {
+				field.setText("5");
+				field.setBackground(new Color(77,140,50));
+			}else if(i==72) {
+				field.setText("6");
+				field.setBackground(new Color(200,150,50));
+			}else if(i==81) {
+				field.setText("7");
+				field.setBackground(new Color(22,180,250));
+			}else if(i==90) {
+				field.setText("8");
+				field.setBackground(new Color(147,170,250));
+			}
 		}
-						}
 	
 		chat = new JPanel();		//채팅
 		chat.setBounds(800, 570, 400, 392);
