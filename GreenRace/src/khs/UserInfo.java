@@ -26,17 +26,17 @@ public class UserInfo extends JFrame{
 		setBounds(50, 50, 500, 400);
 		setLayout(null);
 		
-		jnickname = new JLabel("ë‹‰ë„¤ì„:"+nickname); 
+		jnickname = new JLabel("?‹‰?„¤?„:"+nickname); 
 		jnickname.setBounds(20,20,200,30);
 		jmoney = new JLabel("ë¨¸ë‹ˆ:"+money); 
 		jmoney.setBounds(20,60,200,30); 
-		jtotgame = new JLabel("íŒìˆ˜:"+totgame);
+		jtotgame = new JLabel("?Œ?ˆ˜:"+totgame);
 		jtotgame.setBounds(20,100,200,30);
-		jwin = new JLabel("ìŠ¹ë¦¬:"+win); 
+		jwin = new JLabel("?Š¹ë¦?:"+win); 
 		jwin.setBounds(20,140,200,30); 
-		jlose = new JLabel("íŒ¨ë°°:"+lose); 
+		jlose = new JLabel("?Œ¨ë°?:"+lose); 
 		jlose.setBounds(20,180,200,30);
-		jrank = new JLabel("ë­í¬:"+rank); 
+		jrank = new JLabel("?­?¬:"+rank); 
 		jrank.setBounds(20,220,200,30);
 		
 		
@@ -70,7 +70,7 @@ public class UserInfo extends JFrame{
 				
 				
 				ResultSet rs = stmt.executeQuery("select nickname,money,totgame,win,lose,"
-						+ "rank from user where nickname = '"+multiServer.nickname+"'");// ì´ê±° ë§ë‚˜?
+						+ "rank from user where nickname = '"+multiServer.nickname+"'");// ?´ê±? ë§ë‚˜?
 				
 				
 				while(rs.next()) { 

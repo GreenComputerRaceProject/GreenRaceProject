@@ -21,11 +21,9 @@ public class HorseInfo extends JFrame {
 	JLabel jhname, jrecentrecord, jtype, jgender, jyear, jstate,
 		jspeed, jfirstspeed, jlastspeed, jstamina, jweight;
 	
-	int horseNum;
-	
-	public HorseInfo(int horseNum) { //String horseName
+	public HorseInfo(String horseName) {
 		
-		this.horseNum = horseNum;
+		this.horseName = horseName;
 		
 //		this.horseName = horseName;
 		setBounds(100, 100, 400, 400); //말 엔트리 옆에 위치
@@ -89,7 +87,8 @@ public class HorseInfo extends JFrame {
 			Statement stmt = con.createStatement();
 			
 			
-			ResultSet rs = stmt.executeQuery("select * from horse where hid = '"+horseNum+"'"); //여기 말 엔트리의 이름 연결 where hname = '"+horseName+"'"
+			ResultSet rs = stmt.executeQuery("select * from horse where hname = '"+horseName+"'"); 
+			//여기 말 엔트리의 이름 연결 where hname = '"+horseName+"'"
 			
 			
 			while(rs.next()) { 

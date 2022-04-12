@@ -28,7 +28,7 @@ public class RankIcon extends JButton implements ActionListener{
 	long money;
 
 	
-		public RankIcon(TCPClient tc) { //String imgIcon
+		public RankIcon(TCPClient tc) { //,String imgIcon
 			this.tc = tc;
 			this.user_id = tc.user.getName();
 			this.nickname = tc.user.getNickname();
@@ -51,7 +51,7 @@ public class RankIcon extends JButton implements ActionListener{
 		
 	
 	@Override
-	public void actionPerformed(ActionEvent e) { //클릭 시 회원의 정보창 띄움
+	public void actionPerformed(ActionEvent e) {
 		System.out.println("누름");
 		
 //		userNum();
@@ -82,6 +82,7 @@ public class RankIcon extends JButton implements ActionListener{
 		
 		userInfo.setVisible(true);
 		userInfo.setResizable(false);
+		userInfo.setDefaultCloseOperation(userInfo.EXIT_ON_CLOSE);
 		
 	}
 		

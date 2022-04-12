@@ -51,7 +51,7 @@ public class RaceChatting extends JFrame {
 					String msg = new String(buf);
 					
 
-					ta.append("ì•„ì´ë””"+":"+msg+"\n");
+					ta.append("?•„?´?””"+":"+msg+"\n");
 					ta.setCaretPosition(ta.getDocument().getLength());
 				}
 			} catch (Exception e) {
@@ -109,7 +109,7 @@ public class RaceChatting extends JFrame {
 						    
 							mul_socket.send(data);
 							
-//							ta.append("ë‚˜"+tf.getText()+"\n");
+//							ta.append("?‚˜"+tf.getText()+"\n");
 							ta.setCaretPosition(ta.getDocument().getLength());
 							
 							tf.setText("");
