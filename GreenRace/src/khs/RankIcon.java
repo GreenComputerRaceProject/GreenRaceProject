@@ -28,15 +28,17 @@ public class RankIcon extends JButton implements ActionListener{
 	long money;
 
 	
-		public RankIcon(TCPClient tc) { //,String imgIcon
-			this.tc = tc;
-			this.user_id = tc.user.getName();
-			this.nickname = tc.user.getNickname();
-			this.money = tc.user.getMoney();
-			this.totgame = tc.user.getTotGame();
-			this.win = tc.user.getWin();
-			this.lose = tc.user.getLose();
-			this.rank = tc.user.getRank();
+		public RankIcon(String nickname) { //,String imgIcon
+//			this.nickname = tc.user.getNickname();
+			
+			if(nickname.equals(tc.user.getNickname())) {
+				this.nickname = tc.user.getNickname();
+				this.money = tc.user.getMoney();
+				this.totgame = tc.user.getTotGame();
+				this.win = tc.user.getWin();
+				this.lose = tc.user.getLose();
+				this.rank = tc.user.getRank();	
+			}
 			
 			setBounds(0, 0, 20, 20);
 			
@@ -82,10 +84,10 @@ public class RankIcon extends JButton implements ActionListener{
 		
 		userInfo.setVisible(true);
 		userInfo.setResizable(false);
-		userInfo.setDefaultCloseOperation(userInfo.EXIT_ON_CLOSE);
+		
 		
 	}
 		
-}	
+}		
 
 
