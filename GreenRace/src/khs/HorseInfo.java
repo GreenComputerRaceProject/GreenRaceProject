@@ -26,32 +26,32 @@ public class HorseInfo extends JFrame {
 		this.horseName = horseName;
 		
 //		this.horseName = horseName;
-		setBounds(100, 100, 400, 400); //ë§? ?—”?Š¸ë¦? ?˜†?— ?œ„ì¹?
+		setBounds(100, 100, 400, 400); //ë§ ì—”íŠ¸ë¦¬ ì˜†ì— ìœ„ì¹˜
 		setLayout(null);
 		
 		horseDB();
 		
-		jhname = new JLabel("?´ë¦?:"+hname); 
+		jhname = new JLabel("ì´ë¦„:"+hname); 
 		jhname.setBounds(20,10,200,30);
-		jtype = new JLabel("???…:"+type); 
+		jtype = new JLabel("íƒ€ì…:"+type); 
 		jtype.setBounds(20,40,200,30); 
-		jgender = new JLabel("?„±ë³?:"+gender);
+		jgender = new JLabel("ì„±ë³„:"+gender);
 		jgender.setBounds(20,70,200,30);
-		jyear = new JLabel("?‚˜?´:"+year); 
+		jyear = new JLabel("ë‚˜ì´:"+year); 
 		jyear.setBounds(20,100,200,30); 
-		jstate = new JLabel("ì»¨ë””?…˜:"+state); 
+		jstate = new JLabel("ì»¨ë””ì…˜:"+state); 
 		jstate.setBounds(20,130,200,30);
-		jspeed = new JLabel("?‰ê·? ?†?„:"+speed); 
+		jspeed = new JLabel("í‰ê·  ì†ë„:"+speed); 
 		jspeed.setBounds(20,160,200,30);
-		jfirstspeed = new JLabel("ì´ˆë°˜ ?†?„:"+firstspeed); 
+		jfirstspeed = new JLabel("ì´ˆë°˜ ì†ë„:"+firstspeed); 
 		jfirstspeed.setBounds(20,190,200,30);
-		jlastspeed = new JLabel("?›„ë°? ?†?„:"+lastspeed); 
+		jlastspeed = new JLabel("í›„ë°˜ ì†ë„:"+lastspeed); 
 		jlastspeed.setBounds(20,220,200,30);
-		jstamina = new JLabel("?Š¤?…Œë¯¸ë‚˜:"+stamina); 
+		jstamina = new JLabel("ìŠ¤í…Œë¯¸ë‚˜:"+stamina); 
 		jstamina.setBounds(20,250,200,30);
 		jweight = new JLabel("ë¬´ê²Œ:"+weight); 
 		jweight.setBounds(20,280,200,30);
-		jrecentrecord = new JLabel("ìµœê·¼ ?„±? :"+recentrecord); 
+		jrecentrecord = new JLabel("ìµœê·¼ ì„±ì :"+recentrecord); 
 		jrecentrecord.setBounds(20,310,200,30);
 	
 		add(jhname);
@@ -87,7 +87,8 @@ public class HorseInfo extends JFrame {
 			Statement stmt = con.createStatement();
 			
 			
-			ResultSet rs = stmt.executeQuery("select * from horse where hname = '"+horseName+"'"); //?—¬ê¸? ë§? ?—”?Š¸ë¦¬ì˜ ?´ë¦? ?—°ê²? where hname = '"+horseName+"'"
+			ResultSet rs = stmt.executeQuery("select * from horse where hname = '"+horseName+"'"); 
+			//ì—¬ê¸° ë§ ì—”íŠ¸ë¦¬ì˜ ì´ë¦„ ì—°ê²° where hname = '"+horseName+"'"
 			
 			
 			while(rs.next()) { 

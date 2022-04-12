@@ -44,14 +44,14 @@ public class GameInfo extends JFrame{
 //		ALhorse_entry.add(gameScreenMain.entrys(1));
 		
 		
-		a = r.nextInt(ALtrack_length.size()); //?„?˜ë¡? ?œ?¤ê°? ì¤?, ?•©ì¹? ?•Œ ?„œë²„ê? ?„ ?ƒ?•œ ê°’ì´ ?“¤?–´ê°??•¼ ?•¨
+		a = r.nextInt(ALtrack_length.size()); //ì„ì˜ë¡œ ëœë¤ê°’ ì¤Œ, í•©ì¹  ë•Œ ì„œë²„ê°€ ì„ íƒí•œ ê°’ì´ ë“¤ì–´ê°€ì•¼ í•¨
 		b = r.nextInt(ALtrack_con.size());
 		
-		JLtrack_length = new JLabel("?Š¸?™ ê¸¸ì´:"+ALtrack_length.get(a));
+		JLtrack_length = new JLabel("íŠ¸ë™ ê¸¸ì´:"+ALtrack_length.get(a));
 		JLtrack_length.setBounds(10, 0, 200, 20);
-		JLtrack_con = new JLabel("?Š¸?™ ?ƒ?ƒœ:"+ALtrack_con.get(b));
+		JLtrack_con = new JLabel("íŠ¸ë™ ìƒíƒœ:"+ALtrack_con.get(b));
 		JLtrack_con.setBounds(10, 20, 200, 20);
-		JLten_game = new JLabel("ìµœê·¼ 10 ê²½ê¸° ?“±?ˆ˜");
+		JLten_game = new JLabel("ìµœê·¼ 10 ê²½ê¸° ë“±ìˆ˜");
 		JLten_game.setBounds(10, 50, 200, 20);
 		
 		for (int i = 0; i < 10; i++) {
@@ -72,11 +72,11 @@ public class GameInfo extends JFrame{
 		
 		
 		
-		JLhorse_entry = new JLabel("ì¶œì „ë§?");
+		JLhorse_entry = new JLabel("ì¶œì „ë§ˆ");
 		JLhorse_entry.setBounds(10, 110, 200, 30);
 
-//		randomEntry.shuffle(); ?„œë²„ì—?„œ ?…”?”Œ?•´?•¼ ê°’ì´ ?“¤?–´ê°?
-		System.out.println("?—”?Š¸ë¦¬ì‚¬?´ì¦?:"+randomEntry.entry.size());
+//		randomEntry.shuffle(); ì„œë²„ì—ì„œ ì…”í”Œí•´ì•¼ ê°’ì´ ë“¤ì–´ê°
+		System.out.println("ì—”íŠ¸ë¦¬ì‚¬ì´ì¦ˆ:"+randomEntry.entry.size());
 		for (int i = 0; i < randomEntry.entry.size(); i++) {
 			int c = i;
 			
