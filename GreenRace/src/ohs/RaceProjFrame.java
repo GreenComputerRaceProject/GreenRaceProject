@@ -206,7 +206,6 @@ public class RaceProjFrame extends JFrame implements ActionListener{
        setDefaultCloseOperation(EXIT_ON_CLOSE);
       
        chat.entranceChat();
-//     getMoney();
     }
    
     @Override
@@ -251,6 +250,8 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     public void notice(String response) {
     	if(response.equals("COMPLETE")) {
 			JOptionPane.showMessageDialog(null, "배팅이 완료되었습니다.", "배팅 성공", JOptionPane.PLAIN_MESSAGE);
+			tc.requestUserInfo(this, tc.user.getId()); // 배팅 후 유저인포 다시 받고 머니 표시 갱신
+			getMoney();
 		} else if(response.equals("WRONG")) {
 			JOptionPane.showMessageDialog(null, "배팅이 실패하였습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
 		}

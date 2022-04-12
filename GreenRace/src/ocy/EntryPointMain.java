@@ -100,7 +100,7 @@ public class EntryPointMain extends JFrame {
 				JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.", "로그인 실패", JOptionPane.PLAIN_MESSAGE);
 				pwField.setText("");
 			} else if(response.equals("COMPLETE")) {
-				tc.requestUserInfo(this, frame, idField.getText());
+				tc.requestUserInfo(frame, idField.getText());
 				JOptionPane.showMessageDialog(null, "로그인하셨습니다!", "로그인 성공", JOptionPane.PLAIN_MESSAGE);
 				
 				entryPointMain.dispose();
