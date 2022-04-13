@@ -3,6 +3,7 @@ package ohs;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,15 +14,17 @@ public class CalculateScreen extends JPanel{
 
 	CalculateScreen calculateScreen = this;
 	GameScreen3 gameScreen3;
-	
+	BattingScreen battingScreen;
 	TCPClient tc;
 	RaceProjFrame rpf;
+	
+	ArrayList<JLabel> num = new ArrayList<JLabel>();
 	
 	JLabel timer = new JLabel();
 	
 	
 
-	public CalculateScreen(TCPClient tc, RaceProjFrame rpf) {
+	public CalculateScreen(TCPClient tc, GameScreen3 gameScreen3) {
 		
 		this.tc = tc;
 		this.rpf = rpf;
@@ -48,15 +51,14 @@ public class CalculateScreen extends JPanel{
 	class odds extends JPanel{
 		
 		
-		
 		JPanel win1, win2, win3;
-
 		JLabel dan, yun, bok;
-		JLabel h1, h2, h3; 
+		JLabel h1, h2, h3, h4, h5; 
 		JLabel odds1, odds2, odds3, odds4;
 		
 		public odds(GameScreen3 gameScreen3) {
 			
+			num = gameScreen3.hos;
 			
 			setBounds(0, 50, 1585, 450);
 			setBackground(Color.orange);
@@ -67,15 +69,25 @@ public class CalculateScreen extends JPanel{
 			bok = new JLabel("복식 우승");
 			
 			
-			
-			h1 = new JLabel("1등말 이름");
-			h2 = new JLabel("1등말 이름 2등말 이름");
-			h3 = new JLabel("1등말 이름 2등말 이름");
-			
+			for (int i = 0; i < num.size(); i++) {
+				if(num.get(i).getText().substring(
+				   num.get(i).getText().length()-2, num.get(i).getText().length()).equals("1등")) {
+					h1 = new JLabel(num.get(i).getText());
+					h2 = new JLabel(num.get(i).getText());
+					h4 = new JLabel(num.get(i).getText());
+				}
+				
+				if(num.get(i).getText().substring(
+						   num.get(i).getText().length()-2, num.get(i).getText().length()).equals("2등")) {
+							h3 = new JLabel(num.get(i).getText());
+							h5 = new JLabel(num.get(i).getText());
+						}
+			}
 
-			odds1 = new JLabel("단식 배당률");
-			odds2 = new JLabel("연식 1번말 배당률 연식 2번말 배당률");
-			odds3 = new JLabel("복식 배당률");
+			odds1 = new JLabel("2배");
+			odds2 = new JLabel("1.5배");
+			odds3 = new JLabel("1.5배");
+			odds4 = new JLabel("6배");
 			
 
 			win1 = new JPanel();
@@ -89,19 +101,21 @@ public class CalculateScreen extends JPanel{
 			win2 = new JPanel();
 			win2.setBounds(0, 150, 1585, 150);
 			win2.setBackground(Color.orange);
-			win2.setLayout(new GridLayout(1,3));
+			win2.setLayout(new GridLayout(1,5));
 			win2.add(yun);
 			win2.add(h2);
 			win2.add(odds2);
+			win2.add(h3);
+			win2.add(odds3);
 			
-
 			win3 = new JPanel();
 			win3.setBackground(Color.green);
 			win3.setBounds(0, 300, 1585, 150);
-			win3.setLayout(new GridLayout(1, 3));
+			win3.setLayout(new GridLayout(1, 4));
 			win3.add(bok);
-			win3.add(h3);
-			win3.add(odds3);
+			win3.add(h4);
+			win3.add(h5);
+			win3.add(odds4);
 
 			add(win1);
 			add(win2);
@@ -124,7 +138,8 @@ public class CalculateScreen extends JPanel{
 					timer.repaint();
 					
 					if (i == 0) {
-						changeScreen3();
+					//	changeScreen3();
+						startTime();
 					}
 						
 					
@@ -137,6 +152,10 @@ public class CalculateScreen extends JPanel{
 			
 		}
 		
+	}
+	
+	public void startTime() {
+		tc.start_time(this);
 	}
 	
 	void changeScreen3() {

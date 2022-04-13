@@ -33,6 +33,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 	TCPClient tc;
 
 	BattingScreen battingScreen;
+	Screen screen;
 
     public GameScreen2 gsm;
     
@@ -102,8 +103,11 @@ public class RaceProjFrame extends JFrame implements ActionListener{
        exit.setBackground(Color.white);
        jp.add(exit);
 
-       battingScreen = new BattingScreen(tc, this);
-       add(battingScreen);
+   //    battingScreen = new BattingScreen(tc, this);
+   //    add(battingScreen);
+       
+       screen = new Screen(tc, this); 
+		add(screen);
 
        b_danglyul = new JPanel();
        b_danglyul.setBounds(0, 570, 800, 392);

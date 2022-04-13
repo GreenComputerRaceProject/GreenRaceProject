@@ -14,14 +14,13 @@ import ocy.TCPClient;
 public class BattingScreen extends JPanel{
 	
 	TCPClient tc;
-	
 	RaceProjFrame rpf;
 	
 	ArrayList<HorseClass2> entry2;
 	BattingScreen battingScreen = this;
+	FontClass fc;
 	
 	JPanel info;
-	
 	JLabel info1, info2, info3, info4, info5, info6, info7, info8, info9, info10, info11;
 	JLabel timer = new JLabel();
 	
@@ -34,7 +33,9 @@ public class BattingScreen extends JPanel{
 		this.tc = tc;
 		this.rpf = rpf;
 		
-		setBounds(0, 70, 1585, 500);
+	//	fc.setUIFont(new FontUIResource(new Font("휴먼둥근체",Font.BOLD,13)));
+		
+		setBounds(0, 0, 1585, 500);
 		setLayout(null);
 		
 		timer.setBounds(0, 0, 1585, 50);

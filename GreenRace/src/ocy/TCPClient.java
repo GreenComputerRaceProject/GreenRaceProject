@@ -8,14 +8,20 @@ import java.net.Socket;
 import java.util.HashMap;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import ocy.EntryPointMain.LoginPanel;
 import ocy.Find.InnerFind;
 import ocy.SignUp.InnerSignUp;
 import ohs.BattingScreen;
+import ohs.CalculateScreen;
 import ohs.RaceProjFrame;
+import ohs.Screen;
+import ohs.WaitingScreen;
 
 public class TCPClient {
+	
+	
 	
 	public UserDTO user;
 	BetDTO_list bet_list;
@@ -25,12 +31,17 @@ public class TCPClient {
 	InnerFind innerFind;
 	TCPChat tcpChat;
 	RaceProjFrame raceProjFrame;
+	Screen screen;
+	WaitingScreen waitingScreen;
 	BattingScreen battingScreen;
+	CalculateScreen calculateScreen;
 	
 	ObjectOutputStream oos;
 	ObjectInputStream ois;
 	
 	InetAddress local = null;
+	
+	TCPClient tc = this;
 	
 	class TCPClientReceiver extends Thread{
 		
@@ -88,7 +99,19 @@ public class TCPClient {
 						if(battingScreen != null) {
 							battingScreen.goTimer(response.time);
 						}
-					} else if(response.src.equals("GET_ENTRY")) {
+					} else if(response.src.equals("GET_TIME2")) {
+						screen.goTimer2(response.time);
+					} else if(response.src.equals("CALL_SCREEN")) {
+						System.out.println("콜스크린 받았어");
+						raceProjFrame.remove(screen);
+						System.out.println("원래 스크린 삭제");
+						JPanel screen = new Screen(tc, raceProjFrame);
+						System.out.println("새 스크린 생성");
+						raceProjFrame.add(screen);
+						// 배팅화면 생성 메소드 필요
+						// 이전 스크린에 추가되어있는 패널들 제거 필요
+					//	call_Screen(waitingScreen);
+					}else if(response.src.equals("GET_ENTRY")) {
 						if(battingScreen != null) {
 							battingScreen.setEntry(response.entry);
 						}
@@ -374,6 +397,40 @@ public class TCPClient {
 		}
 	}
 	
+	public void get_time2(Screen screen) {
+		this.screen = screen;
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "GET_TIME2";
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	
+	
+	public void start_time(CalculateScreen calculateScreen) {
+		this.calculateScreen = calculateScreen;
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "START_TIME";
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
 	public void get_entry(BattingScreen battingScreen) {
 		this.battingScreen = battingScreen;
 		try {
@@ -471,7 +528,7 @@ public class TCPClient {
 			System.out.println("클라이언트 : 연결합니다");
 			// 서버 켠 컴퓨터의 로컬 ip주소 넣어주면 됨
 			// 집 ip : 192.168.35.10
-			Socket soc = new Socket("192.168.0.2", 8888);
+			Socket soc = new Socket("192.168.0.4", 8888);
 
 			oos = new ObjectOutputStream(soc.getOutputStream());
 			ois = new ObjectInputStream(soc.getInputStream());
@@ -479,7 +536,7 @@ public class TCPClient {
 			//local = InetAddress.getLocalHost();
 			
 			// 컴 하나로 임시테스트할때는 가짜 ip주소 넣어줌.  클라 켤때마다 숫자 바꿔줘야함
-			local = InetAddress.getByName("192.168.35.11");
+			local = InetAddress.getByName("192.168.35.12");
 			
 			new TCPClientReceiver().start();
 		} catch (Exception e1) {

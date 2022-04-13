@@ -65,7 +65,7 @@ public class GameScreen3 extends JPanel{
 
 		for (int i = 0; i < 8; i++) {
 			JLabel racehorse = new JLabel(icon);
-			racehorse.setText(entry3.get(i).hname);
+			racehorse.setText(i+1 + "번 " + entry3.get(i).hname);
 			racehorse.setHorizontalTextPosition(JLabel.RIGHT);
 			racehorse.setForeground(Color.black);
 
@@ -81,7 +81,7 @@ public class GameScreen3 extends JPanel{
 		} */
 
 		for (int i = 0; i < hos.size(); i++) {
-			hos.get(i).setSize(120,60);
+			hos.get(i).setSize(160,60);
 			hos.get(i).setLocation(0, 60 * i);
 			add(hos.get(i));
 		}
@@ -122,7 +122,7 @@ public class GameScreen3 extends JPanel{
 						hos.get(i).setLocation(running.get(i), 60 * i);
 						//   hos.get(i).setFont(f1);
 						hos.get(i).setForeground(Color.black);
-						hos.get(i).setText(entry3.get(i).hname +"-" + a + "등");
+						hos.get(i).setText(hos.get(i).getText() +"-" + a + "등");
 						hos.get(i).setHorizontalTextPosition(JLabel.CENTER);
 
 						a++;
@@ -164,8 +164,8 @@ public class GameScreen3 extends JPanel{
 
 
 				for (int i = 0; i < hos.size(); i++) { // 8등 말이 들어왔을시 경기종료 반복문
-					if(hos.get(i).getText().equals(entry3.get(i).hname +"-" + 8 + "등")) {
-
+					if(hos.get(i).getText().substring(
+							   hos.get(i).getText().length()-2, hos.get(i).getText().length()).equals("8등")) {
 						System.out.println("경기종료!");
 
 						try {
@@ -194,7 +194,7 @@ public class GameScreen3 extends JPanel{
 	void changeScreen2() {
 		gameScreen3.removeAll();
 		gameScreen3.repaint();
-		JPanel jp = new CalculateScreen(tc, rpf);
+		JPanel jp = new CalculateScreen(tc, gameScreen3);
 		add(jp);
 		repaint();
 

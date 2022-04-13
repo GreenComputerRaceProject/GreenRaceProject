@@ -18,6 +18,7 @@ import java.util.Map.Entry;
 
 import javax.swing.JOptionPane;
 
+import ocy.TCPServerMain.Timer;
 import ohs.HorseClass2;
 import ohs.RandomEntry;
 
@@ -63,7 +64,7 @@ public class TCPServerMain {
 	ArrayList<String> currentUser;
 	ArrayList<HorseClass2> entry = new RandomEntry().shuffle();
 	
-	Timer timer;
+	Timer timer = new Timer();
 	boolean isTimer = true; // 정산할때 다시 true로 해줘야함
 	
 	public TCPServerMain() {
@@ -99,8 +100,8 @@ public class TCPServerMain {
 					sleep(1000);
 				}
 				entry = new RandomEntry().shuffle();
-				timer = null;
-				isTimer = false;
+			//	timer = null;
+			//	isTimer = false;
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
@@ -175,7 +176,11 @@ public class TCPServerMain {
 						betQuinella(data);
 					} else if(data.dst.equals("GET_TIME")) {
 						sendTime(data);
-					} else if(data.dst.equals("GET_ENTRY")) {
+					} else if(data.dst.equals("GET_TIME2")) {
+						sendTime2(data);
+					}else if(data.dst.equals("START_TIME")) {
+						startTimer(data);
+					}else if(data.dst.equals("GET_ENTRY")) {
 						responseHorseEntry(data);
 					} else if(data.dst.equals("GET_BET_RATE_SINGLE")) {
 						responseBetRateSingle(data);
@@ -203,9 +208,13 @@ public class TCPServerMain {
 			}
 		}
 		
-		void startTimer() {
-			if(timer == null && isTimer == true) {
+		void startTimer(TCPData data) {
+
+			if(timer.i <= 0) {
+				System.out.println("타이머 초기화");
 				timer = new Timer();
+				
+				callScreen(data);
 			}
 		}
 		
@@ -367,11 +376,40 @@ public class TCPServerMain {
 			TCPData response = new TCPData();
 			response.src = "GET_TIME";
 			response.dst = data.src;
-			startTimer();
+		//	startTimer();
 			response.time = timer.send_time();
 			
 			sendToOne(response);
 		}
+		
+		void sendTime2(TCPData data) {
+			TCPData response = new TCPData();
+			response.src = "GET_TIME2";
+			response.dst = data.src;
+			//		startTimer();
+			response.time = timer.send_time();
+
+			sendToOne(response);
+		}
+
+		void startTime(TCPData data) {
+			TCPData response = new TCPData();
+			response.src = "START_TIME";
+			response.dst = data.src;
+			
+			// response.time = timer.send_time();
+
+			sendToOne(response);
+		}
+		
+		void callScreen(TCPData data) {
+			TCPData response = new TCPData();
+			response.src = "CALL_SCREEN";
+	//		response.dst = data.src;
+			response.mems = currentUser;
+			sendToAll(response);
+		}
+	
 		
 		void responseHorseEntry(TCPData data) {
 			TCPData response = new TCPData();
