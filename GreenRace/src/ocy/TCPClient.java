@@ -18,7 +18,7 @@ import ohs.RaceProjFrame;
 public class TCPClient {
 	
 	public UserDTO user;
-	public BetDTO_list bet_list;
+	BetDTO_list bet_list;
 	
 	LoginPanel loginPanel;
 	InnerSignUp innerSignUp;
@@ -58,6 +58,8 @@ public class TCPClient {
 						user = new UserDTO(response);
 						raceProjFrame.getMoney();
 						raceProjFrame.getBetRate_Single();
+						raceProjFrame.getBetRate_Place();
+						raceProjFrame.getBetRate_Quinella();
 					} else if(response.src.equals("VERIFICATION_ID")) {
 						innerSignUp.id_verification_notice(response.msg);
 					} else if(response.src.equals("VERIFICATION_NICKNAME")) {
@@ -78,6 +80,10 @@ public class TCPClient {
 						tcpChat.currentUserList(response);
 					} else if(response.src.equals("BET_SINGLE")) {
 						raceProjFrame.notice(response.msg);
+					} else if(response.src.equals("BET_PLACE")) {
+						raceProjFrame.notice(response.msg);
+					} else if(response.src.equals("BET_QUINELLA")) {
+						raceProjFrame.notice(response.msg);
 					} else if(response.src.equals("GET_TIME")) {
 						if(battingScreen != null) {
 							battingScreen.goTimer(response.time);
@@ -87,8 +93,20 @@ public class TCPClient {
 							battingScreen.setEntry(response.entry);
 						}
 					} else if(response.src.equals("GET_BET_RATE_SINGLE")) {
-						if(battingScreen != null) {
-							raceProjFrame.setBetRate_Single(response.single_rate);
+						if(raceProjFrame != null) {
+							raceProjFrame.setBetRate_Single(response.rate);
+						}
+					} else if(response.src.equals("GET_BET_RATE_PLACE")) {
+						if(raceProjFrame != null) {
+							raceProjFrame.setBetRate_Place(response.rate);
+						}
+					} else if(response.src.equals("GET_BET_RATE_QUINELLA")) {
+						if(raceProjFrame != null) {
+							raceProjFrame.setBetRate_Quinella(response.rate);
+						}
+					} else if(response.src.equals("BET_ADJUSTMENT")) {
+						if(raceProjFrame != null) {
+							
 						}
 					}
 					
@@ -398,12 +416,46 @@ public class TCPClient {
 		}
 	}
 	
+	public void get_bet_rate_place(RaceProjFrame raceProjFrame) {
+		this.raceProjFrame = raceProjFrame;
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "GET_BET_RATE_PLACE";
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public void get_bet_rate_quinella(RaceProjFrame raceProjFrame) {
+		this.raceProjFrame = raceProjFrame;
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "GET_BET_RATE_QUINELLA";
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
 	public void bet_adjustment(RaceProjFrame raceProjFrame) {
 		this.raceProjFrame = raceProjFrame;
 		try {
 			TCPData data = new TCPData();
 			data.src = local.getHostAddress();
 			data.dst = "BET_ADJUSTMENT";
+			data.user = user;
+			data.bet_list = bet_list;
 			
 			oos.writeObject(data);
 			oos.flush();
@@ -418,15 +470,16 @@ public class TCPClient {
 		try {
 			System.out.println("클라이언트 : 연결합니다");
 			// 서버 켠 컴퓨터의 로컬 ip주소 넣어주면 됨
-			Socket soc = new Socket("192.168.35.10", 8888);
+			// 집 ip : 192.168.35.10
+			Socket soc = new Socket("192.168.20.43", 8888);
 
 			oos = new ObjectOutputStream(soc.getOutputStream());
 			ois = new ObjectInputStream(soc.getInputStream());
 			
-//			local = InetAddress.getLocalHost();
+			//local = InetAddress.getLocalHost();
 			
 			// 컴 하나로 임시테스트할때는 가짜 ip주소 넣어줌.  클라 켤때마다 숫자 바꿔줘야함
-			local = InetAddress.getByName("192.168.35.13");
+			local = InetAddress.getByName("192.168.35.11");
 			
 			new TCPClientReceiver().start();
 		} catch (Exception e1) {

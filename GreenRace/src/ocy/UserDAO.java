@@ -1,5 +1,6 @@
 package ocy;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -257,6 +258,95 @@ public class UserDAO {
 				res = "COMPLETE";
 			} else {
 				res = "WRONG";
+			}
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return res;
+	}
+	
+	public String excute_bet_adjustment(TCPData data) {
+		
+		long tot = 0;
+		
+		if(data.bet_list.single.size() != 0) {
+			for (BetDTO_Single s : data.bet_list.single) {
+				sql = "select rate from bet_single WHERE num = '"+s.hname+"'";
+				double rate = 0;
+				
+				try {
+					rs = stmt.executeQuery(sql);
+					
+					if(rs.next()) {
+						rate = rs.getDouble("rate");
+					}
+					
+					tot += (s.money * rate);
+					System.out.println(tot);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		if(data.bet_list.place.size() != 0) {
+			for (BetDTO_Place p : data.bet_list.place) {
+				sql = "select rate from bet_place WHERE num = '"+p.hname+"'";
+				double rate = 0;
+				
+				try {
+					rs = stmt.executeQuery(sql);
+					
+					if(rs.next()) {
+						rate = rs.getDouble("rate");
+					}
+					
+					tot += (p.money * rate);
+					System.out.println(tot);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		if(data.bet_list.quinella.size() != 0) {
+			for (BetDTO_Quinella q : data.bet_list.quinella) {
+				sql = "select rate from bet_quinella WHERE num = '"+(q.hname1 + "_" + q.hname2)+"'";
+				double rate = 0;
+				
+				try {
+					rs = stmt.executeQuery(sql);
+					
+					if(rs.next()) {
+						rate = rs.getDouble("rate");
+					}
+					
+					tot += (q.money * rate);
+					System.out.println(tot);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		sql = "update user set money = money + '"+tot+"' where nickname = '"+data.user.nickname+"'";
+		
+		String res = "";
+		
+		try {
+			int rs = stmt.executeUpdate(sql);
+			
+			if(rs == 1) {
+				res = "ADJUSTMENT_COMPLETE";
+			} else {
+				res = "ADJUSTMENT_WRONG";
 			}
 			
 		} catch (Exception ex) {

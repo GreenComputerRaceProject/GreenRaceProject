@@ -41,6 +41,7 @@ public class CalculateScreen extends JPanel{
 		setVisible(true);
 		
 		new calculateTimer().start();
+		tc.bet_adjustment(rpf);
 
 	}
 

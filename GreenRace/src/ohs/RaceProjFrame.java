@@ -53,6 +53,8 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     TCPChat chat;
     
     ArrayList<JTextField> rate_single;
+    ArrayList<JTextField> rate_place;
+    HashMap<Integer,JTextField> rate_quinella;
    
     public RaceProjFrame(TCPClient tc) {
        super("달려라 왕바우");
@@ -109,6 +111,8 @@ public class RaceProjFrame extends JFrame implements ActionListener{
        add(b_danglyul);
        
        rate_single = new ArrayList<JTextField>();
+       rate_place = new ArrayList<JTextField>();
+       rate_quinella = new HashMap<Integer, JTextField>();
        
        for (int i = 0; i < 99; i++) {
 			field = new JTextField();
@@ -123,14 +127,17 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 			}
 			
 			if(i >= 10 && i <= 17) {
-//				field.setText("단식률");
-//				field.setBackground(new Color(190, 196, 211));
 				rate_single.add(field);
 			}
 			
 			if(i >= 19 && i <= 26) {
-				field.setText("연식률");
-				field.setBackground(new Color(190, 196, 211));
+				rate_place.add(field);
+			}
+			
+			if(i==37||i==46||i==47||i==55||i==56||i==57||i==64||i==65||i==66||i==67||
+					i==73||i==74||i==75||i==76||i==77||i==82||i==83||i==84||i==85||i==86||i==87||
+					i==91||i==92||i==93||i==94||i==95||i==96||i==97) {
+				rate_quinella.put(i,field);
 			}
 			
 			if(i==28) {
@@ -272,7 +279,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     			String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "연식", JOptionPane.INFORMATION_MESSAGE);
     			
     			if(bet_money != null) {
-        			tc.bet_place(this, bet_num, bet_money); // 연식 메소드 만들어서 넣기
+        			tc.bet_place(this, bet_num, bet_money);
         		}
     		}
 			
@@ -282,14 +289,17 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     		if(bet_num1 != null) {
     			String bet_num2 = JOptionPane.showInputDialog(null, "배팅하실 두번째 말 번호를 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
     			
-    			if(bet_num2 != null) {
-        			
-    				String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
-    				
-    				if(bet_money != null) {
-    					tc.bet_quinella(this, bet_num1, bet_num2, bet_money); // 복식 메소드 만들어서 넣기
+    			if(bet_num1.equals(bet_num2)) {
+    				JOptionPane.showMessageDialog(null, "첫번째 말 번호와 다른 번호를 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
+    			} else {
+    				if(bet_num2 != null) {
+    					String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
+    					
+    					if(bet_money != null) {
+    						tc.bet_quinella(this, bet_num1, bet_num2, bet_money);
+    					}
     				}
-        		}
+    			}
     		}
 			
     	} else {
@@ -313,17 +323,41 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     }
     
     public void setBetRate_Single(ArrayList<Double> rates) {
-    	System.out.println(rate_single);
     	for (int i = 0; i < rates.size(); i++) {
 			rate_single.get(i).setText(Double.toString(rates.get(i)));
 		}
+    	
     	b_danglyul.revalidate();
     	b_danglyul.repaint();
-    	
-    	System.out.println("단식율 갱신 성공");
     }
     
-    // 연식 복식 배당률 게터 세터 필요함
+    public void getBetRate_Place() {
+    	tc.get_bet_rate_place(this);
+    }
+    
+    public void setBetRate_Place(ArrayList<Double> rates) {
+    	for (int i = 0; i < rates.size(); i++) {
+			rate_place.get(i).setText(Double.toString(rates.get(i)));
+		}
+    	
+    	b_danglyul.revalidate();
+    	b_danglyul.repaint();
+    }
+    
+    public void getBetRate_Quinella() {
+    	tc.get_bet_rate_quinella(this);
+    }
+    
+    public void setBetRate_Quinella(ArrayList<Double> rates) {
+    	int[] list = {37,46,47,55,56,57,64,65,66,67,73,74,75,76,77,82,83,84,85,86,87,91,92,93,94,95,96,97};
+    	
+    	for (int i = 0; i < rates.size(); i++) {
+    		rate_quinella.get(list[i]).setText(Double.toString(rates.get(i)));
+		}
+    	
+    	b_danglyul.revalidate();
+    	b_danglyul.repaint();
+    }
     
     public void notice(String response) {
     	if(response.equals("COMPLETE")) {
@@ -331,8 +365,16 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 			tc.requestUserInfo(this, tc.user.getId()); // 배팅 후 유저인포 다시 받고 머니 표시 갱신
 			getMoney();
 			getBetRate_Single();
+			getBetRate_Place();
+			getBetRate_Quinella();
 		} else if(response.equals("WRONG")) {
 			JOptionPane.showMessageDialog(null, "배팅이 실패하였습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+		} else if(response.equals("ADJUSTMENT_COMPLETE")) {
+			JOptionPane.showMessageDialog(null, "정산 완료되었습니다.", "정산 성공", JOptionPane.PLAIN_MESSAGE);
+			tc.requestUserInfo(this, tc.user.getId());
+			getMoney();
+		} else if(response.equals("ADJUSTMENT_WRONG")) {
+			JOptionPane.showMessageDialog(null, "정산 실패하였습니다.", "정산 실패", JOptionPane.PLAIN_MESSAGE);
 		}
     }
 

@@ -30,20 +30,24 @@ class TCPData implements Serializable{
 	String dst, src;
 	
 	UserDTO user;
+	BetDTO_list bet_list;
 	BetDTO_Single bet_single;
 	BetDTO_Place bet_place;
 	BetDTO_Quinella bet_quinella;
 	
 	ArrayList<String> mems;
 	ArrayList<HorseClass2> entry;
-	ArrayList<Double> single_rate;
+	ArrayList<Double> rate;
 	
 	int time;
 	
 	public TCPData() {
 		// TODO Auto-generated constructor stub
 		user = new UserDTO();
+		bet_list = new BetDTO_list();
 		bet_single = new BetDTO_Single();
+		bet_place = new BetDTO_Place();
+		bet_quinella = new BetDTO_Quinella();
 	}
 
 	@Override
@@ -166,15 +170,21 @@ public class TCPServerMain {
 					} else if(data.dst.equals("BET_SINGLE")) {
 						betSingle(data);
 					} else if(data.dst.equals("BET_PLACE")) {
-						betSingle(data); // 새로 만들어야함
+						betPlace(data);
 					} else if(data.dst.equals("BET_QUINELLA")) {
-						betSingle(data); // 새로 만들어야함
+						betQuinella(data);
 					} else if(data.dst.equals("GET_TIME")) {
 						sendTime(data);
 					} else if(data.dst.equals("GET_ENTRY")) {
 						responseHorseEntry(data);
 					} else if(data.dst.equals("GET_BET_RATE_SINGLE")) {
 						responseBetRateSingle(data);
+					} else if(data.dst.equals("GET_BET_RATE_PLACE")) {
+						responseBetRatePlace(data);
+					} else if(data.dst.equals("GET_BET_RATE_QUINELLA")) {
+						responseBetRateQuinella(data);
+					} else if(data.dst.equals("BET_ADJUSTMENT")) {
+						excuteBetAdjustment(data);
 					} else {
 						sendToOne(data);
 					}
@@ -330,12 +340,28 @@ public class TCPServerMain {
 			TCPData response = new TCPData();
 			response.src = "BET_SINGLE";
 			response.dst = data.src;
-			response.msg = new BetDAO_Single().betting(data);
+			response.msg = new BetDAO().single_betting(data);
 			
 			sendToOne(response);
 		}
 		
-		// 연식 복식 배팅DAO 만들어야함
+		void betPlace(TCPData data) {
+			TCPData response = new TCPData();
+			response.src = "BET_PLACE";
+			response.dst = data.src;
+			response.msg = new BetDAO().place_betting(data);
+			
+			sendToOne(response);
+		}
+		
+		void betQuinella(TCPData data) {
+			TCPData response = new TCPData();
+			response.src = "BET_QUINELLA";
+			response.dst = data.src;
+			response.msg = new BetDAO().quinella_betting(data);
+			
+			sendToOne(response);
+		}
 		
 		void sendTime(TCPData data) {
 			TCPData response = new TCPData();
@@ -362,9 +388,36 @@ public class TCPServerMain {
 			TCPData response = new TCPData();
 			response.src = "GET_BET_RATE_SINGLE";
 			response.dst = data.src;
-			response.single_rate = new BetDAO_Single().rate(data);
+			response.rate = new BetDAO().single_rate(data);
 			
 			sendToAll(response);
+		}
+		
+		void responseBetRatePlace(TCPData data) {
+			TCPData response = new TCPData();
+			response.src = "GET_BET_RATE_PLACE";
+			response.dst = data.src;
+			response.rate = new BetDAO().place_rate(data);
+			
+			sendToAll(response);
+		}
+		
+		void responseBetRateQuinella(TCPData data) {
+			TCPData response = new TCPData();
+			response.src = "GET_BET_RATE_QUINELLA";
+			response.dst = data.src;
+			response.rate = new BetDAO().quinella_rate(data);
+			
+			sendToAll(response);
+		}
+		
+		void excuteBetAdjustment(TCPData data) {
+			TCPData response = new TCPData();
+			response.src = "BET_ADJUSTMENT";
+			response.dst = data.src;
+			response.msg = new UserDAO().excute_bet_adjustment(data);
+			
+			sendToOne(response);
 		}
 	}
 

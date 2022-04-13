@@ -13,7 +13,7 @@ public class BetDTO_Quinella implements Serializable {
 	public BetDTO_Quinella() {
 		
 	}
-	
+
 	public BetDTO_Quinella(String hname1, String hname2, long money) {
 		super();
 		this.hname1 = hname1;
@@ -47,7 +47,9 @@ public class BetDTO_Quinella implements Serializable {
 
 	@Override
 	public String toString() {
-		return "BetDTO_Quinella [hname1=" + hname1 + ", hname2=" + hname2 + ", money=" + money + "]";
+		return "[" + hname1 + "," + hname2 + "," + money + "]";
 	}
+
+	
 
 }

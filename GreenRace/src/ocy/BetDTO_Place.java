@@ -37,6 +37,6 @@ public class BetDTO_Place implements Serializable {
 
 	@Override
 	public String toString() {
-		return "BetDTO_Place [hname=" + hname + ", money=" + money + "]";
+		return "[" + hname + "," + money + "]";
 	}
 }
