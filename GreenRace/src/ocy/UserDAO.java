@@ -286,7 +286,6 @@ public class UserDAO {
 					}
 					
 					tot += (s.money * rate);
-					System.out.println(tot);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -307,7 +306,6 @@ public class UserDAO {
 					}
 					
 					tot += (p.money * rate);
-					System.out.println(tot);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -328,7 +326,6 @@ public class UserDAO {
 					}
 					
 					tot += (q.money * rate);
-					System.out.println(tot);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

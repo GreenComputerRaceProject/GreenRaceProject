@@ -32,6 +32,7 @@ public class BattingScreen extends JPanel{
 
 	public BattingScreen(TCPClient tc, RaceProjFrame rpf) {
 		this.tc = tc;
+		this.rpf = rpf;
 		
 		setBounds(0, 70, 1585, 500);
 		setLayout(null);
@@ -179,7 +180,7 @@ public class BattingScreen extends JPanel{
 	public void chageScreen1() {
 		battingScreen.removeAll();
 		battingScreen.repaint();
-		JPanel gs = new GameScreen3(tc, battingScreen); 
+		GameScreen3 gs = new GameScreen3(tc, rpf, battingScreen); 
 		add(gs);
 		repaint();
 	

@@ -106,7 +106,7 @@ public class TCPClient {
 						}
 					} else if(response.src.equals("BET_ADJUSTMENT")) {
 						if(raceProjFrame != null) {
-							
+							raceProjFrame.notice(response.msg);
 						}
 					}
 					
@@ -471,7 +471,7 @@ public class TCPClient {
 			System.out.println("클라이언트 : 연결합니다");
 			// 서버 켠 컴퓨터의 로컬 ip주소 넣어주면 됨
 			// 집 ip : 192.168.35.10
-			Socket soc = new Socket("192.168.20.43", 8888);
+			Socket soc = new Socket("192.168.0.2", 8888);
 
 			oos = new ObjectOutputStream(soc.getOutputStream());
 			ois = new ObjectInputStream(soc.getInputStream());

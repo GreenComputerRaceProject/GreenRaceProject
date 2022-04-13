@@ -48,9 +48,10 @@ public class GameScreen3 extends JPanel{
 
 	JLabel racehorse;
 
-	public GameScreen3(TCPClient tc, BattingScreen battingScreen) {
+	public GameScreen3(TCPClient tc, RaceProjFrame rpf, BattingScreen battingScreen) {
 
 		this.tc = tc;
+		this.rpf = rpf;
 
 		goalline = new JLabel(goal);
 		goalline.setBounds(1400, 0, 20, 500);
