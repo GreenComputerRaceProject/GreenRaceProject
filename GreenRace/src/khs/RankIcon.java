@@ -31,14 +31,14 @@ public class RankIcon extends JButton implements ActionListener{
 		public RankIcon(String nickname) { //,String imgIcon
 //			this.nickname = tc.user.getNickname();
 			
-			if(nickname.equals(tc.user.getNickname())) {
-				this.nickname = tc.user.getNickname();
-				this.money = tc.user.getMoney();
-				this.totgame = tc.user.getTotGame();
-				this.win = tc.user.getWin();
-				this.lose = tc.user.getLose();
-				this.rank = tc.user.getRank();	
-			}
+			
+				this.nickname = nickname;
+//				this.money = tc.user.getMoney();
+//				this.totgame = tc.user.getTotGame();
+//				this.win = tc.user.getWin();
+//				this.lose = tc.user.getLose();
+//				this.rank = tc.user.getRank();	
+			
 			
 			setBounds(0, 0, 20, 20);
 			
@@ -51,7 +51,46 @@ public class RankIcon extends JButton implements ActionListener{
 			
 		}
 		
-	
+		void userInfo() {
+			try {
+				Class.forName("org.mariadb.jdbc.Driver");
+				
+				
+				Connection con = DriverManager.getConnection( 
+						"jdbc:mariadb://localhost:3306/race_db",  
+						"race",                             	
+						"123456"                                
+						);
+				
+				
+				Statement stmt = con.createStatement();
+				
+				
+				ResultSet rs = stmt.executeQuery("select nickname,money,totgame,win,lose,"
+						+ "rank from user where nickname = '"+nickname+"'");
+				
+				
+				while(rs.next()) { 
+					
+					nickname = rs.getString("nickname");
+					money = rs.getLong("money");
+					totgame = rs.getInt("totgame");
+					win = rs.getInt("win");
+					lose = rs.getInt("lose");
+					rank = rs.getInt("rank");
+					
+				}
+				
+				rs.close();
+				stmt.close();
+				con.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("누름");
