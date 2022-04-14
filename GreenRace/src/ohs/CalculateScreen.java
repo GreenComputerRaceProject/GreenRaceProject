@@ -24,7 +24,7 @@ public class CalculateScreen extends JPanel{
 	
 	
 
-	public CalculateScreen(TCPClient tc, GameScreen3 gameScreen3) {
+	public CalculateScreen(TCPClient tc, RaceProjFrame rpf,GameScreen3 gameScreen3) {
 		
 		this.tc = tc;
 		this.rpf = rpf;

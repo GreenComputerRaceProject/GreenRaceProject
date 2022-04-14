@@ -18,7 +18,7 @@ public class BattingScreen extends JPanel{
 	
 	ArrayList<HorseClass2> entry2;
 	BattingScreen battingScreen = this;
-	FontClass fc;
+	//FontClass fc;
 	
 	JPanel info;
 	JLabel info1, info2, info3, info4, info5, info6, info7, info8, info9, info10, info11;

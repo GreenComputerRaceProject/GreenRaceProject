@@ -102,12 +102,10 @@ public class TCPClient {
 					} else if(response.src.equals("GET_TIME2")) {
 						screen.goTimer2(response.time);
 					} else if(response.src.equals("CALL_SCREEN")) {
-						System.out.println("콜스크린 받았어");
 						raceProjFrame.remove(screen);
-						System.out.println("원래 스크린 삭제");
 						JPanel screen = new Screen(tc, raceProjFrame);
-						System.out.println("새 스크린 생성");
 						raceProjFrame.add(screen);
+						raceProjFrame.repaint();
 						// 배팅화면 생성 메소드 필요
 						// 이전 스크린에 추가되어있는 패널들 제거 필요
 					//	call_Screen(waitingScreen);
@@ -528,7 +526,7 @@ public class TCPClient {
 			System.out.println("클라이언트 : 연결합니다");
 			// 서버 켠 컴퓨터의 로컬 ip주소 넣어주면 됨
 			// 집 ip : 192.168.35.10
-			Socket soc = new Socket("192.168.0.4", 8888);
+			Socket soc = new Socket("192.168.0.2", 8888);
 
 			oos = new ObjectOutputStream(soc.getOutputStream());
 			ois = new ObjectInputStream(soc.getInputStream());
@@ -536,7 +534,7 @@ public class TCPClient {
 			//local = InetAddress.getLocalHost();
 			
 			// 컴 하나로 임시테스트할때는 가짜 ip주소 넣어줌.  클라 켤때마다 숫자 바꿔줘야함
-			local = InetAddress.getByName("192.168.35.12");
+			local = InetAddress.getByName("192.168.35.14");
 			
 			new TCPClientReceiver().start();
 		} catch (Exception e1) {

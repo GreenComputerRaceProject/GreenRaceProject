@@ -194,7 +194,7 @@ public class GameScreen3 extends JPanel{
 	void changeScreen2() {
 		gameScreen3.removeAll();
 		gameScreen3.repaint();
-		JPanel jp = new CalculateScreen(tc, gameScreen3);
+		JPanel jp = new CalculateScreen(tc, rpf, gameScreen3);
 		add(jp);
 		repaint();
 
