@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JOptionPane;
@@ -21,10 +22,9 @@ import ohs.WaitingScreen;
 
 public class TCPClient {
 	
-	
-	
 	public UserDTO user;
-	BetDTO_list bet_list;
+	public BetDTO_list bet_list;
+	public BetDTO_list win_list;
 	
 	LoginPanel loginPanel;
 	InnerSignUp innerSignUp;
@@ -65,6 +65,7 @@ public class TCPClient {
 					if(response.src.equals("LOGIN")) {
 						loginPanel.notice(response.msg);
 						bet_list = new BetDTO_list();
+						win_list = new BetDTO_list();
 					} else if(response.src.equals("USER_INFO")) {
 						user = new UserDTO(response);
 						raceProjFrame.getMoney();
@@ -103,7 +104,8 @@ public class TCPClient {
 						screen.goTimer2(response.time);
 					} else if(response.src.equals("CALL_SCREEN")) {
 						raceProjFrame.remove(screen);
-						JPanel screen = new Screen(tc, raceProjFrame);
+						Screen screen = new Screen(tc, raceProjFrame);
+
 						raceProjFrame.add(screen);
 						raceProjFrame.repaint();
 						// 배팅화면 생성 메소드 필요
@@ -510,7 +512,7 @@ public class TCPClient {
 			data.src = local.getHostAddress();
 			data.dst = "BET_ADJUSTMENT";
 			data.user = user;
-			data.bet_list = bet_list;
+			data.win_list = win_list;
 			
 			oos.writeObject(data);
 			oos.flush();
@@ -519,14 +521,18 @@ public class TCPClient {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
 	}
+		
 
 	public TCPClient() {
 		try {
 			System.out.println("클라이언트 : 연결합니다");
 			// 서버 켠 컴퓨터의 로컬 ip주소 넣어주면 됨
 			// 집 ip : 192.168.35.10
+
 			Socket soc = new Socket("192.168.0.2", 8888);
+
 
 			oos = new ObjectOutputStream(soc.getOutputStream());
 			ois = new ObjectInputStream(soc.getInputStream());
@@ -534,7 +540,9 @@ public class TCPClient {
 			//local = InetAddress.getLocalHost();
 			
 			// 컴 하나로 임시테스트할때는 가짜 ip주소 넣어줌.  클라 켤때마다 숫자 바꿔줘야함
-			local = InetAddress.getByName("192.168.35.14");
+
+			local = InetAddress.getByName("192.168.35.13");
+
 			
 			new TCPClientReceiver().start();
 		} catch (Exception e1) {

@@ -7,9 +7,9 @@ public class BetDTO_list implements Serializable {
 	
 	private static final long serialVersionUID = 51279L;
 	
-	ArrayList<BetDTO_Single> single;
-	ArrayList<BetDTO_Place> place;
-	ArrayList<BetDTO_Quinella> quinella;
+	public ArrayList<BetDTO_Single> single;
+	public ArrayList<BetDTO_Place> place;
+	public ArrayList<BetDTO_Quinella> quinella;
 
 	public BetDTO_list() {
 		single = new ArrayList<BetDTO_Single>();

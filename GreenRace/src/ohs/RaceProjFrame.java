@@ -55,6 +55,8 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     
     ArrayList<JTextField> rate_single;
     ArrayList<JTextField> rate_place;
+    ArrayList<String> bat_num_dan = new ArrayList<String>();
+    
     HashMap<Integer,JTextField> rate_quinella;
    
     public RaceProjFrame(TCPClient tc) {
@@ -267,7 +269,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     		//chat.user_exit();
     	} else if(e.getSource().equals(b_single)) {
     		String bet_num = JOptionPane.showInputDialog(null, "배팅하실 말 번호를 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
-    		
+    		bat_num_dan.add(bet_num);
     		if(bet_num != null) {
     			String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
     			

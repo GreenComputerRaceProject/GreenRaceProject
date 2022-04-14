@@ -8,7 +8,11 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import ocy.BetDTO_Place;
+import ocy.BetDTO_Quinella;
+import ocy.BetDTO_Single;
 import ocy.TCPClient;
+import ocy.UserDAO;
 
 public class CalculateScreen extends JPanel{
 
@@ -17,17 +21,27 @@ public class CalculateScreen extends JPanel{
 	BattingScreen battingScreen;
 	TCPClient tc;
 	RaceProjFrame rpf;
+	UserDAO userDAO;
 	
 	ArrayList<JLabel> num = new ArrayList<JLabel>();
 	
 	JLabel timer = new JLabel();
 	
+	JPanel win1, win2, win3;
+	JLabel dan, yun, bok;
+	JLabel h1, h2, h3, h4, h5; 
+	JLabel odds1, odds2, odds3, odds4;
 	
 
-	public CalculateScreen(TCPClient tc, RaceProjFrame rpf,GameScreen3 gameScreen3) {
+
+	public CalculateScreen(TCPClient tc, GameScreen3 gameScreen3, RaceProjFrame rpf) {
+
 		
 		this.tc = tc;
 		this.rpf = rpf;
+		
+		
+		
 		
 		
 		setBounds(0, 0, 1585, 500);
@@ -43,18 +57,21 @@ public class CalculateScreen extends JPanel{
 		
 		setVisible(true);
 		
+		repaint();
+		
 		new calculateTimer().start();
 		tc.bet_adjustment(rpf);
+		
+	
+		
+	//	tc.bet_adjustment(rpf);
 
 	}
 
 	class odds extends JPanel{
 		
 		
-		JPanel win1, win2, win3;
-		JLabel dan, yun, bok;
-		JLabel h1, h2, h3, h4, h5; 
-		JLabel odds1, odds2, odds3, odds4;
+		
 		
 		public odds(GameScreen3 gameScreen3) {
 			
@@ -89,6 +106,7 @@ public class CalculateScreen extends JPanel{
 			odds3 = new JLabel("1.5배");
 			odds4 = new JLabel("6배");
 			
+			
 
 			win1 = new JPanel();
 			win1.setBounds(0, 0, 1585, 150);
@@ -121,7 +139,37 @@ public class CalculateScreen extends JPanel{
 			add(win2);
 			add(win3);
 			
+		//	System.out.println("내가번 단식 배팅칸은 = " + rpf.bat_num_dan.get(0)); 
 			
+			/*
+			  if(h1.getText().substring(0, 1).equals(rpf.bat_num_dan.get(0))) {
+			  System.out.println("단식 우승!"); tc.bet_adjustment(rpf); }
+			*/
+			 
+		
+			for (BetDTO_Single bs : tc.bet_list.single) {
+				if(bs.getHname().equals(h1.getText().substring(0, 1))) {
+					tc.win_list.single.add(bs);
+				}
+			}
+			
+			for (BetDTO_Place bs : tc.bet_list.place) {
+				if(bs.getHname().equals(h1.getText().substring(0, 1))) {
+					tc.win_list.place.add(bs);
+				} else if (bs.getHname().equals(h3.getText().substring(0, 1))) {
+					tc.win_list.place.add(bs);
+				}
+			}
+			
+			for (BetDTO_Quinella bs : tc.bet_list.quinella) {
+				if(bs.getHname1().equals(h1.getText().substring(0, 1)) &&
+					bs.getHname2().equals(h3.getText().substring(0, 1))) {
+					tc.win_list.quinella.add(bs);
+				}
+			}
+			
+				
+				
 		}		
 
 	}
@@ -167,5 +215,7 @@ public class CalculateScreen extends JPanel{
 		repaint();
 		
 	}
+	
+	
 
 }

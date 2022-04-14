@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import ohs.CalculateScreen;
+
 public class UserDAO {
 
 	Connection con = null;
@@ -16,7 +18,9 @@ public class UserDAO {
 	
 	String sql = null;
 	
+	
 	public UserDAO() {
+		
 		
 		String url = "jdbc:mariadb://localhost:3306/race_db";
 		String username = "race";
@@ -273,10 +277,12 @@ public class UserDAO {
 		
 		long tot = 0;
 		
-		if(data.bet_list.single.size() != 0) {
-			for (BetDTO_Single s : data.bet_list.single) {
+		
+		if(data.win_list.single.size() != 0) {
+			for (BetDTO_Single s : data.win_list.single) {
+				
 				sql = "select rate from bet_single WHERE num = '"+s.hname+"'";
-				double rate = 0;
+				double rate = 0;  
 				
 				try {
 					rs = stmt.executeQuery(sql);
@@ -291,10 +297,11 @@ public class UserDAO {
 					e.printStackTrace();
 				}
 			}
+		  
 		}
 		
-		if(data.bet_list.place.size() != 0) {
-			for (BetDTO_Place p : data.bet_list.place) {
+		if(data.win_list.place.size() != 0) {
+			for (BetDTO_Place p : data.win_list.place) {
 				sql = "select rate from bet_place WHERE num = '"+p.hname+"'";
 				double rate = 0;
 				
@@ -313,8 +320,8 @@ public class UserDAO {
 			}
 		}
 		
-		if(data.bet_list.quinella.size() != 0) {
-			for (BetDTO_Quinella q : data.bet_list.quinella) {
+		if(data.win_list.quinella.size() != 0) {
+			for (BetDTO_Quinella q : data.win_list.quinella) {
 				sql = "select rate from bet_quinella WHERE num = '"+(q.hname1 + "_" + q.hname2)+"'";
 				double rate = 0;
 				
