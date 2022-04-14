@@ -70,8 +70,8 @@ public class TCPChat extends JPanel implements ActionListener {
 			jl.setOpaque(true);
 			jp.add(jl);
 			
-			JButton jb = new JButton("인포");// RankIcon으로 바꿔야 함
-			jp.add(jb);
+			rankIcon = new RankIcon(tc, tc.user.nickname);
+			jp.add(rankIcon);
 			
 			frame.user_list.add(jp);
 		}
