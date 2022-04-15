@@ -243,6 +243,15 @@ public class BetDAO {
 			ex.printStackTrace();
 		}
 		
+		sql = "update bet_single set rate = 2";
+		
+		
+		try {
+			int rs = stmt.executeUpdate(sql);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
 		sql = "update bet_place set money = 0";
 		
 		
@@ -252,7 +261,25 @@ public class BetDAO {
 			ex.printStackTrace();
 		}
 		
+		sql = "update bet_place set rate = 1.5";
+		
+		
+		try {
+			int rs = stmt.executeUpdate(sql);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
 		sql = "update bet_quinella set money = 0";
+		
+		
+		try {
+			int rs = stmt.executeUpdate(sql);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		sql = "update bet_quinella set rate = 6";
 		
 		
 		try {
