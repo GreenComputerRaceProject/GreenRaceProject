@@ -22,8 +22,8 @@ public class RankIcon extends JButton implements ActionListener{
 	TCPClient tc;
 	String imgIcon = "";
 	ImageIcon icon;
-	JLabel jnickname, jmoney, jtotgame, jwin, jlose, jrank;
-	String user_id, nickname;
+	JLabel jnickname, jmoney, jtotgame, jwin, jlose, jrank, jabout;
+	String user_id, nickname, about;
 	int totgame, win, lose, rank;
 	long money;
 
@@ -39,6 +39,7 @@ public class RankIcon extends JButton implements ActionListener{
 				this.win = tc.user.getWin();
 				this.lose = tc.user.getLose();
 				this.rank = tc.user.getRank();
+				this.about = tc.user.getAbout();
 			}
 						
 			setBounds(0, 0, 20, 20);
@@ -74,6 +75,8 @@ public class RankIcon extends JButton implements ActionListener{
 		jlose.setBounds(20,180,200,30);
 		jrank = new JLabel("랭크:"+rank); 
 		jrank.setBounds(20,220,200,30);
+		jabout = new JLabel("자기소개:"+about); 
+		jabout.setBounds(20,260,200,30);
 		
 		
 		userInfo.add(jnickname);
@@ -82,6 +85,7 @@ public class RankIcon extends JButton implements ActionListener{
 		userInfo.add(jwin);
 		userInfo.add(jlose);
 		userInfo.add(jrank);
+		userInfo.add(jabout);
 		
 		
 		userInfo.setVisible(true);
