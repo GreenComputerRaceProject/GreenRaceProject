@@ -30,17 +30,17 @@ public class RankIcon extends JButton implements ActionListener{
 	
 		public RankIcon(TCPClient tc, String nickname) { //,String imgIcon
 //			this.nickname = tc.user.getNickname();
-			
 			super("인포");
-			this.nickname = nickname;
-			this.tc = tc;
-//			this.money = tc.user.getMoney();
-//			this.totgame = tc.user.getTotGame();
-//			this.win = tc.user.getWin();
-//			this.lose = tc.user.getLose();
-//			this.rank = tc.user.getRank();	
 			
-			
+			if(nickname==tc.user.getNickname()) {
+				this.nickname = nickname;
+				this.money = tc.user.getMoney();
+				this.totgame = tc.user.getTotGame();
+				this.win = tc.user.getWin();
+				this.lose = tc.user.getLose();
+				this.rank = tc.user.getRank();
+			}
+						
 			setBounds(0, 0, 20, 20);
 			
 //			icon = new ImageIcon(imgIcon);
@@ -52,57 +52,19 @@ public class RankIcon extends JButton implements ActionListener{
 			
 		}
 		
-		void userInfo() {
-			try {
-				Class.forName("org.mariadb.jdbc.Driver");
-				
-				
-				Connection con = DriverManager.getConnection( 
-						"jdbc:mariadb://localhost:3306/race_db",  
-						"race",                             	
-						"123456"                                
-						);
-				
-				
-				Statement stmt = con.createStatement();
-				
-				
-				ResultSet rs = stmt.executeQuery("select nickname,money,totgame,win,lose,"
-						+ "rank from user where nickname = '"+nickname+"'");
-				
-				
-				while(rs.next()) { 
-					
-					nickname = rs.getString("nickname");
-					money = rs.getLong("money");
-					totgame = rs.getInt("totgame");
-					win = rs.getInt("win");
-					lose = rs.getInt("lose");
-					rank = rs.getInt("rank");
-					
-				}
-				
-				rs.close();
-				stmt.close();
-				con.close();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
+
 		
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("누름");
 		
-		userInfo();
+		
 		JFrame userInfo = new JFrame();
 		userInfo.setBounds(50, 50, 500, 400);
 		userInfo.setLayout(null);
 		jnickname = new JLabel("닉네임:"+nickname); 
 		jnickname.setBounds(20,20,200,30);
-		jmoney = new JLabel("머니:"+money); 
+		jmoney = new JLabel("보유머니:"+money); 
 		jmoney.setBounds(20,60,200,30); 
 		jtotgame = new JLabel("판수:"+totgame);
 		jtotgame.setBounds(20,100,200,30);
