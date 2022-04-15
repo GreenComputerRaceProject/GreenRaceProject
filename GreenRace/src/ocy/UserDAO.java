@@ -277,8 +277,11 @@ public class UserDAO {
 		
 		long tot = 0;
 		
+		boolean win = false;
 		
 		if(data.win_list.single.size() != 0) {
+			win = true;
+			
 			for (BetDTO_Single s : data.win_list.single) {
 				
 				sql = "select rate from bet_single WHERE num = '"+s.hname+"'";
@@ -301,6 +304,8 @@ public class UserDAO {
 		}
 		
 		if(data.win_list.place.size() != 0) {
+			win = true;
+			
 			for (BetDTO_Place p : data.win_list.place) {
 				sql = "select rate from bet_place WHERE num = '"+p.hname+"'";
 				double rate = 0;
@@ -321,6 +326,8 @@ public class UserDAO {
 		}
 		
 		if(data.win_list.quinella.size() != 0) {
+			win = true;
+			
 			for (BetDTO_Quinella q : data.win_list.quinella) {
 				sql = "select rate from bet_quinella WHERE num = '"+(q.hname1 + "_" + q.hname2)+"'";
 				double rate = 0;
@@ -338,6 +345,28 @@ public class UserDAO {
 					e.printStackTrace();
 				}
 			}
+		}
+		
+		if(win) {
+			sql = "update user set win = win + 1 where nickname = '"+data.user.nickname+"'";
+		} else {
+			sql = "update user set lose = lose + 1 where nickname = '"+data.user.nickname+"'";
+		}
+		
+		try {
+			int rs = stmt.executeUpdate(sql);
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		sql = "update user set totgame = totgame + 1 where nickname = '"+data.user.nickname+"'";
+		
+		try {
+			int rs = stmt.executeUpdate(sql);
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 		
 		sql = "update user set money = money + '"+tot+"' where nickname = '"+data.user.nickname+"'";

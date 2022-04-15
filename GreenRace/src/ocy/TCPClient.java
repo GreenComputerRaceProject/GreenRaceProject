@@ -553,7 +553,7 @@ public class TCPClient {
 			
 			// 컴 하나로 임시테스트할때는 가짜 ip주소 넣어줌.  클라 켤때마다 숫자 바꿔줘야함
 
-			local = InetAddress.getByName("192.168.35.46");
+			local = InetAddress.getByName("192.168.35.49");
 
 			
 			new TCPClientReceiver().start();

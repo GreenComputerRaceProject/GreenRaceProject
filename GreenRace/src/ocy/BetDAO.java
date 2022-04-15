@@ -64,6 +64,14 @@ public class BetDAO {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
+			
+			sql = "update bet_single set rate = if((select rate from bet_single where num = '"+i+"') < 1, 1, (select rate from bet_single where num = '"+i+"')) where num = '"+i+"'";
+			
+			try {
+				int rs = stmt.executeUpdate(sql);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 		
 		try {
@@ -101,6 +109,14 @@ public class BetDAO {
 		for (int i = 1; i < 9; i++) {
 			sql = "update bet_place set rate = round (((select sum(money) from bet_place) / 2) /"
 					+ " if ((select money from bet_place where num = '"+i+"') = 0, 1, (select money from bet_place where num = '"+i+"')), 1) where num = '"+i+"'";
+			
+			try {
+				int rs = stmt.executeUpdate(sql);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			
+			sql = "update bet_place set rate = if((select rate from bet_place where num = '"+i+"') < 1, 1, (select rate from bet_place where num = '"+i+"')) where num = '"+i+"'";
 			
 			try {
 				int rs = stmt.executeUpdate(sql);
@@ -146,6 +162,14 @@ public class BetDAO {
 		for (String num : nums) {
 			sql = "update bet_quinella set rate = round ((select sum(money) from bet_quinella) /"
 					+ " if ((select money from bet_quinella where num = '"+num+"') = 0, 1, (select money from bet_quinella where num = '"+num+"')), 1) where num = '"+num+"'";
+			
+			try {
+				int rs = stmt.executeUpdate(sql);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			
+			sql = "update bet_quinella set rate = if((select rate from bet_quinella where num = '"+num+"') < 1, 1, (select rate from bet_quinella where num = '"+num+"')) where num = '"+num+"'";
 			
 			try {
 				int rs = stmt.executeUpdate(sql);
