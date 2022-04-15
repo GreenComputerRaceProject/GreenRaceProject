@@ -102,6 +102,9 @@ public class TCPClient {
 						}
 					} else if(response.src.equals("GET_TIME2")) {
 						screen.goTimer2(response.time);
+						raceProjFrame.getBetRate_Single();
+						raceProjFrame.getBetRate_Place();
+						raceProjFrame.getBetRate_Quinella();
 					} else if(response.src.equals("CALL_SCREEN")) {
 						raceProjFrame.remove(screen);
 						Screen screen = new Screen(tc, raceProjFrame);
@@ -403,6 +406,8 @@ public class TCPClient {
 			TCPData data = new TCPData();
 			data.src = local.getHostAddress();
 			data.dst = "GET_TIME2";
+			bet_list = new BetDTO_list();
+			win_list = new BetDTO_list();
 			
 			oos.writeObject(data);
 			oos.flush();

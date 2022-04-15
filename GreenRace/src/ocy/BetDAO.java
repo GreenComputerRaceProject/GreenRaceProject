@@ -212,25 +212,68 @@ public class BetDAO {
 
 	public ArrayList<Double> quinella_rate(TCPData data) {
 	
-	sql = "select rate from bet_quinella";
+		sql = "select rate from bet_quinella";
 	
-	ArrayList<Double> res = new ArrayList<Double>();
+		ArrayList<Double> res = new ArrayList<Double>();
 	
-	try {
-		rs = stmt.executeQuery(sql);
+		try {
+			rs = stmt.executeQuery(sql);
 		
-		while(rs.next()) {
-			res.add(rs.getDouble("rate"));
+			while(rs.next()) {
+				res.add(rs.getDouble("rate"));
+			}
+		
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			close();
 		}
-		
-	} catch (Exception ex) {
-		ex.printStackTrace();
-	} finally {
-		close();
+	
+		return res;
 	}
 	
-	return res;
-}
+	public String init_bet() {
+		
+		sql = "update bet_single set money = 0";
+		
+		
+		try {
+			int rs = stmt.executeUpdate(sql);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		sql = "update bet_place set money = 0";
+		
+		
+		try {
+			int rs = stmt.executeUpdate(sql);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		sql = "update bet_quinella set money = 0";
+		
+		
+		try {
+			int rs = stmt.executeUpdate(sql);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		String res = "";
+
+		try {
+			res = "COMPLETE";
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return res;
+	}
 	
 	void close() {
 		if(rs != null) try {rs.close();} catch (SQLException e) {}

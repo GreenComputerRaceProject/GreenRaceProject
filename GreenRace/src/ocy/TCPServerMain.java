@@ -396,6 +396,7 @@ public class TCPServerMain {
 			response.dst = data.src;
 			//		startTimer();
 			response.time = timer.send_time();
+			new BetDAO().init_bet();
 
 			sendToOne(response);
 		}
