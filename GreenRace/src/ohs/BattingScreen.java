@@ -73,7 +73,6 @@ public class BattingScreen extends JPanel{
 		info.add(info11);
 	
 		add(info);
-		//add(new showEntry());
 		
 		setVisible(true);
 		setOpaque(true);
@@ -98,7 +97,6 @@ public class BattingScreen extends JPanel{
 	}
 	
 	public void setEntry(ArrayList<HorseClass2> entry) {
-		System.out.println("드디어 받아왔다! ");
 		System.out.println(entry);
 		entry2 = entry;
 		add(new showEntry());
@@ -113,10 +111,6 @@ public class BattingScreen extends JPanel{
 		
 		
 		public showEntry() {
-//			RandomEntry re = new RandomEntry();
-//			re.shuffle();
-//			entry2 = re.entry;
-			System.out.println("찍힘?");
 			setBounds(0, 80, 1585, 420);
 			setBackground(Color.yellow);
 			setLayout(new GridLayout(8,11));

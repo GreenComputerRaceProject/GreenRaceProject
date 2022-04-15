@@ -370,16 +370,11 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     	if(response.equals("COMPLETE")) {
 			JOptionPane.showMessageDialog(null, "배팅이 완료되었습니다.", "배팅 성공", JOptionPane.PLAIN_MESSAGE);
 			tc.requestUserInfo(this, tc.user.getId()); // 배팅 후 유저인포 다시 받고 머니 표시 갱신
-			getMoney();
-			getBetRate_Single();
-			getBetRate_Place();
-			getBetRate_Quinella();
 		} else if(response.equals("WRONG")) {
 			JOptionPane.showMessageDialog(null, "배팅이 실패하였습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
 		} else if(response.equals("ADJUSTMENT_COMPLETE")) {
-			JOptionPane.showMessageDialog(null, "정산 완료되었습니다.", "정산 성공", JOptionPane.PLAIN_MESSAGE);
+			//JOptionPane.showMessageDialog(null, "정산 완료되었습니다.", "정산 성공", JOptionPane.PLAIN_MESSAGE);
 			tc.requestUserInfo(this, tc.user.getId());
-			getMoney();
 		} else if(response.equals("ADJUSTMENT_WRONG")) {
 			JOptionPane.showMessageDialog(null, "정산 실패하였습니다.", "정산 실패", JOptionPane.PLAIN_MESSAGE);
 		}

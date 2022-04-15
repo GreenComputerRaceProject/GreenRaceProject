@@ -96,7 +96,7 @@ public class TCPServerMain {
 
 	class Timer extends Thread {
 
-		public int i = 30;
+		public int i = 40;
 
 		@Override
 		public void run() {
@@ -117,6 +117,7 @@ public class TCPServerMain {
 
 		public Timer() {
 			start();
+			new BetDAO().init_bet();
 		}
 
 		public int send_time() {
@@ -396,7 +397,8 @@ public class TCPServerMain {
 			response.dst = data.src;
 			//		startTimer();
 			response.time = timer.send_time();
-			new BetDAO().init_bet();
+			
+//			new BetDAO().init_bet();
 
 			sendToOne(response);
 		}
