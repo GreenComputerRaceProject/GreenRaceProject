@@ -76,7 +76,7 @@ public class Screen extends JPanel{
 		@Override
 		public void run() {
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(5000);
 
 				if(time > 0) {
 					screen.removeAll();

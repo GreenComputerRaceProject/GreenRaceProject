@@ -223,8 +223,8 @@ public class TCPServerMain {
 				System.out.println("타이머 초기화");
 				timer = new Timer();
 
-				callScreen(data);
 			}
+			callScreen(data);
 		}
 
 		void firstGo(TCPData data) {
@@ -385,7 +385,6 @@ public class TCPServerMain {
 			TCPData response = new TCPData();
 			response.src = "GET_TIME";
 			response.dst = data.src;
-			//	startTimer();
 			response.time = timer.send_time();
 
 			sendToOne(response);
@@ -395,10 +394,7 @@ public class TCPServerMain {
 			TCPData response = new TCPData();
 			response.src = "GET_TIME2";
 			response.dst = data.src;
-			//		startTimer();
 			response.time = timer.send_time();
-			
-//			new BetDAO().init_bet();
 
 			sendToOne(response);
 		}
@@ -408,19 +404,17 @@ public class TCPServerMain {
 			response.src = "START_TIME";
 			response.dst = data.src;
 
-			// response.time = timer.send_time();
-
 			sendToOne(response);
 		}
 
 		void callScreen(TCPData data) {
 			TCPData response = new TCPData();
 			response.src = "CALL_SCREEN";
-			//		response.dst = data.src;
+			response.dst = data.src;
 			response.mems = currentUser;
-			sendToAll(response);
+			
+			sendToOne(response);
 		}
-
 
 		void responseHorseEntry(TCPData data) {
 			TCPData response = new TCPData();

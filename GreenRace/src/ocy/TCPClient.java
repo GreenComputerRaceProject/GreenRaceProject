@@ -64,14 +64,9 @@ public class TCPClient {
 					
 					if(response.src.equals("LOGIN")) {
 						loginPanel.notice(response.msg);
-//						bet_list = new BetDTO_list();
-//						win_list = new BetDTO_list();
 					} else if(response.src.equals("USER_INFO")) {
 						user = new UserDTO(response);
 						raceProjFrame.getMoney();
-//						raceProjFrame.getBetRate_Single();
-//						raceProjFrame.getBetRate_Place();
-//						raceProjFrame.getBetRate_Quinella();
 					} else if(response.src.equals("VERIFICATION_ID")) {
 						innerSignUp.id_verification_notice(response.msg);
 					} else if(response.src.equals("VERIFICATION_NICKNAME")) {
@@ -85,7 +80,7 @@ public class TCPClient {
 					} else if(response.src.equals("UPDATE_PW")) {
 						innerFind.pw_update_notice(response);
 					} else if(response.src.equals("CHAT")) {
-						if(tcpChat != null) { // 로그인중인데 챗 시그널 받으면 클라이언트 얼어버림. 예외처리
+						if(tcpChat != null) {
 							tcpChat.showChat(response);
 						}
 					} else if(response.src.equals("ENTRANCE_CHAT")) {
@@ -103,21 +98,22 @@ public class TCPClient {
 						if(battingScreen != null) {
 							battingScreen.goTimer(response.time);
 						}
-						raceProjFrame.getBetRate_Single();
-						raceProjFrame.getBetRate_Place();
-						raceProjFrame.getBetRate_Quinella();
+						if(raceProjFrame != null) {
+							raceProjFrame.getBetRate_Single();
+							raceProjFrame.getBetRate_Place();
+							raceProjFrame.getBetRate_Quinella();
+						} else {
+							System.out.println("rpf가 널이야");
+						}
 					} else if(response.src.equals("GET_TIME2")) {
 						if(screen != null) {
 							screen.goTimer2(response.time);
 						} else {
 							System.out.println("screen이 없어!");
 						}
-//						raceProjFrame.getBetRate_Single();
-//						raceProjFrame.getBetRate_Place();
-//						raceProjFrame.getBetRate_Quinella();
 					} else if(response.src.equals("CALL_SCREEN")) {
 						raceProjFrame.remove(screen);
-						Screen screen = new Screen(tc, raceProjFrame);
+						screen = new Screen(tc, raceProjFrame);
 
 						raceProjFrame.add(screen);
 						raceProjFrame.repaint();
@@ -143,6 +139,8 @@ public class TCPClient {
 					} else if(response.src.equals("BET_ADJUSTMENT")) {
 						if(raceProjFrame != null) {
 							raceProjFrame.notice(response.msg);
+						} else {
+							System.out.println("엥 정산이 안돼?");
 						}
 					}
 					
@@ -548,7 +546,6 @@ public class TCPClient {
 
 			Socket soc = new Socket("192.168.0.2", 8888);
 
-
 			oos = new ObjectOutputStream(soc.getOutputStream());
 			ois = new ObjectInputStream(soc.getInputStream());
 			
@@ -556,7 +553,7 @@ public class TCPClient {
 			
 			// 컴 하나로 임시테스트할때는 가짜 ip주소 넣어줌.  클라 켤때마다 숫자 바꿔줘야함
 
-			local = InetAddress.getByName("192.168.35.37");
+			local = InetAddress.getByName("192.168.35.46");
 
 			
 			new TCPClientReceiver().start();

@@ -28,11 +28,12 @@ public class RankIcon extends JButton implements ActionListener{
 	long money;
 
 	
-		public RankIcon(String nickname) { //,String imgIcon
+		public RankIcon(TCPClient tc, String nickname) { //,String imgIcon
 //			this.nickname = tc.user.getNickname();
 			
-			
+			super("인포");
 			this.nickname = nickname;
+			this.tc = tc;
 //			this.money = tc.user.getMoney();
 //			this.totgame = tc.user.getTotGame();
 //			this.win = tc.user.getWin();
