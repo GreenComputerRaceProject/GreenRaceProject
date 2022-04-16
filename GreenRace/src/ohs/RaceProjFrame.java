@@ -21,12 +21,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import ocy.BetDTO_Place;
+import ocy.BetDTO_Quinella;
 import ocy.BetDTO_Single;
+import ocy.BetDTO_list;
 import ocy.MultiServer;
 import ocy.RaceReadyScreen;
 import ocy.TCPChat;
 import ocy.TCPClient;
 import khs.GameInfo;
+import khs.RankIcon;
 
 public class RaceProjFrame extends JFrame implements ActionListener{
 	
@@ -44,7 +48,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     JButton user_info, m_charge, game_info, exit, b_single, b_yeon, b_bok;
          //회원정보,   게임머니충전,  경기정보조회,   게임종료,  단식,    연식,    복식
 
-    public JPanel user_list;
+    public JPanel user_list, bet_list;
     JPanel game_screen, b_danglyul,   game_rule;    
          //게임화면,     배당률,       배팅방식,       채팅,     참가자리스트
    
@@ -232,9 +236,15 @@ public class RaceProjFrame extends JFrame implements ActionListener{
        b_bok.setBounds(257, 0, 128, 80);
        b_bok.setBackground(Color.yellow);
        game_rule.add(b_bok);
+       
+       bet_list = new JPanel();
+       bet_list.setBounds(1200, 650, 200, 312);
+       bet_list.setBackground(Color.green);
+       bet_list.setLayout(new FlowLayout());
+       add(bet_list);
       
        user_list = new JPanel();
-       user_list.setBounds(1200, 650, 385, 312);
+       user_list.setBounds(1400, 650, 185, 312); // (1200, 650, 385, 312)
        user_list.setBackground(Color.gray);
        user_list.setLayout(new FlowLayout());
        add(user_list);
@@ -365,11 +375,62 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     	b_danglyul.repaint();
     }
     
+    public void showBetList() {
+    	
+    	if(tc.bet_list != null) {
+    		
+    		bet_list.removeAll();
+    		
+    		for (BetDTO_Single single : tc.bet_list.single) {
+    			JPanel jp = new JPanel();
+    			jp.setPreferredSize(new Dimension(380, 25));
+    			jp.setBackground(Color.yellow);
+    			
+    			JLabel jl = new JLabel("단식 : " + single.getHname() + "번 " + single.getMoney() + "원");
+    			jl.setBackground(Color.pink);
+    			jl.setOpaque(true);
+    			jp.add(jl);
+    			
+    			bet_list.add(jp);
+    		}
+    		
+    		for (BetDTO_Place place : tc.bet_list.place) {
+    			JPanel jp = new JPanel();
+    			jp.setPreferredSize(new Dimension(380, 25));
+    			jp.setBackground(Color.yellow);
+    			
+    			JLabel jl = new JLabel("연식 : " + place.getHname() + "번 " + place.getMoney() + "원");
+    			jl.setBackground(Color.pink);
+    			jl.setOpaque(true);
+    			jp.add(jl);
+    			
+    			bet_list.add(jp);
+    		}
+    		
+    		for (BetDTO_Quinella quinella : tc.bet_list.quinella) {
+    			JPanel jp = new JPanel();
+    			jp.setPreferredSize(new Dimension(380, 25));
+    			jp.setBackground(Color.yellow);
+    			
+    			JLabel jl = new JLabel("복식 : " + quinella.getHname1() + "_" + quinella.getHname2() + "번 " + quinella.getMoney() + "원");
+    			jl.setBackground(Color.pink);
+    			jl.setOpaque(true);
+    			jp.add(jl);
+    			
+    			bet_list.add(jp);
+    		}
+    		
+    		bet_list.revalidate();
+    		bet_list.repaint();
+    	}
+    }
+    
     public void notice(String response) {
     	System.out.println(response);
     	if(response.equals("COMPLETE")) {
 			JOptionPane.showMessageDialog(null, "배팅이 완료되었습니다.", "배팅 성공", JOptionPane.PLAIN_MESSAGE);
 			tc.requestUserInfo(this, tc.user.getId()); // 배팅 후 유저인포 다시 받고 머니 표시 갱신
+			showBetList();
 		} else if(response.equals("WRONG")) {
 			JOptionPane.showMessageDialog(null, "배팅이 실패하였습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
 		} else if(response.equals("ADJUSTMENT_COMPLETE")) {

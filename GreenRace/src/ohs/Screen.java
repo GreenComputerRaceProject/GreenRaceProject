@@ -51,6 +51,7 @@ public class Screen extends JPanel{
 		setVisible(true);
 
 		getTime2();
+		rpf.showBetList();
 		
 		new Screenproduce();
 	
