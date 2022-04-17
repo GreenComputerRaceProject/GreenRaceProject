@@ -277,50 +277,65 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     		gameinfo = new GameInfo();
     	} else if(e.getSource().equals(exit)) {
     		//chat.user_exit();
-    	} else if(e.getSource().equals(b_single)) {
+    	} else if(e.getSource().equals(b_single)) { // 단식 배팅 버튼
     		String bet_num = JOptionPane.showInputDialog(null, "배팅하실 말 번호를 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
     		bat_num_dan.add(bet_num);
-    		if(bet_num != null) {
-    			String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
-    			
-    			if(bet_money != null) {
-        			tc.bet_single(this, bet_num, bet_money);
-        		}
-    		}
+    		
+    		if(bet_num != null && Integer.parseInt(bet_num) < 9 ) { // 현석 추가분 04/15
+				String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
 			
-    	} else if(e.getSource().equals(b_yeon)) {
+				if(bet_money != null && Long.parseLong(bet_money) <= tc.user.getMoney()) {
+					tc.bet_single(this, bet_num, bet_money);
+				} else {
+					JOptionPane.showMessageDialog(null, "소지한 금액보다 배팅금액이 많습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+				}
+		} else {
+			JOptionPane.showMessageDialog(null, "엔트리 말의 번호를 정확히 입력하세요.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+		}
+		
+    		
+    	} else if(e.getSource().equals(b_yeon)) { // 연식 배팅 버튼
     		String bet_num = JOptionPane.showInputDialog(null, "배팅하실 말 번호를 입력하세요", "연식", JOptionPane.INFORMATION_MESSAGE);
     		
-    		if(bet_num != null) {
-    			String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "연식", JOptionPane.INFORMATION_MESSAGE);
-    			
-    			if(bet_money != null) {
-        			tc.bet_place(this, bet_num, bet_money);
-        		}
-    		}
+    		if(bet_num != null && Integer.parseInt(bet_num) < 9 ) { 
+				String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "연식", JOptionPane.INFORMATION_MESSAGE);
+				
+				if(bet_money != null && Long.parseLong(bet_money) <= tc.user.getMoney()) {
+					tc.bet_place(this, bet_num, bet_money);
+				} else {
+					JOptionPane.showMessageDialog(null, "소지한 금액보다 배팅금액이 많습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "엔트리 말의 번호를 정확히 입력하세요.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+			}
 			
-    	} else if(e.getSource().equals(b_bok)) {
-    		String bet_num1 = JOptionPane.showInputDialog(null, "배팅하실 첫번째 말 번호를 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
-    		
-    		if(bet_num1 != null) {
-    			String bet_num2 = JOptionPane.showInputDialog(null, "배팅하실 두번째 말 번호를 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
-    			
-    			if(bet_num1.equals(bet_num2)) {
-    				JOptionPane.showMessageDialog(null, "첫번째 말 번호와 다른 번호를 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
-    			} else {
-    				if(bet_num2 != null) {
-    					String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
-    					
-    					if(bet_money != null) {
-    						tc.bet_quinella(this, bet_num1, bet_num2, bet_money);
-    					}
-    				}
-    			}
-    		}
+    	} else if(e.getSource().equals(b_bok)) { // 복식 배팅 버튼
+			String bet_num1 = JOptionPane.showInputDialog(null, "배팅하실 첫번째 말 번호를 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
+
+			if(bet_num1 != null) {
+				String bet_num2 = JOptionPane.showInputDialog(null, "배팅하실 두번째 말 번호를 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
 			
-    	} else {
-    		return;
-    	}
+				if(bet_num1.equals(bet_num2)) {
+					JOptionPane.showMessageDialog(null, "첫번째 말 번호와 다른 번호를 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					if(bet_num2 != null && Integer.parseInt(bet_num1) < 9 && Integer.parseInt(bet_num2) < 9) {
+						String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
+
+						if(bet_money != null && Long.parseLong(bet_money) <= tc.user.getMoney()) { // 현석 추가분 04/15
+							tc.bet_quinella(this, bet_num1, bet_num2, bet_money);
+						} else {
+							JOptionPane.showMessageDialog(null, "소지한 금액보다 배팅금액이 많습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "엔트리 말의 번호를 정확히 입력하세요.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+					}
+					
+				}
+			}
+
+		} else {
+			return;
+		}
       
     }
     

@@ -176,6 +176,11 @@ public class BattingScreen extends JPanel{
 	public void chageScreen1() {
 		battingScreen.removeAll();
 		battingScreen.repaint();
+		
+		rpf.b_single.setEnabled(false);
+		rpf.b_yeon.setEnabled(false);
+		rpf.b_bok.setEnabled(false);
+		
 		GameScreen3 gs = new GameScreen3(tc, rpf, battingScreen); 
 		add(gs);
 		repaint();
