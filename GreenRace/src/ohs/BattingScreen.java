@@ -79,6 +79,7 @@ public class BattingScreen extends JPanel{
 		setBackground(Color.gray);
 		
 		getTime();
+		rpf.showBetList();
 	}
 	
 	public void getTime() {

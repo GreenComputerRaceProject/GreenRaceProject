@@ -113,7 +113,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
    //    add(battingScreen);
        
        screen = new Screen(tc, this); 
-		add(screen);
+       add(screen);
 
        b_danglyul = new JPanel();
        b_danglyul.setBounds(0, 570, 800, 392);
@@ -422,6 +422,8 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     		
     		bet_list.revalidate();
     		bet_list.repaint();
+    	} else {
+    		System.out.println("없음");
     	}
     }
     
