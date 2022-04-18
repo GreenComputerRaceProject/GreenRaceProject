@@ -1,68 +1,70 @@
 package khs;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.concurrent.Flow;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
-import ohs.BattingScreen;
+import ocy.TCPClient;
 import ohs.CalculateScreen;
-import ohs.GameScreenMain;
-import ohs.RandomEntry;
 
 public class GameInfo extends JFrame{
 
-	HorseInfo horseInfo;
-	CalculateScreen calculateScreen;
-	RecentlyTenGame recentlyTenGame;
-	JLabel JLten_game;
-	JButton JBten_game;
+	TCPClient tc;
+	JPanel jp;
 
-	public GameInfo() {
+	public GameInfo(TCPClient tc) {
 		
-		setBounds(100, 50, 500, 400);
-		setLayout(null);
+		this.tc = tc;
 		
-		JLten_game = new JLabel("최근 10 경기 등수");
-		JLten_game.setBounds(10, 10, 200, 20);
+		setBounds(800, 200, 500, 400);
+		setLayout(new BorderLayout());
 		
-		for (int i = calculateScreen.getSize().; i < 10; i++) { //서버의 최근경기가 담긴 변수의 size를 넣어야 함
-			int d = i;
-			JBten_game = new JButton();
-			JBten_game.setBounds(50*i, 80, 50, 30);
-			add(JBten_game);
-			JBten_game.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					
-					recentlyTenGame = new RecentlyTenGame(d);
-					
-				}
-			});
-		}
+		jp = new JPanel();
+		jp.setPreferredSize(new Dimension(480,400));
+		jp.setBackground(Color.pink);
+		jp.setLayout(new FlowLayout(FlowLayout.CENTER));
 		
-		add(JLten_game);
-
+//		JLabel jl = new JLabel("가나다라마바사");
+//		jl.setPreferredSize(new Dimension(470,50));
+//		jl.setBackground(Color.yellow);
+//		jl.setOpaque(true);
+//		jp.add(jl);
+//		
+//		JLabel jl2 = new JLabel();
+//		jl2.setPreferredSize(new Dimension(470,50));
+//		jl2.setBackground(Color.green);
+//		jl2.setOpaque(true);
+//		jp.add(jl2);
+		
+		add(new JScrollPane(jp), BorderLayout.CENTER);
 		
 		setVisible(true);
 		setResizable(false);
 		
+		tc.get_recent_game(this);
 	}
 	
+	public void showRecentGame(ArrayList<String> recentGame) {
 		
-	public static void main(String[] args) {
+		jp.removeAll();
 		
-		new GameInfo();
-
+		for (String s : recentGame) {
+			JLabel jl = new JLabel(s);
+			jl.setPreferredSize(new Dimension(470,50));
+			jl.setBackground(Color.yellow);
+			jl.setOpaque(true);
+			jp.add(jl);
+		}
+		
+		jp.revalidate();
+		jp.repaint();
 	}
-
 }

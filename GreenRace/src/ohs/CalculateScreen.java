@@ -139,14 +139,8 @@ public class CalculateScreen extends JPanel{
 			add(win2);
 			add(win3);
 			
-		//	System.out.println("내가번 단식 배팅칸은 = " + rpf.bat_num_dan.get(0)); 
-			
-			/*
-			  if(h1.getText().substring(0, 1).equals(rpf.bat_num_dan.get(0))) {
-			  System.out.println("단식 우승!"); tc.bet_adjustment(rpf); }
-			*/
+			tc.update_recent_game(calculateScreen, h1.getText().substring(3), h3.getText().substring(3));
 			 
-		
 			for (BetDTO_Single bs : tc.bet_list.single) {
 				if(bs.getHname().equals(h1.getText().substring(0, 1))) {
 					tc.win_list.single.add(bs);

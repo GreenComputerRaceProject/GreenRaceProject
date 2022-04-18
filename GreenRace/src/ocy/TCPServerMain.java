@@ -32,16 +32,15 @@ class TCPData implements Serializable{
 
 	UserDTO user;
 	BetDTO_list bet_list;
-	BetDTO_list win_list; // 현석 추가
+	BetDTO_list win_list;
 	BetDTO_Single bet_single;
 	BetDTO_Place bet_place;
 	BetDTO_Quinella bet_quinella;
 	
-	
-	
 	ArrayList<String> mems;
 	ArrayList<HorseClass2> entry;
 	ArrayList<Double> rate;
+	ArrayList<String> recentGame;
 
 	int time;
 
@@ -52,6 +51,7 @@ class TCPData implements Serializable{
 		bet_single = new BetDTO_Single();
 		bet_place = new BetDTO_Place();
 		bet_quinella = new BetDTO_Quinella();
+		recentGame = new ArrayList<String>();
 	}
 
 	@Override
@@ -66,9 +66,12 @@ public class TCPServerMain {
 	HashMap<String, ObjectOutputStream> map;
 	ArrayList<String> currentUser;
 	ArrayList<HorseClass2> entry = new RandomEntry().shuffle();
+	ArrayList<String> recentGame;
+	int round = 1;
 
 	Timer timer = new Timer();
-	boolean isTimer = true; // 정산할때 다시 true로 해줘야함
+	boolean isTimer = true;
+	boolean isRecentUpdatable = true;
 	
 	String wh1, wh2;
 
@@ -76,6 +79,7 @@ public class TCPServerMain {
 		try {
 			map = new HashMap<String, ObjectOutputStream>();
 			currentUser = new ArrayList<String>();
+			recentGame = new ArrayList<String>();
 
 			Collections.synchronizedMap(map);
 
@@ -96,7 +100,7 @@ public class TCPServerMain {
 
 	class Timer extends Thread {
 
-		public int i = 40;
+		public int i = 60;
 
 		@Override
 		public void run() {
@@ -199,6 +203,19 @@ public class TCPServerMain {
 						responseBetRateQuinella(data);
 					} else if(data.dst.equals("BET_ADJUSTMENT")) {
 						excuteBetAdjustment(data);
+					} else if(data.dst.equals("MONEY_CHARGE")) {
+						excuteMoneyCharge(data);
+					} else if(data.dst.equals("GAME_EXIT")) {
+						System.out.println("클라가 나갔습니다");
+						exitUser(data);
+					} else if(data.dst.equals("GET_USER_RANK")) {
+						responseUserRank(data);
+					} else if(data.dst.equals("UPDATE_RECENT_GAME")) {
+						if(isRecentUpdatable) {
+							updateRecentGame(data);
+						}
+					} else if(data.dst.equals("GET_RECENT_GAME")) {
+						responseRecentGame(data);
 					} else {
 						sendToOne(data);
 					}
@@ -222,6 +239,7 @@ public class TCPServerMain {
 			if(timer.i <= 0) {
 				System.out.println("타이머 초기화");
 				timer = new Timer();
+				isRecentUpdatable = true;
 
 			}
 			callScreen(data);
@@ -273,7 +291,10 @@ public class TCPServerMain {
 			response.src = "USER_INFO";
 			response.dst = data.src;
 			response.user = new UserDAO().user_info(data.user);
-			currentUser.add(response.user.nickname);
+			
+			if(!currentUser.contains(response.user.nickname)) {
+				currentUser.add(response.user.nickname);
+			}
 
 			sendToOne(response);
 		}
@@ -454,11 +475,60 @@ public class TCPServerMain {
 			sendToAll(response);
 		}
 
+		void excuteMoneyCharge(TCPData data) {
+			TCPData response = new TCPData();
+			response.src = "MONEY_CHARGE";
+			response.dst = data.src;
+			response.msg = new UserDAO().excute_money_charge(data.user);
+
+			sendToOne(response);
+		}
+		
 		void excuteBetAdjustment(TCPData data) {
 			TCPData response = new TCPData();
 			response.src = "BET_ADJUSTMENT";
 			response.dst = data.src;
 			response.msg = new UserDAO().excute_bet_adjustment(data);
+
+			sendToOne(response);
+		}
+		
+		void exitUser(TCPData data) {
+			currentUser.remove(data.user.nickname);
+			map.remove(data.src);
+			
+			try {
+				oos.close();
+				ois.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			entranceChat(data);
+		}
+		
+		void responseUserRank(TCPData data) {
+			TCPData response = new TCPData();
+			response.src = "GET_USER_RANK";
+			response.dst = data.src;
+			response.user = new UserDAO().user_rank(data.user);
+
+			sendToOne(response);
+		}
+		
+		void updateRecentGame(TCPData data) {
+			recentGame.add(round + "회차 : " + data.msg);
+			round++;
+			System.out.println(recentGame);
+			isRecentUpdatable = false;
+		}
+		
+		void responseRecentGame(TCPData data) {
+			TCPData response = new TCPData();
+			response.src = "GET_RECENT_GAME";
+			response.dst = data.src;
+			response.recentGame = recentGame;
 
 			sendToOne(response);
 		}

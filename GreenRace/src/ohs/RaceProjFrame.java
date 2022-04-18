@@ -267,16 +267,26 @@ public class RaceProjFrame extends JFrame implements ActionListener{
    
     @Override
     public void actionPerformed(ActionEvent e) {
-    	if(e.getSource().equals(user_info) ||
-    			//e.getSource().equals(game_info)||
-    			e.getSource().equals(m_charge)) {
-    		refFrame.setBounds(500, 100, 500, 500);
-    		refFrame.setResizable(false);
-    		refFrame.setVisible(true);
-    	}else if(e.getSource().equals(game_info)) {
-    		gameinfo = new GameInfo();
+    	
+    	if(e.getSource().equals(user_info)) {
+//    		refFrame.setBounds(500, 100, 500, 500);
+//    		refFrame.setResizable(false);
+//    		refFrame.setVisible(true);
+    	} else if(e.getSource().equals(m_charge)) {
+    		if(tc.user.getMoney() >= 200000) {
+    			JOptionPane.showMessageDialog(null, "보유 머니가 20만원 이하일때만 가능합니다.", "무료충전 불가", JOptionPane.PLAIN_MESSAGE);
+    		} else {
+    			tc.money_charge(this);
+    		}
+    	} else if(e.getSource().equals(game_info)) {
+    		gameinfo = new GameInfo(tc);
     	} else if(e.getSource().equals(exit)) {
-    		//chat.user_exit();
+    		int confirm = JOptionPane.showConfirmDialog(null, "게임을 종료하시겠습니까?", "게임 종료", JOptionPane.YES_NO_OPTION);
+    		
+    		if(confirm == 0) {
+    			tc.game_exit(this);
+    			System.exit(0);
+    		}
     	} else if(e.getSource().equals(b_single)) { // 단식 배팅 버튼
     		String bet_num = JOptionPane.showInputDialog(null, "배팅하실 말 번호를 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
     		bat_num_dan.add(bet_num);
@@ -455,7 +465,12 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 			tc.requestUserInfo(this, tc.user.getId());
 		} else if(response.equals("ADJUSTMENT_WRONG")) {
 			JOptionPane.showMessageDialog(null, "정산 실패하였습니다.", "정산 실패", JOptionPane.PLAIN_MESSAGE);
-		}
+		} else if(response.equals("MONEY_CHARGED")) {
+			tc.requestUserInfo(this, tc.user.getId());
+			JOptionPane.showMessageDialog(null, "무료 충전이 완료되었습니다.", "무료충전 완료", JOptionPane.PLAIN_MESSAGE);
+		} else if(response.equals("MONEY_CHARGE_FAIL")) {
+			JOptionPane.showMessageDialog(null, "무료 충전이 실패하였습니다.", "무료충전 실패", JOptionPane.PLAIN_MESSAGE);
+		} 
     }
 
 }

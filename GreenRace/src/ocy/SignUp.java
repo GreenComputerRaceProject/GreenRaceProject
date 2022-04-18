@@ -216,6 +216,7 @@ public class SignUp extends JFrame {
 				if(certField.getText().equals(certNum) && !certField.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "본인인증이 완료되었습니다", "인증 성공", JOptionPane.PLAIN_MESSAGE);
 					isPhoneComplete = true;
+					certField.setEnabled(false);
 				} else if(certField.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "인증번호를 입력해주세요", "인증 실패", JOptionPane.PLAIN_MESSAGE);
 				} else if(!certField.getText().equals(certNum)) {
@@ -232,6 +233,7 @@ public class SignUp extends JFrame {
 			} else if(response.equals("COMPLETE")) {
 				JOptionPane.showMessageDialog(null, "사용 가능한 아이디입니다.", "중복확인 완료", JOptionPane.PLAIN_MESSAGE);
 				isIdComplete = true;
+				idField.setEnabled(false);
 			}
 		}
 		
@@ -242,6 +244,7 @@ public class SignUp extends JFrame {
 			} else if(response.equals("COMPLETE")) {
 				JOptionPane.showMessageDialog(null, "사용 가능한 닉네임입니다.", "중복확인 완료", JOptionPane.PLAIN_MESSAGE);
 				isNicknameComplete = true;
+				nicknameField.setEnabled(false);
 			}
 		}
 		
@@ -251,6 +254,7 @@ public class SignUp extends JFrame {
 				phoneField.setText("");
 			} else if(response.equals("NEED_CERTIFICATION")) {
 				JOptionPane.showMessageDialog(null, "인증번호를 전송했습니다", "인증번호 전송 성공", JOptionPane.PLAIN_MESSAGE);
+				phoneField.setEnabled(false);
 				certNum = new SMSSend(phoneField.getText()).send();
 				certField.setEnabled(true);
 				certButton.setEnabled(true);

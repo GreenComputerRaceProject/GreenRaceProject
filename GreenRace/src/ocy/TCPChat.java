@@ -68,7 +68,7 @@ public class TCPChat extends JPanel implements ActionListener {
 			jl.setOpaque(true);
 			jp.add(jl);
 			
-			rankIcon = new RankIcon(tc, tc.user.nickname);
+			rankIcon = new RankIcon(tc, s);
 			jp.add(rankIcon);
 			
 			frame.user_list.add(jp);

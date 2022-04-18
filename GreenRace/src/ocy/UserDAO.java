@@ -207,7 +207,7 @@ public class UserDAO {
 	public String user_insert(UserDTO dto) {
 		sql = "INSERT into user(id, pw, name, nickname, phone, money, totgame, win, lose, rank, about) "
 				+ "values('"+dto.id+"', '"+dto.pw+"', '"+dto.name+"','"
-				+dto.nickname+"', '"+dto.phone+"', "+10000000+", "+0+", "+0+", "+0+", "+1+", '"+dto.about+"')";
+				+dto.nickname+"', '"+dto.phone+"', "+1000000+", "+0+", "+0+", "+0+", "+1+", '"+dto.about+"')";
 		
 		String res = null;
 		
@@ -380,6 +380,62 @@ public class UserDAO {
 				res = "ADJUSTMENT_COMPLETE";
 			} else {
 				res = "ADJUSTMENT_WRONG";
+			}
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return res;
+	}
+	
+	public String excute_money_charge(UserDTO dto) {
+		sql = "update user set money = money + 100000 where id = '"+dto.id+"'";
+		
+		String res = "";
+		
+		try {
+			int rs = stmt.executeUpdate(sql);
+			
+			if(rs == 1) {
+				res = "MONEY_CHARGED";
+			} else {
+				res = "MONET_CHARGE_FAIL";
+			}
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return res;
+	}
+	
+	public UserDTO user_rank(UserDTO dto) {
+		sql = "select * from user where nickname = '"+ dto.nickname +"'";
+		
+		UserDTO res = null;
+		
+		try {
+			rs = stmt.executeQuery(sql);
+			
+			if(rs.next()) { 
+				res = new UserDTO();
+				
+				res.id = rs.getString("id");
+				res.pw = rs.getString("pw");
+				res.name = rs.getString("name");
+				res.nickname = rs.getString("nickname");
+				res.phone = rs.getString("phone");
+				res.about = rs.getString("about");
+				res.money = rs.getLong("money");
+				res.totgame = rs.getInt("totgame");
+				res.win = rs.getInt("win");
+				res.lose = rs.getInt("lose");
+				res.rank = rs.getInt("rank");
 			}
 			
 		} catch (Exception ex) {

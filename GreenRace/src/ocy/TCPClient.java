@@ -11,6 +11,8 @@ import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import khs.GameInfo;
+import khs.RankIcon;
 import ocy.EntryPointMain.LoginPanel;
 import ocy.Find.InnerFind;
 import ocy.SignUp.InnerSignUp;
@@ -35,6 +37,8 @@ public class TCPClient {
 	WaitingScreen waitingScreen;
 	BattingScreen battingScreen;
 	CalculateScreen calculateScreen;
+	RankIcon rankIcon;
+	GameInfo gameInfo;
 	
 	ObjectOutputStream oos;
 	ObjectInputStream ois;
@@ -141,6 +145,20 @@ public class TCPClient {
 							raceProjFrame.notice(response.msg);
 						} else {
 							System.out.println("엥 정산이 안돼?");
+						}
+					} else if(response.src.equals("MONEY_CHARGE")) {
+						if(raceProjFrame != null) {
+							raceProjFrame.notice(response.msg);
+						} else {
+							System.out.println("엥 충전이 안돼?");
+						}
+					} else if(response.src.equals("GET_USER_RANK")) {
+						if(rankIcon != null) {
+							rankIcon.showUserRank(response.user);
+						}
+					} else if(response.src.equals("GET_RECENT_GAME")) {
+						if(gameInfo != null) {
+							gameInfo.showRecentGame(response.recentGame);
 						}
 					}
 					
@@ -518,6 +536,23 @@ public class TCPClient {
 		}
 	}
 	
+	public void money_charge(RaceProjFrame raceProjFrame) {
+		this.raceProjFrame = raceProjFrame;
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "MONEY_CHARGE";
+			data.user = user;
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
 	public void bet_adjustment(RaceProjFrame raceProjFrame) {
 		this.raceProjFrame = raceProjFrame;
 		try {
@@ -534,9 +569,74 @@ public class TCPClient {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
 	}
-		
+	
+	public void game_exit(RaceProjFrame raceProjFrame) {
+		this.raceProjFrame = raceProjFrame;
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "GAME_EXIT";
+			data.user.nickname = user.nickname;
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public void get_User_Rank(RankIcon rankIcon, String nickname) {
+		this.rankIcon = rankIcon;
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "GET_USER_RANK";
+			data.user.nickname = nickname;
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public void update_recent_game(CalculateScreen calculateScreen, String firstHorse, String secondHorse) {
+		this.calculateScreen = calculateScreen;
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "UPDATE_RECENT_GAME";
+			data.msg = firstHorse + ", " + secondHorse;
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public void get_recent_game(GameInfo gameInfo) {
+		this.gameInfo = gameInfo;
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "GET_RECENT_GAME";
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 
 	public TCPClient() {
 		try {
@@ -544,7 +644,7 @@ public class TCPClient {
 			// 서버 켠 컴퓨터의 로컬 ip주소 넣어주면 됨
 			// 집 ip : 192.168.35.10
 
-			Socket soc = new Socket("192.168.0.2", 8888);
+			Socket soc = new Socket("192.168.20.43", 8888);
 
 			oos = new ObjectOutputStream(soc.getOutputStream());
 			ois = new ObjectInputStream(soc.getInputStream());
@@ -553,7 +653,7 @@ public class TCPClient {
 			
 			// 컴 하나로 임시테스트할때는 가짜 ip주소 넣어줌.  클라 켤때마다 숫자 바꿔줘야함
 
-			local = InetAddress.getByName("192.168.35.49");
+			local = InetAddress.getByName("192.168.35.11");
 
 			
 			new TCPClientReceiver().start();
