@@ -68,7 +68,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
        
        this.tc = tc;
        
-       setSize(1600,1000);
+       setSize(1585,965);
        setLayout(null);
       
        Dimension frameSize = getSize();
@@ -258,7 +258,8 @@ public class RaceProjFrame extends JFrame implements ActionListener{
        b_single.addActionListener(this);
        b_yeon.addActionListener(this);
        b_bok.addActionListener(this);
-      
+       
+       setUndecorated(true);
        setVisible(true);
        setDefaultCloseOperation(EXIT_ON_CLOSE);
       
