@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.regex.Pattern;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -305,12 +306,26 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     			String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
     			
     			if(bet_money != null) {
+    				String pattern = "^[0-9]*$";
+					boolean regex = Pattern.matches(pattern, bet_money);
+					
+					if(regex) {
+						
+						if(Long.parseLong(bet_money) > 0) {
+							
+							if(Long.parseLong(bet_money) <= tc.user.getMoney()) {
+								tc.bet_single(this, bet_num, bet_money);
+							} else {
+								JOptionPane.showMessageDialog(null, "소지한 금액보다 배팅할 금액이 많습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+							}
+						} else {
+							JOptionPane.showMessageDialog(null, "배팅 금액을 다시 확인해주세요", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+						}
+						
+					} else {
+						JOptionPane.showMessageDialog(null, "배팅 금액은 숫자만 입력해주세요", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+					}
     				
-    				if(Long.parseLong(bet_money) <= tc.user.getMoney()) {
-    					tc.bet_single(this, bet_num, bet_money);
-    				} else {
-    					JOptionPane.showMessageDialog(null, "소지한 금액보다 배팅할 금액이 많습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
-    				}
     			}
     		}
     		
@@ -322,12 +337,25 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     			String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "연식", JOptionPane.INFORMATION_MESSAGE);
     			
     			if(bet_money != null) {
-    				
-    				if(Long.parseLong(bet_money) <= tc.user.getMoney()) {
-    					tc.bet_place(this, bet_num, bet_money);
-    				} else {
-    					JOptionPane.showMessageDialog(null, "소지한 금액보다 배팅할 금액이 많습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
-    				}
+    				String pattern = "^[0-9]*$";
+					boolean regex = Pattern.matches(pattern, bet_money);
+					
+					if(regex) {
+						
+						if(Long.parseLong(bet_money) > 0) {
+							
+							if(Long.parseLong(bet_money) <= tc.user.getMoney()) {
+								tc.bet_place(this, bet_num, bet_money);
+							} else {
+								JOptionPane.showMessageDialog(null, "소지한 금액보다 배팅할 금액이 많습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+							}
+						} else {
+							JOptionPane.showMessageDialog(null, "배팅 금액을 다시 확인해주세요", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+						}
+						
+					} else {
+						JOptionPane.showMessageDialog(null, "배팅 금액은 숫자만 입력해주세요", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+					}
     			}
     		}
 			
@@ -355,12 +383,25 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     					String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
     					
     					if(bet_money != null) {
-    	    				
-    	    				if(Long.parseLong(bet_money) <= tc.user.getMoney()) {
-    	    					tc.bet_quinella(this, bet_num1, bet_num2, bet_money);
-    	    				} else {
-    	    					JOptionPane.showMessageDialog(null, "소지한 금액보다 배팅할 금액이 많습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
-    	    				}
+    						String pattern = "^[0-9]*$";
+    						boolean regex = Pattern.matches(pattern, bet_money);
+    						
+    						if(regex) {
+    							
+    							if(Long.parseLong(bet_money) > 0) {
+    								
+    								if(Long.parseLong(bet_money) <= tc.user.getMoney()) {
+    									tc.bet_quinella(this, bet_num1, bet_num2, bet_money);
+    								} else {
+    									JOptionPane.showMessageDialog(null, "소지한 금액보다 배팅할 금액이 많습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+    								}
+    							} else {
+    								JOptionPane.showMessageDialog(null, "배팅 금액을 다시 확인해주세요", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+    							}
+    							
+    						} else {
+    							JOptionPane.showMessageDialog(null, "배팅 금액은 숫자만 입력해주세요", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+    						}
     	    			}
     				}
     			}
