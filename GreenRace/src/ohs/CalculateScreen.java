@@ -156,14 +156,12 @@ public class CalculateScreen extends JPanel{
 			}
 			
 			for (BetDTO_Quinella bs : tc.bet_list.quinella) {
-				if(bs.getHname1().equals(h1.getText().substring(0, 1)) &&
-					bs.getHname2().equals(h3.getText().substring(0, 1))) {
+				if((bs.getHname1().equals(h1.getText().substring(0, 1)) || bs.getHname1().equals(h3.getText().substring(0, 1))) &&
+						((bs.getHname2().equals(h1.getText().substring(0, 1)) || bs.getHname2().equals(h3.getText().substring(0, 1))))) {
 					tc.win_list.quinella.add(bs);
 				}
 			}
 			
-				
-				
 		}		
 
 	}
