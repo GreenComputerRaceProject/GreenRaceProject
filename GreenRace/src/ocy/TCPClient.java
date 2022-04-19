@@ -48,6 +48,7 @@ public class TCPClient {
 	TCPClient tc = this;
 	
 	boolean isMoneyCharged = false;
+	public boolean rc = true;
 	
 	class TCPClientReceiver extends Thread{
 		
@@ -120,12 +121,9 @@ public class TCPClient {
 					} else if(response.src.equals("CALL_SCREEN")) {
 						raceProjFrame.remove(screen);
 						screen = new Screen(tc, raceProjFrame);
-
 						raceProjFrame.add(screen);
 						raceProjFrame.repaint();
-						// 배팅화면 생성 메소드 필요
-						// 이전 스크린에 추가되어있는 패널들 제거 필요
-					//	call_Screen(waitingScreen);
+						rc = false;
 					}else if(response.src.equals("GET_ENTRY")) {
 						if(battingScreen != null) {
 							battingScreen.setEntry(response.entry);
@@ -645,6 +643,41 @@ public class TCPClient {
 			e1.printStackTrace();
 		}
 	}
+	
+	public void chesk_uesr(Screen screen) {
+		this.screen = screen;
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "CHEAK_USER";
+			
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	}
+	
+	public void get_screen(WaitingScreen waitingScreen) {
+		this.waitingScreen = waitingScreen;
+		try {
+			TCPData data = new TCPData();
+			data.src = local.getHostAddress();
+			data.dst = "GET_SCREEN";
+			
+			oos.writeObject(data);
+			oos.flush();
+			oos.reset();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	}
 
 	public TCPClient() {
 		try {
@@ -652,7 +685,7 @@ public class TCPClient {
 			// 서버 켠 컴퓨터의 로컬 ip주소 넣어주면 됨
 			// 집 ip : 192.168.35.10
 
-			Socket soc = new Socket("192.168.20.43", 8888);
+			Socket soc = new Socket("192.168.35.10", 8888);
 
 			oos = new ObjectOutputStream(soc.getOutputStream());
 			ois = new ObjectInputStream(soc.getInputStream());
@@ -661,7 +694,7 @@ public class TCPClient {
 			
 			// 컴 하나로 임시테스트할때는 가짜 ip주소 넣어줌.  클라 켤때마다 숫자 바꿔줘야함
 
-			local = InetAddress.getByName("192.168.35.14");
+			local = InetAddress.getByName("192.168.35.22");
 
 			
 			new TCPClientReceiver().start();

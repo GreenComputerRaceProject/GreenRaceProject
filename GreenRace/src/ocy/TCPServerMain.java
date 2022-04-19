@@ -107,9 +107,7 @@ public class TCPServerMain {
 			try {
 				for (; i >= 0; i--) {
 					sleep(1000);
-					if(i == 0 && currentUser.size() == 0) {
-						i = 20;
-					}
+					
 				}
 				entry = new RandomEntry().shuffle();
 				//	timer = null;
@@ -216,7 +214,21 @@ public class TCPServerMain {
 						}
 					} else if(data.dst.equals("GET_RECENT_GAME")) {
 						responseRecentGame(data);
-					} else {
+					} else if(data.dst.equals("CHEAK_USER")) {
+						System.out.println("유저체크 확인");
+						System.out.println("유저수 :" + currentUser.size());
+						if(currentUser.size() == 1) {
+							timer = new Timer();
+							System.out.println("타이머 재생성");
+						}
+					} else if(data.dst.equals("GET_SCREEN")) {
+						if(timer.i > 0) {
+							callScreen(data);
+						} else if(currentUser.size() == 1) {
+							timer = new Timer();
+							callScreen(data);
+						}
+					}else {
 						sendToOne(data);
 					}
 				}
@@ -236,7 +248,7 @@ public class TCPServerMain {
 
 		void startTimer(TCPData data) {
 
-			if(timer.i <= 0) {
+			if(timer.i <= 0 && currentUser.size() > 1) {
 				System.out.println("타이머 초기화");
 				timer = new Timer();
 				isRecentUpdatable = true;

@@ -41,6 +41,30 @@ public class WaitingScreen extends JPanel{
 		add(imglabel);
 
 		setVisible(true);
+		
+		new go().start();
+	}
+	
+	class go extends Thread{
+		
+		
+		@Override
+		public void run() {
+			
+				try {		
+					while(tc.rc) {
+					System.out.println("경기 끝났나염");
+					getScreen();
+					Thread.sleep(3000); 
+					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+		}
+	}
+	
+	void getScreen() {
+		tc.get_screen(this);
 	}
 
 }
