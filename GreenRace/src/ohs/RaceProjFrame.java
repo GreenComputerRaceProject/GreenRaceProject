@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -59,9 +60,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     
     ArrayList<JTextField> rate_single;
     ArrayList<JTextField> rate_place;
-    ArrayList<String> bat_num_dan = new ArrayList<String>();
-    
-    HashMap<Integer,JTextField> rate_quinella;
+    LinkedHashMap<Integer,JTextField> rate_quinella;
    
     public RaceProjFrame(TCPClient tc) {
        super("달려라 왕바우");
@@ -122,7 +121,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
        
        rate_single = new ArrayList<JTextField>();
        rate_place = new ArrayList<JTextField>();
-       rate_quinella = new HashMap<Integer, JTextField>();
+       rate_quinella = new LinkedHashMap<Integer, JTextField>();
        
        for (int i = 0; i < 99; i++) {
 			field = new JTextField();
@@ -211,6 +210,16 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 				field.setBackground(new Color(147,170,250));
 			}
 		}
+       
+       LinkedHashMap<Integer, JTextField> copy = new LinkedHashMap<Integer, JTextField>();
+       copy.putAll(rate_quinella);
+       rate_quinella.clear();
+       
+       int[] nums = {37,46,55,64,73,82,91,47,56,65,74,83,92,57,66,75,84,93,67,76,85,94,77,86,95,87,96,97};
+       
+       for (int n : nums) {
+    	   rate_quinella.put(n, copy.get(n));
+       }
       
        chat = new TCPChat(tc, this);
        chat.setBounds(800, 570, 400, 392);
@@ -289,61 +298,74 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     			System.exit(0);
     		}
     	} else if(e.getSource().equals(b_single)) { // 단식 배팅 버튼
-    		String bet_num = JOptionPane.showInputDialog(null, "배팅하실 말 번호를 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
-    		bat_num_dan.add(bet_num);
+    		Integer[] nums = {1,2,3,4,5,6,7,8};
+    		String bet_num = Integer.toString(JOptionPane.showOptionDialog(null, "배팅하실 말 번호를 선택하세요", "단식", 0, 0, null, nums, null) + 1);
     		
-    		if(bet_num != null && Integer.parseInt(bet_num) < 9 ) { // 현석 추가분 04/15
-				String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
-			
-				if(bet_money != null && Long.parseLong(bet_money) <= tc.user.getMoney()) {
-					tc.bet_single(this, bet_num, bet_money);
-				} else {
-					JOptionPane.showMessageDialog(null, "소지한 금액보다 배팅금액이 많습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
-				}
-		} else {
-			JOptionPane.showMessageDialog(null, "엔트리 말의 번호를 정확히 입력하세요.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
-		}
-		
+    		if(!bet_num.equals("0")) {
+    			String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
+    			
+    			if(bet_money != null) {
+    				
+    				if(Long.parseLong(bet_money) <= tc.user.getMoney()) {
+    					tc.bet_single(this, bet_num, bet_money);
+    				} else {
+    					JOptionPane.showMessageDialog(null, "소지한 금액보다 배팅할 금액이 많습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+    				}
+    			}
+    		}
     		
     	} else if(e.getSource().equals(b_yeon)) { // 연식 배팅 버튼
-    		String bet_num = JOptionPane.showInputDialog(null, "배팅하실 말 번호를 입력하세요", "연식", JOptionPane.INFORMATION_MESSAGE);
+    		Integer[] nums = {1,2,3,4,5,6,7,8};
+    		String bet_num = Integer.toString(JOptionPane.showOptionDialog(null, "배팅하실 말 번호를 선택하세요", "연식", 0, 0, null, nums, null) + 1);
     		
-    		if(bet_num != null && Integer.parseInt(bet_num) < 9 ) { 
-				String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "연식", JOptionPane.INFORMATION_MESSAGE);
-				
-				if(bet_money != null && Long.parseLong(bet_money) <= tc.user.getMoney()) {
-					tc.bet_place(this, bet_num, bet_money);
-				} else {
-					JOptionPane.showMessageDialog(null, "소지한 금액보다 배팅금액이 많습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
-				}
-			} else {
-				JOptionPane.showMessageDialog(null, "엔트리 말의 번호를 정확히 입력하세요.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
-			}
+    		if(!bet_num.equals("0")) {
+    			String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "연식", JOptionPane.INFORMATION_MESSAGE);
+    			
+    			if(bet_money != null) {
+    				
+    				if(Long.parseLong(bet_money) <= tc.user.getMoney()) {
+    					tc.bet_place(this, bet_num, bet_money);
+    				} else {
+    					JOptionPane.showMessageDialog(null, "소지한 금액보다 배팅할 금액이 많습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+    				}
+    			}
+    		}
 			
     	} else if(e.getSource().equals(b_bok)) { // 복식 배팅 버튼
-			String bet_num1 = JOptionPane.showInputDialog(null, "배팅하실 첫번째 말 번호를 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
-
-			if(bet_num1 != null) {
-				String bet_num2 = JOptionPane.showInputDialog(null, "배팅하실 두번째 말 번호를 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
-			
-				if(bet_num1.equals(bet_num2)) {
-					JOptionPane.showMessageDialog(null, "첫번째 말 번호와 다른 번호를 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					if(bet_num2 != null && Integer.parseInt(bet_num1) < 9 && Integer.parseInt(bet_num2) < 9) {
-						String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
-
-						if(bet_money != null && Long.parseLong(bet_money) <= tc.user.getMoney()) { // 현석 추가분 04/15
-							tc.bet_quinella(this, bet_num1, bet_num2, bet_money);
-						} else {
-							JOptionPane.showMessageDialog(null, "소지한 금액보다 배팅금액이 많습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
-						}
-					} else {
-						JOptionPane.showMessageDialog(null, "엔트리 말의 번호를 정확히 입력하세요.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
-					}
-					
-				}
-			}
-
+    		Integer[] nums = {1,2,3,4,5,6,7,8};
+    		String bet_num1 = Integer.toString(JOptionPane.showOptionDialog(null, "배팅하실 첫번째 말 번호를 선택하세요", "복식", 0, 0, null, nums, null) + 1);
+    		
+    		if(!bet_num1.equals("0")) {
+    			String bet_num2 = Integer.toString(JOptionPane.showOptionDialog(null, "배팅하실 두번째 말 번호를 선택하세요", "복식", 0, 0, null, nums, null) + 1);
+    			
+    			if(!bet_num2.equals("0")) {
+    				
+    				if(bet_num2.equals(bet_num1)) {
+    					JOptionPane.showMessageDialog(null, "첫번째 말 번호와 다른 번호를 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
+    				} else {
+    					
+    					if(Integer.parseInt(bet_num1) > Integer.parseInt(bet_num2)) {
+    						String temp = "";
+    						
+    						temp = bet_num1;
+    						bet_num1 = bet_num2;
+    						bet_num2 = temp;
+    					}
+    					
+    					String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
+    					
+    					if(bet_money != null) {
+    	    				
+    	    				if(Long.parseLong(bet_money) <= tc.user.getMoney()) {
+    	    					tc.bet_quinella(this, bet_num1, bet_num2, bet_money);
+    	    				} else {
+    	    					JOptionPane.showMessageDialog(null, "소지한 금액보다 배팅할 금액이 많습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
+    	    				}
+    	    			}
+    				}
+    			}
+    		}
+    		
 		} else {
 			return;
 		}
@@ -391,7 +413,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
     }
     
     public void setBetRate_Quinella(ArrayList<Double> rates) {
-    	int[] list = {37,46,47,55,56,57,64,65,66,67,73,74,75,76,77,82,83,84,85,86,87,91,92,93,94,95,96,97};
+    	int[] list = {37,46,55,64,73,82,91,47,56,65,74,83,92,57,66,75,84,93,67,76,85,94,77,86,95,87,96,97};
     	
     	for (int i = 0; i < rates.size(); i++) {
     		rate_quinella.get(list[i]).setText(Double.toString(rates.get(i)));

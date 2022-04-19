@@ -47,6 +47,8 @@ public class TCPClient {
 	
 	TCPClient tc = this;
 	
+	boolean isMoneyCharged = false;
+	
 	class TCPClientReceiver extends Thread{
 		
 		@Override
@@ -538,18 +540,24 @@ public class TCPClient {
 	
 	public void money_charge(RaceProjFrame raceProjFrame) {
 		this.raceProjFrame = raceProjFrame;
-		try {
-			TCPData data = new TCPData();
-			data.src = local.getHostAddress();
-			data.dst = "MONEY_CHARGE";
-			data.user = user;
-			
-			oos.writeObject(data);
-			oos.flush();
-			oos.reset();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		
+		if(!isMoneyCharged) {
+			try {
+				TCPData data = new TCPData();
+				data.src = local.getHostAddress();
+				data.dst = "MONEY_CHARGE";
+				data.user = user;
+				
+				oos.writeObject(data);
+				oos.flush();
+				oos.reset();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			isMoneyCharged = true;
+		} else {
+			JOptionPane.showMessageDialog(null, "이미 충전을 하셨습니다.", "무료충전 불가", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 	
@@ -644,7 +652,7 @@ public class TCPClient {
 			// 서버 켠 컴퓨터의 로컬 ip주소 넣어주면 됨
 			// 집 ip : 192.168.35.10
 
-			Socket soc = new Socket("192.168.35.10", 8888);
+			Socket soc = new Socket("192.168.20.43", 8888);
 
 			oos = new ObjectOutputStream(soc.getOutputStream());
 			ois = new ObjectInputStream(soc.getInputStream());
@@ -653,7 +661,7 @@ public class TCPClient {
 			
 			// 컴 하나로 임시테스트할때는 가짜 ip주소 넣어줌.  클라 켤때마다 숫자 바꿔줘야함
 
-			local = InetAddress.getByName("192.168.35.13");
+			local = InetAddress.getByName("192.168.35.14");
 
 			
 			new TCPClientReceiver().start();
