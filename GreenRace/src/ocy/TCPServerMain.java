@@ -100,7 +100,7 @@ public class TCPServerMain {
 
 	class Timer extends Thread {
 
-		public int i = 20;
+		public int i = 60;
 
 		@Override
 		public void run() {
@@ -118,6 +118,7 @@ public class TCPServerMain {
 		}
 
 		public Timer() {
+			isRecentUpdatable = true;
 			start();
 			new BetDAO().init_bet();
 		}
@@ -211,6 +212,8 @@ public class TCPServerMain {
 					} else if(data.dst.equals("UPDATE_RECENT_GAME")) {
 						if(isRecentUpdatable) {
 							updateRecentGame(data);
+						} else {
+							System.out.println("업데이트 할수 없어!!!!!!!!!!!!!!!!!!!!!!!");
 						}
 					} else if(data.dst.equals("GET_RECENT_GAME")) {
 						responseRecentGame(data);
@@ -248,7 +251,7 @@ public class TCPServerMain {
 			if(timer.i <= 0 && currentUser.size() > 1) {
 				System.out.println("타이머 초기화");
 				timer = new Timer();
-				isRecentUpdatable = true;
+//				isRecentUpdatable = true;
 
 			}
 			callScreen(data);

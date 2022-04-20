@@ -35,7 +35,7 @@ public class GameScreen3 extends JPanel{
 	ImageIcon icon7 = new ImageIcon("img/horse7.gif");
 	ImageIcon icon8 = new ImageIcon("img/horse8.gif");
 
-	RandomEntry re = new RandomEntry();
+	//RandomEntry re = new RandomEntry();
 	
 	ArrayList<ImageIcon> icons = new ArrayList<ImageIcon>();
 	ArrayList<JLabel> hos = new ArrayList<JLabel>();
@@ -153,17 +153,17 @@ public class GameScreen3 extends JPanel{
 					}
 
 					if( running.get(i) > 1200 && running.get(i) < 1430) { // lastspeed 구간
-						running.set(i, (int) (running.get(i) - entry3.get(i).speed));
-						running.set(i, (int) (running.get(i) + entry3.get(i).lastspeed));   
+						running.set(i, (int) (running.get(i) - entry3.get(i).speed * entry3.get(i).state));
+						running.set(i, (int) (running.get(i) + entry3.get(i).lastspeed * entry3.get(i).state));   
 					}
 
 					if (running.get(i) > 700 && running.get(i) < 1430) { // speed 구간
-						running.set(i, (int) (running.get(i) - entry3.get(i).firstspeed));
-						running.set(i, (int) (running.get(i) + entry3.get(i).speed));
+						running.set(i, (int) (running.get(i) - entry3.get(i).firstspeed * entry3.get(i).state));
+						running.set(i, (int) (running.get(i) + entry3.get(i).speed * entry3.get(i).state));
 					} 
 
 					if(running.get(i) < 1430) { // 시작 -  firstspeed 구간
-						running.set(i, (int) (running.get(i) + entry3.get(i).firstspeed));
+						running.set(i, (int) (running.get(i) + entry3.get(i).firstspeed * entry3.get(i).state));
 						hos.get(i).setLocation((int)(running.get(i)), 60 * i);
 					}
 				} 
