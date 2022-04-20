@@ -25,7 +25,7 @@ public class BattingScreen extends JPanel{
 	JLabel info0, info1, info2, info3, info4, info5, info6, info7, info8, info9, info10, info11;
 	JLabel timer = new JLabel();
 	
-	String fsp, sp, lsp;
+	String fsp, sp, lsp, st;
 	
 	RandomEntry re;
 	
@@ -155,6 +155,18 @@ public class BattingScreen extends JPanel{
 				} else {
 					lsp = "빠름";
 				}
+				
+				if(entry2.get(i).state == 1.2) {
+					st = "최고";
+				} else if(entry2.get(i).state == 1.1) {
+					st = "좋음";
+				} else if(entry2.get(i).state == 1.0) {
+					st = "보통";
+				} else if(entry2.get(i).state == 0.9) {
+					st = "하락";
+				} else if(entry2.get(i).state == 0.8) {
+					st = "최악";
+				}
 				 
 				entrynum = new JLabel("" + (i+1));
 				 hname = new JLabel(entry2.get(i).hname);
@@ -166,8 +178,9 @@ public class BattingScreen extends JPanel{
 				// gender = new JLabel(Boolean.toString(entry2.get(i).gender));
 				// year = new JLabel(Integer.toString(entry2.get(i).year));
 				// weight = new JLabel(Double.toString(entry2.get(i).weight));
-				 state = new JLabel(Double.toString(entry2.get(i).state));
+				 //state = new JLabel(Double.toString(entry2.get(i).state));
 				// recentrecord = new JLabel(entry2.get(i).recentrecord);
+				 state = new JLabel(st);
 				 
 				 add(entrynum);
 				 add(hname);
