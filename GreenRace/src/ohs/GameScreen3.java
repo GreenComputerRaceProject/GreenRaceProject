@@ -26,10 +26,18 @@ public class GameScreen3 extends JPanel{
 	BattingScreen battingScreen;
 
 	ImageIcon goal = new ImageIcon("img/goalline.png");
-	ImageIcon icon = new ImageIcon("img/horse_unscreen.gif");
+	ImageIcon icon1 = new ImageIcon("img/horse1.gif");
+	ImageIcon icon2 = new ImageIcon("img/horse2.gif");
+	ImageIcon icon3 = new ImageIcon("img/horse3.gif");
+	ImageIcon icon4 = new ImageIcon("img/horse4.gif");
+	ImageIcon icon5 = new ImageIcon("img/horse5.gif");
+	ImageIcon icon6 = new ImageIcon("img/horse6.gif");
+	ImageIcon icon7 = new ImageIcon("img/horse7.gif");
+	ImageIcon icon8 = new ImageIcon("img/horse8.gif");
 
 	RandomEntry re = new RandomEntry();
-
+	
+	ArrayList<ImageIcon> icons = new ArrayList<ImageIcon>();
 	ArrayList<JLabel> hos = new ArrayList<JLabel>();
 	ArrayList<Integer> running = new ArrayList<Integer>();
 	ArrayList<Integer> grading = new ArrayList<Integer>();
@@ -58,13 +66,29 @@ public class GameScreen3 extends JPanel{
 		setVisible(true);	
 
 		setBounds(0, 0, 1585, 500);
-		setBackground(Color.green);
+		setBackground(new Color(210, 190, 165));
 		setLayout(null);
 
 		entry3 = battingScreen.entry2;
+		
+		icons.add(icon1);
+		icons.add(icon2);
+		icons.add(icon3);
+		icons.add(icon4);
+		icons.add(icon5);
+		icons.add(icon6);
+		icons.add(icon7);
+		icons.add(icon8);
+		
+	/*	
+		for (int i = 1; i < 9; i++) {
+			ImageIcon icon = new ImageIcon("img/horse" + i + ".gif");
+			icons.add(icon);
+		}
+	*/
 
 		for (int i = 0; i < 8; i++) {
-			JLabel racehorse = new JLabel(icon);
+			JLabel racehorse = new JLabel(icons.get(i));
 			racehorse.setText(i+1 + "번 " + entry3.get(i).hname);
 			racehorse.setHorizontalTextPosition(JLabel.RIGHT);
 			racehorse.setForeground(Color.black);
