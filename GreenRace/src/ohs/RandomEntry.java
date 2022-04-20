@@ -28,6 +28,8 @@ public class RandomEntry {
 
 	         Statement stmt = con.createStatement();
 	         
+	         int res = stmt.executeUpdate("update horse set state = round((0.8 + rand() * (0.4)), 1)");
+	         
 	         ResultSet rs = stmt.executeQuery("select * from horse order by rand() limit 8");
 	         
 	         while(rs.next()) {
