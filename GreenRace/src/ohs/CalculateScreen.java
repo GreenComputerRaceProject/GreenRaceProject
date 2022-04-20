@@ -101,39 +101,40 @@ public class CalculateScreen extends JPanel{
 						}
 			}
 
+			/*
 			odds1 = new JLabel("2배");
 			odds2 = new JLabel("1.5배");
 			odds3 = new JLabel("1.5배");
 			odds4 = new JLabel("6배");
-			
+			*/
 			
 
 			win1 = new JPanel();
 			win1.setBounds(0, 0, 1585, 150);
 			win1.setBackground(Color.yellow);
-			win1.setLayout(new GridLayout(1, 3));
+			win1.setLayout(new GridLayout(1, 2));
 			win1.add(dan);
 			win1.add(h1);
-			win1.add(odds1);
+		//	win1.add(odds1);
 
 			win2 = new JPanel();
 			win2.setBounds(0, 150, 1585, 150);
 			win2.setBackground(Color.orange);
-			win2.setLayout(new GridLayout(1,5));
+			win2.setLayout(new GridLayout(1,3));
 			win2.add(yun);
 			win2.add(h2);
-			win2.add(odds2);
+		//	win2.add(odds2);
 			win2.add(h3);
-			win2.add(odds3);
+		//	win2.add(odds3);
 			
 			win3 = new JPanel();
 			win3.setBackground(Color.green);
 			win3.setBounds(0, 300, 1585, 150);
-			win3.setLayout(new GridLayout(1, 4));
+			win3.setLayout(new GridLayout(1, 3));
 			win3.add(bok);
 			win3.add(h4);
 			win3.add(h5);
-			win3.add(odds4);
+		//	win3.add(odds4);
 
 			add(win1);
 			add(win2);
