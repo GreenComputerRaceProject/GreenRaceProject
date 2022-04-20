@@ -36,11 +36,11 @@ public class SignUp extends JFrame {
 	JTextField idField, nameField, nicknameField, phoneField, certField;
 	JPasswordField pwField, pwField2;
 	JTextArea aboutArea;
-	JButton signUp, idButton, nicknameButton, phoneButton, certButton;
+	JButton signUp, idButton, nameButton, nicknameButton, phoneButton, certButton;
 	
 	String certNum = "";
 	
-	boolean isIdComplete, isNicknameComplete, isPhoneComplete;
+	boolean isIdComplete, isNameComplete, isNicknameComplete, isPhoneComplete;
 	
 	class InnerSignUp extends JPanel implements ActionListener {
 		
@@ -76,6 +76,9 @@ public class SignUp extends JFrame {
 			nameFieldLabel.setBounds(60, 250, 50, 50);
 			nameField = new JTextField();
 			nameField.setBounds(100, 250, 200, 50);
+			nameButton = new JButton("이름확인");
+			nameButton.setBounds(300, 250, 80, 50);
+			nameButton.addActionListener(this);
 			
 			JLabel nicknameFieldLabel = new JLabel("닉네임");
 			nicknameFieldLabel.setBounds(50, 300, 50, 50);
@@ -124,6 +127,7 @@ public class SignUp extends JFrame {
 			add(pwField2);
 			add(nameFieldLabel);
 			add(nameField);
+			add(nameButton);
 			add(nicknameFieldLabel);
 			add(nicknameField);
 			add(nicknameButton);
@@ -150,7 +154,7 @@ public class SignUp extends JFrame {
 						|| certField.getText().isEmpty() || aboutArea.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "빈 내용을 채워주세요", "회원가입 실패", JOptionPane.PLAIN_MESSAGE);
 				} else {
-					if(isIdComplete && isNicknameComplete && isPhoneComplete) {
+					if(isIdComplete && isNameComplete && isNicknameComplete && isPhoneComplete) {
 						if(pwField.getText().equals(pwField2.getText())) {
 							tc.requestInsertUser(this, idField.getText(), pwField.getText(), nameField.getText(), nicknameField.getText(),
 									phoneField.getText(), aboutArea.getText());
@@ -161,6 +165,8 @@ public class SignUp extends JFrame {
 						}
 					} else if(!isIdComplete) {
 						JOptionPane.showMessageDialog(null, "아이디 중복확인을 해주세요", "회원가입 실패", JOptionPane.PLAIN_MESSAGE);
+					} else if(!isNameComplete) {
+						JOptionPane.showMessageDialog(null, "이름확인을 해주세요", "회원가입 실패", JOptionPane.PLAIN_MESSAGE);
 					} else if(!isNicknameComplete) {
 						JOptionPane.showMessageDialog(null, "닉네임 중복확인을 해주세요", "회원가입 실패", JOptionPane.PLAIN_MESSAGE);
 					} else if(!isPhoneComplete) {
@@ -181,6 +187,23 @@ public class SignUp extends JFrame {
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "아이디를 입력해주세요", "중복확인 실패", JOptionPane.PLAIN_MESSAGE);
+				}
+			} else if(e.getSource().equals(nameButton)) {
+				
+				if(!nameField.getText().isEmpty()) {		
+					String pattern = "^[a-zA-Z가-힣]*$";
+					boolean regex = Pattern.matches(pattern, nameField.getText());
+					
+					if(regex) {
+						isNameComplete = true;
+						nameField.setEnabled(false);
+						JOptionPane.showMessageDialog(null, "올바른 이름입니다.", "확인 완료", JOptionPane.PLAIN_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(null, "유효한 이름을 입력해주세요", "확인 실패", JOptionPane.PLAIN_MESSAGE);
+						nameField.setText("");
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "이름을 입력해주세요", "확인 실패", JOptionPane.PLAIN_MESSAGE);
 				}
 			} else if(e.getSource().equals(nicknameButton)) {
 				
