@@ -28,7 +28,7 @@ public class GameInfo extends JFrame{
 		setLayout(new BorderLayout());
 		
 		jp = new JPanel();
-		jp.setPreferredSize(new Dimension(480,400));
+		jp.setPreferredSize(new Dimension(480,2000));
 		jp.setBackground(Color.pink);
 		jp.setLayout(new FlowLayout(FlowLayout.CENTER));
 		
