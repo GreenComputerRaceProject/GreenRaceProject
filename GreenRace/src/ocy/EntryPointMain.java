@@ -37,21 +37,23 @@ public class EntryPointMain extends JFrame {
 	JTextField idField;
 	JPasswordField pwField;
 	
-	class LoginPanel extends JPanel implements ActionListener {public void paintComponent(Graphics g) {
-		Dimension d = getSize();
-		ImageIcon image = new ImageIcon("img/full.png");
-		g.drawImage(image.getImage(), 0, 0, d.width, d.height, null);
-	}
+	class LoginPanel extends JPanel implements ActionListener {
+		
+		public void paintComponent(Graphics g) {
+			Dimension d = getSize();
+			ImageIcon image = new ImageIcon("img/full.png");
+			g.drawImage(image.getImage(), 0, 100, d.width, d.height - 200, null);
+		}
 		
 		public LoginPanel() {
 			setSize(1600, 1000);
 			setLayout(null);
-			//setBackground(new Color(1,88,54));
+			//setBackground(Color.white);
 			
 			JLabel titleLabel = new JLabel("달려라 왕바우");
-			titleLabel.setForeground(Color.white);
-			titleLabel.setBounds(650, 200, 300, 50);
-			titleLabel.setFont(new Font("돋움", Font.PLAIN, 50));
+			titleLabel.setForeground(Color.black);
+			titleLabel.setBounds(580, 80, 500, 80);
+			titleLabel.setFont(new Font("돋움", Font.BOLD, 80));
 			
 			idField = new JTextField();
 			idField.setBounds(700, 350, 200, 50);
@@ -61,15 +63,18 @@ public class EntryPointMain extends JFrame {
 			JButton loginButton = new JButton("로그인");
 			loginButton.setBounds(725, 450, 150, 75);
 			loginButton.addActionListener(this);
+			loginButton.setFont(new Font("돋움", Font.BOLD, 22));
 			
 			JButton signUpButton = new JButton("회원가입");
 			signUpButton.setBounds(725, 600, 150, 75);
+			signUpButton.setFont(new Font("돋움", Font.BOLD, 22));
 			signUpButton.addActionListener(event -> {
 				new SignUp(tc);
 			});
 			
 			JButton idFineButton = new JButton("ID 찾기");
 			idFineButton.setBounds(650, 675, 150, 75);
+			idFineButton.setFont(new Font("돋움", Font.BOLD, 22));
 			idFineButton.addActionListener(event -> {
 				// 아이디찾기 프레임 생성
 				new Find(tc, "ID 찾기");
@@ -77,6 +82,7 @@ public class EntryPointMain extends JFrame {
 			
 			JButton pwFineButton = new JButton("PW 재설정");
 			pwFineButton.setBounds(800, 675, 150, 75);
+			pwFineButton.setFont(new Font("돋움", Font.BOLD, 22));
 			pwFineButton.addActionListener(event -> {
 				// 비번찾기 프레임 생성
 				new Find(tc, "PW 재설정");

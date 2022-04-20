@@ -307,10 +307,10 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 			}
 		} else if(e.getSource().equals(b_single)) { // 단식 배팅 버튼
 			Integer[] nums = {1,2,3,4,5,6,7,8};
-			String bet_num = Integer.toString(JOptionPane.showOptionDialog(null, "배팅하실 말 번호를 선택하세요", "단식", 0, 0, null, nums, null) + 1);
+			String bet_num = Integer.toString(JOptionPane.showOptionDialog(null, "배팅하실 말 번호를 선택하세요", "단식", 0, JOptionPane.PLAIN_MESSAGE, null, nums, null) + 1);
 
 			if(!bet_num.equals("0")) {
-				String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "단식", JOptionPane.INFORMATION_MESSAGE);
+				String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "단식", JOptionPane.PLAIN_MESSAGE);
 
 				if(bet_money != null) {
 					String pattern = "^[0-9]*$";
@@ -343,10 +343,10 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 
 		} else if(e.getSource().equals(b_yeon)) { // 연식 배팅 버튼
 			Integer[] nums = {1,2,3,4,5,6,7,8};
-			String bet_num = Integer.toString(JOptionPane.showOptionDialog(null, "배팅하실 말 번호를 선택하세요", "연식", 0, 0, null, nums, null) + 1);
+			String bet_num = Integer.toString(JOptionPane.showOptionDialog(null, "배팅하실 말 번호를 선택하세요", "연식", 0, JOptionPane.PLAIN_MESSAGE, null, nums, null) + 1);
 
 			if(!bet_num.equals("0")) {
-				String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "연식", JOptionPane.INFORMATION_MESSAGE);
+				String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "연식", JOptionPane.PLAIN_MESSAGE);
 
 				if(bet_money != null ) {
 					String pattern = "^[0-9]*$";
@@ -380,15 +380,15 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 
 		} else if(e.getSource().equals(b_bok)) { // 복식 배팅 버튼
 			Integer[] nums = {1,2,3,4,5,6,7,8};
-			String bet_num1 = Integer.toString(JOptionPane.showOptionDialog(null, "배팅하실 첫번째 말 번호를 선택하세요", "복식", 0, 0, null, nums, null) + 1);
+			String bet_num1 = Integer.toString(JOptionPane.showOptionDialog(null, "배팅하실 첫번째 말 번호를 선택하세요", "복식", 0, JOptionPane.PLAIN_MESSAGE, null, nums, null) + 1);
 
 			if(!bet_num1.equals("0")) {
-				String bet_num2 = Integer.toString(JOptionPane.showOptionDialog(null, "배팅하실 두번째 말 번호를 선택하세요", "복식", 0, 0, null, nums, null) + 1);
+				String bet_num2 = Integer.toString(JOptionPane.showOptionDialog(null, "배팅하실 두번째 말 번호를 선택하세요", "복식", 0, JOptionPane.PLAIN_MESSAGE, null, nums, null) + 1);
 
 				if(!bet_num2.equals("0")) {
 
 					if(bet_num2.equals(bet_num1)) {
-						JOptionPane.showMessageDialog(null, "첫번째 말 번호와 다른 번호를 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "첫번째 말 번호와 다른 번호를 입력하세요", "복식", JOptionPane.PLAIN_MESSAGE);
 					} else {
 
 						if(Integer.parseInt(bet_num1) > Integer.parseInt(bet_num2)) {
@@ -399,7 +399,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 							bet_num2 = temp;
 						}
 
-						String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "복식", JOptionPane.INFORMATION_MESSAGE);
+						String bet_money = JOptionPane.showInputDialog(null, "배팅하실 금액을 입력하세요", "복식", JOptionPane.PLAIN_MESSAGE);
 
 						if(bet_money != null) {
 							String pattern = "^[0-9]*$";
