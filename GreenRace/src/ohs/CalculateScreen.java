@@ -176,6 +176,7 @@ public class CalculateScreen extends JPanel{
 				for (int i = 10; i >= 0; i--) {
 					timer.setText(i + "초 후 배팅이 시작됩니다");
 					timer.setFont(new Font("휴먼둥근체", Font.BOLD, 32));
+					timer.setHorizontalAlignment(JLabel.CENTER);
 					timer.repaint();
 					
 					if (i == 0) {

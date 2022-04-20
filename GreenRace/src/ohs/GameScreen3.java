@@ -1,6 +1,7 @@
 package ohs;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
@@ -12,6 +13,7 @@ import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.plaf.FontUIResource;
 
 import ocy.TCPClient;
 
@@ -24,7 +26,9 @@ public class GameScreen3 extends JPanel{
 
 	ArrayList<HorseClass2> entry3 = new ArrayList<HorseClass2>();
 	BattingScreen battingScreen;
-
+	FontClass fc;
+	
+	ImageIcon trackicon = new ImageIcon("img/track.jpg");
 	ImageIcon goal = new ImageIcon("img/goalline.png");
 	ImageIcon icon1 = new ImageIcon("img/horse1.gif");
 	ImageIcon icon2 = new ImageIcon("img/horse2.gif");
@@ -41,9 +45,10 @@ public class GameScreen3 extends JPanel{
 	ArrayList<JLabel> hos = new ArrayList<JLabel>();
 	ArrayList<Integer> running = new ArrayList<Integer>();
 	ArrayList<Integer> grading = new ArrayList<Integer>();
+	ArrayList<JLabel> count = new ArrayList<JLabel>();
 	Map<Integer, String> grading2 = new HashMap<Integer, String>();
 
-	JLabel goalline;
+	JLabel track ,goalline, ready, go, counting;
 	//	 boolean set = true;
 	boolean start = false;
 
@@ -51,19 +56,46 @@ public class GameScreen3 extends JPanel{
 	int x = 0;
 	int a = 1;
 	int max = 0;
-
-
-
+	
 	JLabel racehorse;
-
+	
 	public GameScreen3(TCPClient tc, RaceProjFrame rpf, BattingScreen battingScreen) {
-
+		
+		fc.setUIFont(new FontUIResource(new Font("휴먼둥근체",Font.BOLD,14)));
+		
 		this.tc = tc;
 		this.rpf = rpf;
 
+		track = new JLabel(trackicon);
+		track.setBounds(0, 0, 1585, 500);
+		
+		
 		goalline = new JLabel(goal);
 		goalline.setBounds(1400, 0, 20, 500);
 		setVisible(true);	
+		
+		ready = new JLabel("경기      준비");
+		ready.setSize(700, 200);
+		ready.setLocation(380, 150);
+		ready.setHorizontalAlignment(JLabel.CENTER);
+		ready.setFont(new FontUIResource("휴먼둥근체", Font.BOLD, 40));
+		
+		for (int i = 0; i < 3; i++) {
+			counting = new JLabel("" + (i+1));
+			count.add(counting);
+			count.get(i).setSize(700, 200);
+			count.get(i).setLocation(380, 150);
+			count.get(i).setHorizontalAlignment(JLabel.CENTER);
+			count.get(i).setFont(new Font("휴먼둥근체", Font.BOLD, 40));
+			count.get(i).setVisible(false);
+		}
+		
+		go = new JLabel("경기      시작");
+		go.setSize(700, 200);
+		go.setLocation(380, 150);
+		go.setHorizontalAlignment(JLabel.CENTER);
+		go.setFont(new FontUIResource("휴먼둥근체", Font.BOLD, 40));
+		go.setVisible(false);
 
 		setBounds(0, 0, 1585, 500);
 		setBackground(new Color(210, 190, 165));
@@ -111,6 +143,12 @@ public class GameScreen3 extends JPanel{
 		}
 
 		add(goalline);
+		add(ready);
+		add(count.get(0));
+		add(count.get(1));
+		add(count.get(2));
+		add(go);
+		add(track);
 
 		repaint();
 		new runs();
@@ -127,8 +165,22 @@ public class GameScreen3 extends JPanel{
 
 
 			try {
-				Thread.sleep(3000);
+				
+				Thread.sleep(1000);
+				ready.setVisible(false);
+				count.get(2).setVisible(true);
+				Thread.sleep(1000);
+				count.get(2).setVisible(false);
+				count.get(1).setVisible(true);
+				Thread.sleep(1000);
+				count.get(1).setVisible(false);
+				count.get(0).setVisible(true);
+				Thread.sleep(1000);
+				count.get(0).setVisible(false);
+				go.setVisible(true);
+				Thread.sleep(500);
 				start = true;
+				go.setVisible(false);
 				System.out.println("경기 시작!");
 			} catch (Exception e1) {
 				e1.printStackTrace();
@@ -146,6 +198,7 @@ public class GameScreen3 extends JPanel{
 						hos.get(i).setLocation(running.get(i), 60 * i);
 						//   hos.get(i).setFont(f1);
 						hos.get(i).setForeground(Color.black);
+						hos.get(i).setSize(100,60);
 						hos.get(i).setText(hos.get(i).getText() +"-" + a + "등");
 						hos.get(i).setHorizontalTextPosition(JLabel.CENTER);
 

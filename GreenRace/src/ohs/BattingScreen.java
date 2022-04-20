@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.plaf.FontUIResource;
 
 import ocy.TCPClient;
 
@@ -18,11 +19,13 @@ public class BattingScreen extends JPanel{
 	
 	ArrayList<HorseClass2> entry2;
 	BattingScreen battingScreen = this;
-	//FontClass fc;
+	FontClass fc;
 	
 	JPanel info;
-	JLabel info1, info2, info3, info4, info5, info6, info7, info8, info9, info10, info11;
+	JLabel info0, info1, info2, info3, info4, info5, info6, info7, info8, info9, info10, info11;
 	JLabel timer = new JLabel();
+	
+	String fsp, sp, lsp;
 	
 	RandomEntry re;
 	
@@ -33,8 +36,9 @@ public class BattingScreen extends JPanel{
 		this.tc = tc;
 		this.rpf = rpf;
 		
-	//	fc.setUIFont(new FontUIResource(new Font("휴먼둥근체",Font.BOLD,13)));
-		
+	//	setUIFont(new FontUIResource(new Font("휴먼둥근체",Font.BOLD,13)));
+	fc.setUIFont(new FontUIResource(new Font("휴먼둥근체",Font.BOLD,20)));
+	
 		setBounds(0, 0, 1585, 500);
 		setLayout(null);
 		
@@ -45,32 +49,36 @@ public class BattingScreen extends JPanel{
 		
 		info = new JPanel();
 		info.setBounds(0, 50, 1585, 30);
-		info.setLayout(new GridLayout(1, 11));
+		info.setLayout(new GridLayout(1, 7));
 		info.setBackground(Color.orange);
 		
+		info0 = new JLabel("엔트리 번호");
 		info1 = new JLabel("경주마 이름");
 		info2 = new JLabel("경주마 타입");
 		info3 = new JLabel("속도");
 		info4 = new JLabel("초속");
 		info5 = new JLabel("후속");
-		info6 = new JLabel("스태미나");
-		info7 = new JLabel("성별");
-		info8 = new JLabel("나이");
-		info9 = new JLabel("무게");
+	//	info6 = new JLabel("스태미나");
+	//	info7 = new JLabel("성별");
+	//	info8 = new JLabel("나이");
+	//	info9 = new JLabel("무게");
 		info10 = new JLabel("컨디션");
-		info11 = new JLabel("최근순위");
+	//	info11 = new JLabel("최근순위");
 		
+		
+		
+		info.add(info0);
 		info.add(info1);
 		info.add(info2);
 		info.add(info3);
 		info.add(info4);
 		info.add(info5);
-		info.add(info6);
-		info.add(info7);
-		info.add(info8);
-		info.add(info9);
+	//	info.add(info6);
+	//	info.add(info7);
+	//	info.add(info8);
+	//	info.add(info9);
 		info.add(info10);
-		info.add(info11);
+	//	info.add(info11);
 	
 		add(info);
 		
@@ -113,39 +121,66 @@ public class BattingScreen extends JPanel{
 		
 		
 		
-		JLabel hname, type, speed, firstspeed, lastspeed, stamina, gender, year,
+		JLabel entrynum ,hname, type, speed, firstspeed, lastspeed, stamina, gender, year,
 			   weight, state, recentrecord;
 		
 		
 		public showEntry() {
 			setBounds(0, 80, 1585, 420);
 			setBackground(Color.yellow);
-			setLayout(new GridLayout(8,11));
+			setLayout(new GridLayout(8,7));
 			
 			for (int i = 0; i < 8; i++) {
+				
+				if(entry2.get(i).firstspeed <= 8) {
+					fsp = "느림";
+				} else if (entry2.get(i).firstspeed < 11 ) {
+					fsp = "보통";
+				} else {
+					fsp = "빠름";
+				}
+				
+				if(entry2.get(i).speed <= 8) {
+					sp = "느림";
+				} else if (entry2.get(i).speed < 11 ) {
+					sp = "보통";
+				} else {
+					sp = "빠름";
+				}
+				
+				if(entry2.get(i).lastspeed <= 8) {
+					lsp = "느림";
+				} else if (entry2.get(i).lastspeed < 11 ) {
+					lsp = "보통";
+				} else {
+					lsp = "빠름";
+				}
+				 
+				entrynum = new JLabel("" + (i+1));
 				 hname = new JLabel(entry2.get(i).hname);
 				 type = new JLabel(entry2.get(i).type);
-				 speed = new JLabel(Double.toString(entry2.get(i).speed));
-				 firstspeed = new JLabel(Double.toString(entry2.get(i).firstspeed));
-				 lastspeed = new JLabel(Double.toString(entry2.get(i).lastspeed));
-				 stamina = new JLabel(Double.toString(entry2.get(i).stamina));
-				 gender = new JLabel(Boolean.toString(entry2.get(i).gender));
-				 year = new JLabel(Integer.toString(entry2.get(i).year));
-				 weight = new JLabel(Double.toString(entry2.get(i).weight));
+				 speed = new JLabel(sp);
+				 firstspeed = new JLabel(fsp);
+				 lastspeed = new JLabel(lsp);
+				// stamina = new JLabel(Double.toString(entry2.get(i).stamina));
+				// gender = new JLabel(Boolean.toString(entry2.get(i).gender));
+				// year = new JLabel(Integer.toString(entry2.get(i).year));
+				// weight = new JLabel(Double.toString(entry2.get(i).weight));
 				 state = new JLabel(Double.toString(entry2.get(i).state));
-				 recentrecord = new JLabel(entry2.get(i).recentrecord);
+				// recentrecord = new JLabel(entry2.get(i).recentrecord);
 				 
+				 add(entrynum);
 				 add(hname);
 				 add(type);
 				 add(speed);
 				 add(firstspeed);
 				 add(lastspeed);
-				 add(stamina);
-				 add(gender);
-				 add(year);
-				 add(weight);
+			//	 add(stamina);
+			//	 add(gender);
+			//	 add(year);
+			//	 add(weight);
 				 add(state);
-				 add(recentrecord);
+			//	 add(recentrecord);
 			}
 		
 			setVisible(true);
@@ -165,9 +200,9 @@ public class BattingScreen extends JPanel{
 
 					timer.setText("배팅을 해주세요... 경기시작까지 남은시간 : " + i);
 					timer.setFont(new Font("휴먼둥근체", Font.BOLD, 32));
+					timer.setHorizontalAlignment(JLabel.CENTER);
 					timer.repaint();
-					
-
+		
 					sleep(1000);
 				} 
 				
