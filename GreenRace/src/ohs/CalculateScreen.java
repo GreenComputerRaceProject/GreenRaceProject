@@ -197,9 +197,7 @@ public class CalculateScreen extends JPanel{
 	public void startTime() {
 		tc.start_time(this);
 		
-		rpf.b_single.setEnabled(true);
-		rpf.b_yeon.setEnabled(true);
-		rpf.b_bok.setEnabled(true);
+		
 		
 	}
 	

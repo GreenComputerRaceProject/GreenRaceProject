@@ -78,6 +78,12 @@ public class BattingScreen extends JPanel{
 		setOpaque(true);
 		setBackground(Color.gray);
 		
+		rpf.b_single.setEnabled(true);
+		rpf.b_yeon.setEnabled(true);
+		rpf.b_bok.setEnabled(true);
+		
+		rpf.cheak = true;
+		
 		getTime();
 		rpf.showBetList();
 	}
@@ -180,6 +186,7 @@ public class BattingScreen extends JPanel{
 		rpf.b_single.setEnabled(false);
 		rpf.b_yeon.setEnabled(false);
 		rpf.b_bok.setEnabled(false);
+		rpf.cheak = false;
 		
 		GameScreen3 gs = new GameScreen3(tc, rpf, battingScreen); 
 		add(gs);
