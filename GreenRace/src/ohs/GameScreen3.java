@@ -29,7 +29,7 @@ public class GameScreen3 extends JPanel{
 	FontClass fc;
 	
 	ImageIcon trackicon = new ImageIcon("img/track.jpg");
-	ImageIcon goal = new ImageIcon("img/goalline.png");
+//	ImageIcon goal = new ImageIcon("img/goalline.png");
 	ImageIcon icon1 = new ImageIcon("img/horse1.gif");
 	ImageIcon icon2 = new ImageIcon("img/horse2.gif");
 	ImageIcon icon3 = new ImageIcon("img/horse3.gif");
@@ -53,7 +53,7 @@ public class GameScreen3 extends JPanel{
 	boolean start = false;
 
 	int [] grade = {1,2,3,4,5,6,7,8,9}; 
-	int x = 0;
+	int x = 0 , y = 22;
 	int a = 1;
 	int max = 0;
 	
@@ -70,9 +70,9 @@ public class GameScreen3 extends JPanel{
 		track.setBounds(0, 0, 1585, 500);
 		
 		
-		goalline = new JLabel(goal);
-		goalline.setBounds(1400, 0, 20, 500);
-		setVisible(true);	
+	//	goalline = new JLabel(goal);
+	//	goalline.setBounds(1400, 0, 20, 500);
+	//	setVisible(true);	
 		
 		ready = new JLabel("경기      준비");
 		ready.setSize(700, 200);
@@ -137,12 +137,12 @@ public class GameScreen3 extends JPanel{
 		} */
 
 		for (int i = 0; i < hos.size(); i++) {
-			hos.get(i).setSize(160,60);
-			hos.get(i).setLocation(0, 60 * i);
+			hos.get(i).setSize(160,63);
+			hos.get(i).setLocation(0, y+(51*i));
 			add(hos.get(i));
 		}
 
-		add(goalline);
+	//	add(goalline);
 		add(ready);
 		add(count.get(0));
 		add(count.get(1));
@@ -195,7 +195,7 @@ public class GameScreen3 extends JPanel{
 
 						running.set(i, 1460);
 						hos.get(i).setIcon(null);
-						hos.get(i).setLocation(running.get(i), 60 * i);
+						hos.get(i).setLocation(running.get(i), (y+13)+(51*i));
 						//   hos.get(i).setFont(f1);
 						hos.get(i).setForeground(Color.black);
 						hos.get(i).setSize(100,60);
@@ -217,7 +217,7 @@ public class GameScreen3 extends JPanel{
 
 					if(running.get(i) < 1430) { // 시작 -  firstspeed 구간
 						running.set(i, (int) (running.get(i) + entry3.get(i).firstspeed * entry3.get(i).state));
-						hos.get(i).setLocation((int)(running.get(i)), 60 * i);
+						hos.get(i).setLocation((int)(running.get(i)), y+(51*i));
 					}
 				} 
 
