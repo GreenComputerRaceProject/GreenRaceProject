@@ -74,11 +74,11 @@ public class GameScreen3 extends JPanel{
 	//	goalline.setBounds(1400, 0, 20, 500);
 	//	setVisible(true);	
 		
-		ready = new JLabel("경기      준비");
+		ready = new JLabel("경기    준비");
 		ready.setSize(700, 200);
 		ready.setLocation(380, 150);
 		ready.setHorizontalAlignment(JLabel.CENTER);
-		ready.setFont(new FontUIResource("휴먼둥근체", Font.BOLD, 40));
+		ready.setFont(new FontUIResource("휴먼둥근체", Font.BOLD, 70));
 		
 		for (int i = 0; i < 3; i++) {
 			counting = new JLabel("" + (i+1));
@@ -86,15 +86,15 @@ public class GameScreen3 extends JPanel{
 			count.get(i).setSize(700, 200);
 			count.get(i).setLocation(380, 150);
 			count.get(i).setHorizontalAlignment(JLabel.CENTER);
-			count.get(i).setFont(new Font("휴먼둥근체", Font.BOLD, 40));
+			count.get(i).setFont(new Font("휴먼둥근체", Font.BOLD, 70));
 			count.get(i).setVisible(false);
 		}
 		
-		go = new JLabel("경기      시작");
+		go = new JLabel("경기   시작");
 		go.setSize(700, 200);
 		go.setLocation(380, 150);
 		go.setHorizontalAlignment(JLabel.CENTER);
-		go.setFont(new FontUIResource("휴먼둥근체", Font.BOLD, 40));
+		go.setFont(new FontUIResource("휴먼둥근체", Font.BOLD, 70));
 		go.setVisible(false);
 
 		setBounds(0, 0, 1585, 500);
