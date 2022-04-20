@@ -100,7 +100,7 @@ public class TCPServerMain {
 
 	class Timer extends Thread {
 
-		public int i = 60;
+		public int i = 20;
 
 		@Override
 		public void run() {
@@ -224,10 +224,7 @@ public class TCPServerMain {
 					} else if(data.dst.equals("GET_SCREEN")) {
 						if(timer.i > 0) {
 							callScreen(data);
-						} else if(currentUser.size() == 1) {
-							timer = new Timer();
-							callScreen(data);
-						}
+						} 
 					}else {
 						sendToOne(data);
 					}

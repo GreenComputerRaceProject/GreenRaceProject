@@ -49,7 +49,8 @@ public class Screen extends JPanel{
 		add(imglabel);
 		
 		setVisible(true);
-
+		
+		cheakUser();
 		getTime2();
 		
 		new Screenproduce();
@@ -65,6 +66,11 @@ public class Screen extends JPanel{
 	public void goTimer2(int time) {
 		this.time = time;
 
+	}
+	
+	public void cheakUser() {
+		tc.chesk_uesr(this);
+	
 	}
 
 	class Screenproduce extends Thread{
