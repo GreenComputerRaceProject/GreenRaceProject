@@ -47,13 +47,14 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 
 	JTextField field;
 	JFrame refFrame;   //기능버튼클릭시 추가 생성되는 화면
-	JButton user_info, m_charge, game_info, exit, b_single, b_yeon, b_bok;
+	JButton m_charge, game_info, exit, b_single, b_yeon, b_bok;
 	//회원정보,   게임머니충전,  경기정보조회,   게임종료,  단식,    연식,    복식
 
 	public JPanel user_list, bet_list;
 	JPanel game_screen, b_danglyul,   game_rule;    
 	//게임화면,     배당률,       배팅방식,       채팅,     참가자리스트
 
+	public JLabel user_info;
 	JLabel my_money;   //보유머니
 	JPanel jp;          //상단나열바
 
@@ -84,15 +85,17 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 		jp.setLayout(null);
 		add(jp);
 
-		user_info = new JButton("회원정보(랭크)");
+		user_info = new JLabel("닉네임(랭크)");
 		user_info.setBounds(0, 0, 317, 70);
+		user_info.setHorizontalAlignment(JLabel.CENTER);
 		user_info.setBackground(Color.white);
+		user_info.setOpaque(true);
 		jp.add(user_info);
 
 		my_money = new JLabel("보유 머니 : ");
 		my_money.setBounds(317, 0, 317, 70);
 		my_money.setHorizontalAlignment(JLabel.CENTER);
-		my_money.setBackground(Color.cyan);
+		my_money.setBackground(Color.white);
 		my_money.setOpaque(true);
 		jp.add(my_money);
 
@@ -230,43 +233,42 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 
 		game_rule = new JPanel();
 		game_rule.setBounds(1200, 570, 385, 80);
-		game_rule.setBackground(Color.orange);
+		//game_rule.setBackground(Color.orange);
 		game_rule.setLayout(null);
 		add(game_rule);
 
 		b_single = new JButton("단식");
 		b_single.setBounds(0, 0, 128, 80);
-		b_single.setBackground(Color.pink);
+		//b_single.setBackground(Color.pink);
 		b_single.setEnabled(false);
 		game_rule.add(b_single);
 
 		b_yeon = new JButton("연식");
 		b_yeon.setBounds(128, 0, 129, 80);
-		b_yeon.setBackground(Color.green);
+		//b_yeon.setBackground(Color.green);
 		b_yeon.setEnabled(false);
 		game_rule.add(b_yeon);
 
 		b_bok = new JButton("복식");
 		b_bok.setBounds(257, 0, 128, 80);
-		b_bok.setBackground(Color.yellow);
+		//b_bok.setBackground(Color.yellow);
 		b_bok.setEnabled(false);
 		game_rule.add(b_bok);
 
 		bet_list = new JPanel();
 		bet_list.setBounds(1200, 650, 200, 312);
-		bet_list.setBackground(Color.green);
+		bet_list.setBackground(Color.gray);
 		bet_list.setLayout(new FlowLayout());
 		add(bet_list);
 
 		user_list = new JPanel();
 		user_list.setBounds(1400, 650, 185, 312); // (1200, 650, 385, 312)
-		user_list.setBackground(Color.gray);
+		//user_list.setBackground(Color.gray);
 		user_list.setLayout(new FlowLayout());
 		add(user_list);
 
 		refFrame = new JFrame();
 
-		user_info.addActionListener(this);
 		m_charge.addActionListener(this);
 		game_info.addActionListener(this);
 		exit.addActionListener(this);
@@ -495,10 +497,10 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 			for (BetDTO_Single single : tc.bet_list.single) {
 				JPanel jp = new JPanel();
 				jp.setPreferredSize(new Dimension(380, 25));
-				jp.setBackground(Color.yellow);
+				//jp.setBackground(Color.yellow);
 
 				JLabel jl = new JLabel("단식 : " + single.getHname() + "번 " + single.getMoney() + "원");
-				jl.setBackground(Color.pink);
+				//jl.setBackground(Color.pink);
 				jl.setOpaque(true);
 				jp.add(jl);
 
@@ -508,10 +510,10 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 			for (BetDTO_Place place : tc.bet_list.place) {
 				JPanel jp = new JPanel();
 				jp.setPreferredSize(new Dimension(380, 25));
-				jp.setBackground(Color.yellow);
+				//jp.setBackground(Color.yellow);
 
 				JLabel jl = new JLabel("연식 : " + place.getHname() + "번 " + place.getMoney() + "원");
-				jl.setBackground(Color.pink);
+				//jl.setBackground(Color.pink);
 				jl.setOpaque(true);
 				jp.add(jl);
 
@@ -521,10 +523,10 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 			for (BetDTO_Quinella quinella : tc.bet_list.quinella) {
 				JPanel jp = new JPanel();
 				jp.setPreferredSize(new Dimension(380, 25));
-				jp.setBackground(Color.yellow);
+				//jp.setBackground(Color.yellow);
 
 				JLabel jl = new JLabel("복식 : " + quinella.getHname1() + "_" + quinella.getHname2() + "번 " + quinella.getMoney() + "원");
-				jl.setBackground(Color.pink);
+				//jl.setBackground(Color.pink);
 				jl.setOpaque(true);
 				jp.add(jl);
 

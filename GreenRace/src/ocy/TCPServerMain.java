@@ -101,7 +101,7 @@ public class TCPServerMain {
 	class Timer extends Thread {
 
 
-		public int i = 7;
+		public int i = 30;
 
 
 		@Override
@@ -214,8 +214,6 @@ public class TCPServerMain {
 					} else if(data.dst.equals("UPDATE_RECENT_GAME")) {
 						if(isRecentUpdatable) {
 							updateRecentGame(data);
-						} else {
-							System.out.println("업데이트 할수 없어!!!!!!!!!!!!!!!!!!!!!!!");
 						}
 					} else if(data.dst.equals("GET_RECENT_GAME")) {
 						responseRecentGame(data);

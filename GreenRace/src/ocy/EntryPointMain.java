@@ -3,6 +3,8 @@ package ocy;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +13,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -34,12 +37,16 @@ public class EntryPointMain extends JFrame {
 	JTextField idField;
 	JPasswordField pwField;
 	
-	class LoginPanel extends JPanel implements ActionListener {
+	class LoginPanel extends JPanel implements ActionListener {public void paintComponent(Graphics g) {
+		Dimension d = getSize();
+		ImageIcon image = new ImageIcon("img/full.png");
+		g.drawImage(image.getImage(), 0, 0, d.width, d.height, null);
+	}
 		
 		public LoginPanel() {
 			setSize(1600, 1000);
 			setLayout(null);
-			setBackground(new Color(1,88,54));
+			//setBackground(new Color(1,88,54));
 			
 			JLabel titleLabel = new JLabel("달려라 왕바우");
 			titleLabel.setForeground(Color.white);

@@ -30,7 +30,7 @@ public class TCPChat extends JPanel implements ActionListener {
 		this.tc = tc;
 		this.frame = frame;
 		
-		setBackground(Color.pink);
+		setBackground(Color.black);
 		setLayout(new BorderLayout());
 		
 		ta = new JTextArea();
@@ -61,10 +61,10 @@ public class TCPChat extends JPanel implements ActionListener {
 		for (String s : response.mems) {
 			JPanel jp = new JPanel();
 			jp.setPreferredSize(new Dimension(380, 35));
-			jp.setBackground(Color.red);
+			//jp.setBackground(Color.red);
 			
 			JLabel jl = new JLabel(s);
-			jl.setBackground(Color.pink);
+			//jl.setBackground(Color.pink);
 			jl.setOpaque(true);
 			jp.add(jl);
 			
