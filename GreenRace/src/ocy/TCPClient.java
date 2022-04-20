@@ -73,8 +73,8 @@ public class TCPClient {
 						loginPanel.notice(response.msg);
 					} else if(response.src.equals("USER_INFO")) {
 						user = new UserDTO(response);
-						raceProjFrame.user_info.setText(user.nickname + "(랭크" + user.rank + ")");
 						raceProjFrame.getMoney();
+						raceProjFrame.getRank();
 					} else if(response.src.equals("VERIFICATION_ID")) {
 						innerSignUp.id_verification_notice(response.msg);
 					} else if(response.src.equals("VERIFICATION_NICKNAME")) {
@@ -484,6 +484,16 @@ public class TCPClient {
 		
 		if(user != null) {
 			this.raceProjFrame.setMoney(user.money);
+		} else {
+			System.out.println("정보가 없어!");
+		}
+	}
+	
+	public void get_rank(RaceProjFrame raceProjFrame) {
+		this.raceProjFrame = raceProjFrame;
+		
+		if(user != null) {
+			this.raceProjFrame.setRank(user.rank);
 		} else {
 			System.out.println("정보가 없어!");
 		}

@@ -371,16 +371,21 @@ public class UserDAO {
 		
 		sql = "update user set money = money + '"+tot+"' where nickname = '"+data.user.nickname+"'";
 		
+		try {
+			int rs = stmt.executeUpdate(sql);
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		sql = "update user set rank = case when money >= 12500000 then 7 when money >= 8500000 then 6 when money >= 6000000 then 5 when money >= 4000000 then 4 when money >= 2500000 then 3 when money >= 1500000 then 2 when money >= 500000 then 1 else 0 end;";
+		
 		String res = "";
 		
 		try {
 			int rs = stmt.executeUpdate(sql);
 			
-			if(rs == 1) {
-				res = "ADJUSTMENT_COMPLETE";
-			} else {
-				res = "ADJUSTMENT_WRONG";
-			}
+			res = "ADJUSTMENT_COMPLETE";
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
