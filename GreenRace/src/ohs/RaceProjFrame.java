@@ -23,8 +23,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.plaf.FontUIResource;
+
 import ocy.BetDTO_Place;
 import ocy.BetDTO_Quinella;
 import ocy.BetDTO_Single;
@@ -70,6 +73,10 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 
 	public RaceProjFrame(TCPClient tc) {
 		super("달려라 왕바우");
+		
+		Font f1 = new Font("휴먼둥근체",Font.BOLD,20);
+		UIManager.put("OptionPane.messageFont", f1);
+		UIManager.put("OptionPane.buttonFont", f1);
 
 		this.tc = tc;
 
@@ -91,6 +98,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 		user_info.setBounds(0, 0, 317, 70);
 		user_info.setHorizontalAlignment(JLabel.CENTER);
 		user_info.setBackground(Color.white);
+		user_info.setFont(f1);
 		user_info.setOpaque(true);
 		jp.add(user_info);
 
@@ -98,33 +106,33 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 		my_money.setBounds(317, 0, 317, 70);
 		my_money.setHorizontalAlignment(JLabel.CENTER);
 		my_money.setBackground(Color.white);
+		my_money.setFont(f1);
 		my_money.setOpaque(true);
 		jp.add(my_money);
 
 		m_charge = new JButton("게임머니충전");
 		m_charge.setBounds(634, 0, 317, 70);
 		m_charge.setBackground(Color.white);
+		m_charge.setFont(f1);
 		jp.add(m_charge);
 
 		game_info = new JButton("경기정보조회");
 		game_info.setBounds(951, 0, 317, 70);
 		game_info.setBackground(Color.white);
+		game_info.setFont(f1);
 		jp.add(game_info);
 
 		exit = new JButton("게임종료");
 		exit.setBounds(1268, 0, 317, 70);
 		exit.setBackground(Color.white);
+		exit.setFont(f1);
 		jp.add(exit);
-
-		//    battingScreen = new BattingScreen(tc, this);
-		//    add(battingScreen);
 
 		screen = new Screen(tc, this); 
 		add(screen);
 
 		b_danglyul = new JPanel();
 		b_danglyul.setBounds(0, 570, 800, 392);
-		//b_danglyul.setBackground(Color.blue);
 		add(b_danglyul);
 
 		rate_single = new ArrayList<JTextField>();
@@ -235,38 +243,35 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 
 		game_rule = new JPanel();
 		game_rule.setBounds(1200, 570, 385, 80);
-		//game_rule.setBackground(Color.orange);
 		game_rule.setLayout(null);
 		add(game_rule);
 
 		b_single = new JButton("단식");
 		b_single.setBounds(0, 0, 128, 80);
 		b_single.setFont(new Font("휴먼둥근체",Font.BOLD,20));
-		//b_single.setBackground(Color.pink);
 		b_single.setEnabled(false);
 		game_rule.add(b_single);
 
 		b_yeon = new JButton("연식");
 		b_yeon.setBounds(128, 0, 129, 80);
-		//b_yeon.setBackground(Color.green);
+		b_yeon.setFont(new Font("휴먼둥근체",Font.BOLD,20));
 		b_yeon.setEnabled(false);
 		game_rule.add(b_yeon);
 
 		b_bok = new JButton("복식");
 		b_bok.setBounds(257, 0, 128, 80);
-		//b_bok.setBackground(Color.yellow);
+		b_bok.setFont(new Font("휴먼둥근체",Font.BOLD,20));
 		b_bok.setEnabled(false);
 		game_rule.add(b_bok);
 
 		bet_list = new JPanel();
 		bet_list.setBounds(1200, 650, 200, 312);
 		bet_list.setBorder(new TitledBorder(new LineBorder(Color.black),"배팅내역"));
-//		bet_list.setFont(new Font("휴먼둥근체",Font.BOLD,14));
 		bet_list.setLayout(new FlowLayout());
 		add(bet_list);
 
 		user_list = new JPanel();
-		user_list.setBounds(1400, 650, 185, 312); // (1200, 650, 385, 312)
+		user_list.setBounds(1400, 650, 185, 312);
 		user_list.setBorder(new TitledBorder(new LineBorder(Color.black),"접속자"));
 		user_list.setLayout(new FlowLayout());
 		add(user_list);
@@ -510,12 +515,9 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 
 			for (BetDTO_Single single : tc.bet_list.single) {
 				JPanel jp = new JPanel();
-				jp.setPreferredSize(new Dimension(380, 25));
-				//jp.setBackground(Color.yellow);
+				jp.setPreferredSize(new Dimension(160, 25));
 
 				JLabel jl = new JLabel("단식 : " + single.getHname() + "번 " + single.getMoney() + "원");
-				jl.setFont(new FontUIResource("휴먼둥근체",Font.BOLD,15));
-				//jl.setBackground(Color.pink);
 				jl.setOpaque(true);
 				jp.add(jl);
 
@@ -524,12 +526,9 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 
 			for (BetDTO_Place place : tc.bet_list.place) {
 				JPanel jp = new JPanel();
-				jp.setPreferredSize(new Dimension(380, 25));
-				//jp.setBackground(Color.yellow);
+				jp.setPreferredSize(new Dimension(160, 25));
 
 				JLabel jl = new JLabel("연식 : " + place.getHname() + "번 " + place.getMoney() + "원");
-				jl.setFont(new FontUIResource("휴먼둥근체",Font.BOLD,15));
-				//jl.setBackground(Color.pink);
 				jl.setOpaque(true);
 				jp.add(jl);
 
@@ -538,12 +537,9 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 
 			for (BetDTO_Quinella quinella : tc.bet_list.quinella) {
 				JPanel jp = new JPanel();
-				jp.setPreferredSize(new Dimension(380, 25));
-				//jp.setBackground(Color.yellow);
+				jp.setPreferredSize(new Dimension(160, 25));
 
 				JLabel jl = new JLabel("복식 : " + quinella.getHname1() + "_" + quinella.getHname2() + "번 " + quinella.getMoney() + "원");
-				jl.setFont(new FontUIResource("휴먼둥근체",Font.BOLD,15));
-				//jl.setBackground(Color.pink);
 				jl.setOpaque(true);
 				jp.add(jl);
 
@@ -566,7 +562,6 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 		} else if(response.equals("WRONG")) {
 			JOptionPane.showMessageDialog(null, "배팅이 실패하였습니다.", "배팅 실패", JOptionPane.PLAIN_MESSAGE);
 		} else if(response.equals("ADJUSTMENT_COMPLETE")) {
-			//JOptionPane.showMessageDialog(null, "정산 완료되었습니다.", "정산 성공", JOptionPane.PLAIN_MESSAGE);
 			tc.requestUserInfo(this, tc.user.getId());
 		} else if(response.equals("ADJUSTMENT_WRONG")) {
 			JOptionPane.showMessageDialog(null, "정산 실패하였습니다.", "정산 실패", JOptionPane.PLAIN_MESSAGE);

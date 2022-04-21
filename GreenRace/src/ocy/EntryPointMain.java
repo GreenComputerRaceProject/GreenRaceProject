@@ -48,7 +48,6 @@ public class EntryPointMain extends JFrame {
 		public LoginPanel() {
 			setSize(1600, 1000);
 			setLayout(null);
-			//setBackground(Color.white);
 			
 			JLabel titleLabel = new JLabel("달려라 왕바우");
 			titleLabel.setForeground(Color.black);

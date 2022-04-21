@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.concurrent.Flow;
 
@@ -29,20 +30,7 @@ public class GameInfo extends JFrame{
 		
 		jp = new JPanel();
 		jp.setPreferredSize(new Dimension(480,2000));
-		jp.setBackground(Color.pink);
 		jp.setLayout(new FlowLayout(FlowLayout.CENTER));
-		
-//		JLabel jl = new JLabel("가나다라마바사");
-//		jl.setPreferredSize(new Dimension(470,50));
-//		jl.setBackground(Color.yellow);
-//		jl.setOpaque(true);
-//		jp.add(jl);
-//		
-//		JLabel jl2 = new JLabel();
-//		jl2.setPreferredSize(new Dimension(470,50));
-//		jl2.setBackground(Color.green);
-//		jl2.setOpaque(true);
-//		jp.add(jl2);
 		
 		add(new JScrollPane(jp), BorderLayout.CENTER);
 		
@@ -59,7 +47,8 @@ public class GameInfo extends JFrame{
 		for (String s : recentGame) {
 			JLabel jl = new JLabel(s);
 			jl.setPreferredSize(new Dimension(470,50));
-			jl.setBackground(Color.yellow);
+			//jl.setBackground(Color.yellow);
+			jl.setFont(new Font("휴먼둥근체",Font.BOLD,20));
 			jl.setOpaque(true);
 			jp.add(jl);
 		}
