@@ -18,7 +18,7 @@ public class WaitingScreen extends JPanel{
 	
 	JLabel notice;
 	JLabel imglabel;
-	ImageIcon img1 = new ImageIcon("img/bowimg.jpg");
+	ImageIcon img1 = new ImageIcon(getClass().getClassLoader().getResource("img/bowimg.jpg"));
 
 	public WaitingScreen(TCPClient tc, RaceProjFrame rpf) {
 

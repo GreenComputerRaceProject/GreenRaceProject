@@ -28,16 +28,16 @@ public class GameScreen3 extends JPanel{
 	BattingScreen battingScreen;
 	FontClass fc;
 	
-	ImageIcon trackicon = new ImageIcon("img/track.jpg");
+	ImageIcon trackicon = new ImageIcon(getClass().getClassLoader().getResource("track.jpg"));
 //	ImageIcon goal = new ImageIcon("img/goalline.png");
-	ImageIcon icon1 = new ImageIcon("img/horse1.gif");
-	ImageIcon icon2 = new ImageIcon("img/horse2.gif");
-	ImageIcon icon3 = new ImageIcon("img/horse3.gif");
-	ImageIcon icon4 = new ImageIcon("img/horse4.gif");
-	ImageIcon icon5 = new ImageIcon("img/horse5.gif");
-	ImageIcon icon6 = new ImageIcon("img/horse6.gif");
-	ImageIcon icon7 = new ImageIcon("img/horse7.gif");
-	ImageIcon icon8 = new ImageIcon("img/horse8.gif");
+	ImageIcon icon1 = new ImageIcon(getClass().getClassLoader().getResource("horse1.gif"));
+	ImageIcon icon2 = new ImageIcon(getClass().getClassLoader().getResource("horse2.gif"));
+	ImageIcon icon3 = new ImageIcon(getClass().getClassLoader().getResource("horse3.gif"));
+	ImageIcon icon4 = new ImageIcon(getClass().getClassLoader().getResource("horse4.gif"));
+	ImageIcon icon5 = new ImageIcon(getClass().getClassLoader().getResource("horse5.gif"));
+	ImageIcon icon6 = new ImageIcon(getClass().getClassLoader().getResource("horse6.gif"));
+	ImageIcon icon7 = new ImageIcon(getClass().getClassLoader().getResource("horse7.gif"));
+	ImageIcon icon8 = new ImageIcon(getClass().getClassLoader().getResource("horse8.gif"));
 
 	//RandomEntry re = new RandomEntry();
 	

@@ -41,7 +41,7 @@ public class EntryPointMain extends JFrame {
 		
 		public void paintComponent(Graphics g) {
 			Dimension d = getSize();
-			ImageIcon image = new ImageIcon("img/full.png");
+			ImageIcon image = new ImageIcon(getClass().getClassLoader().getResource("full.png"));
 			g.drawImage(image.getImage(), 0, 100, d.width, d.height - 200, null);
 		}
 		
@@ -118,7 +118,7 @@ public class EntryPointMain extends JFrame {
 				entryPointMain.dispose();
 				frame = new RaceProjFrame(tc);
 				tc.raceProjFrame = frame;
-				//new BGM();
+				new BGM();
 			}
 		}
 	}

@@ -20,7 +20,7 @@ public class Screen extends JPanel{
 	Screenproduce screenproduce;
 	Screen screen = this;
 	
-	ImageIcon img1 = new ImageIcon("img/bowimg.jpg");
+	ImageIcon img1 = new ImageIcon(getClass().getClassLoader().getResource("bowimg.jpg"));
 	
 	JLabel imglabel;
 	JLabel notice;
