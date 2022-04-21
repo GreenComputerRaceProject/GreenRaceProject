@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
+import javax.swing.plaf.FontUIResource;
 
 import ocy.BetDTO_Place;
 import ocy.BetDTO_Quinella;
@@ -23,34 +25,57 @@ public class CalculateScreen extends JPanel{
 	RaceProjFrame rpf;
 	UserDAO userDAO;
 	
+	// FontClass fc;
+	LineBorder lb = new LineBorder(Color.black, 1);
+	
 	ArrayList<JLabel> num = new ArrayList<JLabel>();
 	
 	JLabel timer = new JLabel();
 	
-	JPanel win1, win2, win3;
-	JLabel dan, yun, bok;
-	JLabel h1, h2, h3, h4, h5; 
-	JLabel odds1, odds2, odds3, odds4;
+	JPanel win1, win2, win3, notice;
+	JLabel notice1, notice2, notice3;
+	JLabel dan_1, dan_2, dan_3, yeon_1, yeon_2, yeon_3, bok_1, bok_2, bok_3;
+	JLabel h1, h2, h3, h4, h5;
+	
+	String firhos, sechos, firnum, secnum;
 	
 
 
 	public CalculateScreen(TCPClient tc, GameScreen3 gameScreen3, RaceProjFrame rpf) {
 
+	// fc.setUIFont(new FontUIResource(new Font("휴먼둥근체",Font.BOLD,25)));
 		
 		this.tc = tc;
 		this.rpf = rpf;
-		
-		
-		
-		
-		
+
 		setBounds(0, 0, 1585, 500);
 		setLayout(null);
 		setBackground(Color.gray);
 		
 		timer.setBounds(0, 0, 1585, 50);
 		
+		notice = new JPanel();
+		notice.setBounds(0, 50, 1585, 60);
+		notice.setLayout(new GridLayout(1,3));
+		
+		notice1 = new JLabel("게임 방식");
+		notice1.setHorizontalAlignment(JLabel.CENTER);
+		notice1.setFont(new Font("휴먼둥근체",Font.BOLD,25));
+		notice1.setBorder(lb);
+		notice.add(notice1);
+		notice2 = new JLabel("우승 말");
+		notice2.setHorizontalAlignment(JLabel.CENTER);
+		notice2.setFont(new Font("휴먼둥근체",Font.BOLD,25));
+		notice2.setBorder(lb);
+		notice.add(notice2);
+		notice3 = new JLabel("배당 번호");
+		notice3.setHorizontalAlignment(JLabel.CENTER);
+		notice3.setFont(new Font("휴먼둥근체",Font.BOLD,25));
+		notice3.setBorder(lb);
+		notice.add(notice3);
+		
 		add(timer);
+		add(notice);
 		
 		JPanel jp = new odds(gameScreen3);
 		add(jp);
@@ -77,64 +102,101 @@ public class CalculateScreen extends JPanel{
 			
 			num = gameScreen3.hos;
 			
-			setBounds(0, 50, 1585, 450);
+			setBounds(0, 110, 1585, 390);
 			setBackground(Color.orange);
 			setLayout(null);
-			
-			dan = new JLabel("단식 우승");
-			yun = new JLabel("연식 우승");
-			bok = new JLabel("복식 우승");
-			
 			
 			for (int i = 0; i < num.size(); i++) {
 				if(num.get(i).getText().substring(
 				   num.get(i).getText().length()-2, num.get(i).getText().length()).equals("1등")) {
+					firhos = num.get(i).getText().substring(2);
+					firnum = num.get(i).getText().substring(0,2);
 					h1 = new JLabel(num.get(i).getText());
-					h2 = new JLabel(num.get(i).getText());
-					h4 = new JLabel(num.get(i).getText());
 				}
 				
 				if(num.get(i).getText().substring(
 						   num.get(i).getText().length()-2, num.get(i).getText().length()).equals("2등")) {
+							sechos = num.get(i).getText().substring(2);
+							secnum = num.get(i).getText().substring(0,2);
 							h3 = new JLabel(num.get(i).getText());
-							h5 = new JLabel(num.get(i).getText());
 						}
 			}
-
-			/*
-			odds1 = new JLabel("2배");
-			odds2 = new JLabel("1.5배");
-			odds3 = new JLabel("1.5배");
-			odds4 = new JLabel("6배");
-			*/
 			
-
+			dan_1 = new JLabel("단식 우승");
+			dan_1.setHorizontalAlignment(JLabel.CENTER);
+			dan_1.setBorder(lb);
+			dan_1.setFont(new Font("휴먼둥근체",Font.BOLD,25));
+			dan_2 = new JLabel(firhos);
+			dan_2.setHorizontalAlignment(JLabel.CENTER);
+			dan_2.setBorder(lb);
+			dan_2.setFont(new Font("휴먼둥근체",Font.BOLD,25));
+			dan_3 = new JLabel(firnum);
+			dan_3.setHorizontalAlignment(JLabel.CENTER);
+			dan_3.setBorder(lb);
+			dan_3.setFont(new Font("휴먼둥근체",Font.BOLD,25));
+			
+			yeon_1 = new JLabel("연식 우승");
+			yeon_1.setHorizontalAlignment(JLabel.CENTER);
+			yeon_1.setBorder(lb);
+			yeon_1.setFont(new Font("휴먼둥근체",Font.BOLD,25));
+			yeon_2 = new JLabel("<html>"+firhos+"<br />"+sechos);
+			yeon_2.setHorizontalAlignment(JLabel.CENTER);
+			yeon_2.setBorder(lb);
+			yeon_2.setFont(new Font("휴먼둥근체",Font.BOLD,25));
+			yeon_3 = new JLabel("<html>"+firnum+"<br />"+secnum);
+			yeon_3.setHorizontalAlignment(JLabel.CENTER);
+			yeon_3.setBorder(lb);
+			yeon_3.setFont(new Font("휴먼둥근체",Font.BOLD,25));
+			
+			bok_1 = new JLabel("복식 우승");
+			bok_1.setHorizontalAlignment(JLabel.CENTER);
+			bok_1.setBorder(lb);
+			bok_1.setFont(new Font("휴먼둥근체",Font.BOLD,25));
+			bok_2 = new JLabel("<html>"+firhos+"<br />"+sechos);
+			bok_2.setHorizontalAlignment(JLabel.CENTER);
+			bok_2.setFont(new Font("휴먼둥근체",Font.BOLD,25));
+			bok_2.setBorder(lb);
+			if(Integer.parseInt(firnum.substring(0,1)) > Integer.parseInt(secnum.substring(0,1))) {
+				String temp = "";
+				String temp2 = "";
+				String temp3 = "";
+			
+				temp = firnum.substring(0,1);
+				temp2 = secnum.substring(0,1);
+				temp3 = temp2 + "_" + temp + "번";
+				bok_3 = new JLabel(temp3);
+			} else {
+				bok_3 = new JLabel(firnum.substring(0,1)+"_"+secnum);
+			}
+			bok_3.setHorizontalAlignment(JLabel.CENTER);
+			bok_3.setBorder(lb);
+			bok_3.setFont(new Font("휴먼둥근체",Font.BOLD,25));
+			
 			win1 = new JPanel();
-			win1.setBounds(0, 0, 1585, 150);
-			win1.setBackground(Color.yellow);
-			win1.setLayout(new GridLayout(1, 2));
-			win1.add(dan);
-			win1.add(h1);
-		//	win1.add(odds1);
+			win1.setBounds(0, 0, 1585, 130);
+			win1.setBackground(new Color(238, 238, 238));
+			win1.setLayout(new GridLayout(1,3));
+			win1.add(dan_1);
+			win1.add(dan_2);
+			win1.add(dan_3);
 
 			win2 = new JPanel();
-			win2.setBounds(0, 150, 1585, 150);
-			win2.setBackground(Color.orange);
+			win2.setBounds(0, 130, 1585, 130);
+			win2.setBackground(new Color(238, 238, 238));
 			win2.setLayout(new GridLayout(1,3));
-			win2.add(yun);
-			win2.add(h2);
-		//	win2.add(odds2);
-			win2.add(h3);
-		//	win2.add(odds3);
+			win2.add(yeon_1);
+			win2.add(yeon_2);
+			win2.add(yeon_3);
+		
 			
 			win3 = new JPanel();
-			win3.setBackground(Color.green);
-			win3.setBounds(0, 300, 1585, 150);
-			win3.setLayout(new GridLayout(1, 3));
-			win3.add(bok);
-			win3.add(h4);
-			win3.add(h5);
-		//	win3.add(odds4);
+			win3.setBackground(new Color(238, 238, 238));
+			win3.setBounds(0, 260, 1585, 130);
+			win3.setLayout(new GridLayout(1,3));
+			win3.add(bok_1);
+			win3.add(bok_2);
+			win3.add(bok_3);
+		;
 
 			add(win1);
 			add(win2);

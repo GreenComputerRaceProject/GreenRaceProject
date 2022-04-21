@@ -24,7 +24,7 @@ public class BattingScreen extends JPanel{
 
 	ArrayList<HorseClass2> entry2;
 	BattingScreen battingScreen = this;
-	FontClass fc;
+	// FontClass fc;
 	
 	ImageIcon bgimg = new ImageIcon("img/background.png");
 	
@@ -45,9 +45,8 @@ public class BattingScreen extends JPanel{
 	public BattingScreen(TCPClient tc, RaceProjFrame rpf) {
 		this.tc = tc;
 		this.rpf = rpf;
-
-		//	setUIFont(new FontUIResource(new Font("휴먼둥근체",Font.BOLD,13)));
-		fc.setUIFont(new FontUIResource(new Font("휴먼둥근체",Font.BOLD,25)));
+		
+	//	fc.setUIFont(new FontUIResource(new Font("휴먼둥근체",Font.BOLD,25)));
 		
 		bg.setBounds(0, 0, 1585, 500);
 
@@ -66,21 +65,27 @@ public class BattingScreen extends JPanel{
 
 		info0 = new JLabel("엔트리 번호");
 		info0.setBorder(lb);
+		info0.setFont(new Font("휴먼둥근체",Font.BOLD,25));
 		info0.setHorizontalAlignment(JLabel.CENTER);
 		info1 = new JLabel("경주마 이름");
 		info1.setBorder(lb);
+		info1.setFont(new Font("휴먼둥근체",Font.BOLD,25));
 		info1.setHorizontalAlignment(JLabel.CENTER);
 		info2 = new JLabel("경주마 타입");
 		info2.setBorder(lb);
+		info2.setFont(new Font("휴먼둥근체",Font.BOLD,25));
 		info2.setHorizontalAlignment(JLabel.CENTER);
 		info3 = new JLabel("속도");
 		info3.setBorder(lb);
+		info3.setFont(new Font("휴먼둥근체",Font.BOLD,25));
 		info3.setHorizontalAlignment(JLabel.CENTER);
 		info4 = new JLabel("초속");
 		info4.setBorder(lb);
+		info4.setFont(new Font("휴먼둥근체",Font.BOLD,25));
 		info4.setHorizontalAlignment(JLabel.CENTER);
 		info5 = new JLabel("후속");
 		info5.setBorder(lb);
+		info5.setFont(new Font("휴먼둥근체",Font.BOLD,25));
 		info5.setHorizontalAlignment(JLabel.CENTER);
 		//	info6 = new JLabel("스태미나");
 		//	info7 = new JLabel("성별");
@@ -88,6 +93,7 @@ public class BattingScreen extends JPanel{
 		//	info9 = new JLabel("무게");
 		info10 = new JLabel("컨디션");
 		info10.setBorder(lb);
+		info10.setFont(new Font("휴먼둥근체",Font.BOLD,25));
 		info10.setHorizontalAlignment(JLabel.CENTER);
 		//	info11 = new JLabel("최근순위");
 
@@ -158,7 +164,7 @@ public class BattingScreen extends JPanel{
 		//	setBorder(new TitledBorder(new LineBorder(Color.black)));
 			setLayout(new GridLayout(8,7));
 			//setOpaque(true);
-			//setBackground(new Color(255, 0, 0, 0));
+			setBackground(new Color(238, 238, 238));
 
 			for (int i = 0; i < 8; i++) {
 
@@ -200,16 +206,22 @@ public class BattingScreen extends JPanel{
 
 				entrynum = new JLabel("" + (i+1));
 				entrynum.setHorizontalAlignment(JLabel.CENTER);
+				entrynum.setFont(new Font("휴먼둥근체",Font.BOLD,25));
 				hname = new JLabel(entry2.get(i).hname);
 				hname.setHorizontalAlignment(JLabel.CENTER);
+				hname.setFont(new Font("휴먼둥근체",Font.BOLD,25));
 				type = new JLabel(entry2.get(i).type);
 				type.setHorizontalAlignment(JLabel.CENTER);
+				type.setFont(new Font("휴먼둥근체",Font.BOLD,25));
 				speed = new JLabel(sp);
 				speed.setHorizontalAlignment(JLabel.CENTER);
+				speed.setFont(new Font("휴먼둥근체",Font.BOLD,25));
 				firstspeed = new JLabel(fsp);
 				firstspeed.setHorizontalAlignment(JLabel.CENTER);
+				firstspeed.setFont(new Font("휴먼둥근체",Font.BOLD,25));
 				lastspeed = new JLabel(lsp);
 				lastspeed.setHorizontalAlignment(JLabel.CENTER);
+				lastspeed.setFont(new Font("휴먼둥근체",Font.BOLD,25));
 				// stamina = new JLabel(Double.toString(entry2.get(i).stamina));
 				// gender = new JLabel(Boolean.toString(entry2.get(i).gender));
 				// year = new JLabel(Integer.toString(entry2.get(i).year));
@@ -218,6 +230,7 @@ public class BattingScreen extends JPanel{
 				// recentrecord = new JLabel(entry2.get(i).recentrecord);
 				state = new JLabel(st);
 				state.setHorizontalAlignment(JLabel.CENTER);
+				state.setFont(new Font("휴먼둥근체",Font.BOLD,25));
 				
 				if(i == 0) {
 				entrynum.setOpaque(true);
@@ -245,7 +258,45 @@ public class BattingScreen extends JPanel{
 					entrynum.setBackground(new Color(128, 128, 128));
 				}
 				
+				if(speed.getText().equals("빠름")) {
+					speed.setForeground(Color.red);
+				} else if (speed.getText().equals("보통")) {
+					speed.setForeground(Color.black);
+				} else if (speed.getText().equals("느림")) {
+					speed.setForeground(Color.blue);
+				}
+				
+				if(firstspeed.getText().equals("빠름")) {
+					firstspeed.setForeground(Color.red);
+				} else if (firstspeed.getText().equals("보통")) {
+					firstspeed.setForeground(Color.black);
+				} else if (firstspeed.getText().equals("느림")) {
+					firstspeed.setForeground(Color.blue);
+				}
+				
+				if(lastspeed.getText().equals("빠름")) {
+					lastspeed.setForeground(Color.red);
+				} else if (lastspeed.getText().equals("보통")) {
+					lastspeed.setForeground(Color.black);
+				} else if (lastspeed.getText().equals("느림")) {
+					lastspeed.setForeground(Color.blue);
+				}
+				
+				if(state.getText().equals("최고") || state.getText().equals("좋음")) {
+					state.setForeground(new Color(0, 153, 0));
+				} else if (state.getText().equals("보통")) {
+					state.setForeground(Color.black);
+				} else {
+					state.setForeground(new Color(102, 0, 154));
+				}
+				
 				entrynum.setBorder(lb);
+				hname.setBorder(lb);
+				type.setBorder(lb);
+				speed.setBorder(lb);
+				firstspeed.setBorder(lb);
+				lastspeed.setBorder(lb);
+				state.setBorder(lb);
 				
 				add(entrynum);
 				add(hname);
