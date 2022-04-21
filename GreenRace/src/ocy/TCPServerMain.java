@@ -1,5 +1,9 @@
 package ocy;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -16,6 +20,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import ocy.TCPServerMain.Timer;
@@ -61,7 +67,7 @@ class TCPData implements Serializable{
 
 }
 
-public class TCPServerMain {
+public class TCPServerMain extends JFrame implements ActionListener{
 
 	HashMap<String, ObjectOutputStream> map;
 	ArrayList<String> currentUser;
@@ -74,8 +80,27 @@ public class TCPServerMain {
 	boolean isRecentUpdatable = true;
 	
 	String wh1, wh2;
+	
+	JButton serverClose;
 
 	public TCPServerMain() {
+		
+		setSize(400, 300);
+		setLayout(null);
+		
+		Dimension frameSize = getSize();
+		Dimension windowSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation((windowSize.width - frameSize.width) / 2,
+					(windowSize.height - frameSize.height) / 2);
+		
+		serverClose = new JButton("서버 종료");
+		serverClose.setSize(frameSize);
+		serverClose.addActionListener(this);
+		add(serverClose);
+		
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
 		try {
 			map = new HashMap<String, ObjectOutputStream>();
 			currentUser = new ArrayList<String>();
@@ -548,6 +573,16 @@ public class TCPServerMain {
 		// TODO Auto-generated method stub
 
 		new TCPServerMain();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+		if(e.getSource().equals(serverClose)) {
+			System.out.println("서버 종료");
+			System.exit(0);
+		}
 	}
 
 }
