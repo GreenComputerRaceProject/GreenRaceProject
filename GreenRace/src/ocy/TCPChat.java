@@ -60,7 +60,7 @@ public class TCPChat extends JPanel implements ActionListener {
 		
 		for (String s : response.mems) {
 			JPanel jp = new JPanel();
-			jp.setPreferredSize(new Dimension(380, 35));
+			jp.setPreferredSize(new Dimension(175, 35));
 			//jp.setBackground(Color.red);
 			
 			JLabel jl = new JLabel(s);

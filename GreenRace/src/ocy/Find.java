@@ -42,7 +42,7 @@ public class Find extends JFrame {
 			this.mode = mode;
 			
 			JLabel titleLabel = new JLabel();
-			titleLabel.setForeground(Color.white);
+			//titleLabel.setForeground(Color.white);
 			titleLabel.setBounds(150, 20, 300, 50);
 			titleLabel.setFont(new Font("돋움", Font.PLAIN, 30));
 			titleLabel.setText(mode);
@@ -56,14 +56,14 @@ public class Find extends JFrame {
 			firstField.setBounds(100, 100, 200, 50);
 			
 			if(mode.equals("ID 찾기")) {
-				setBackground(Color.blue);
+				//setBackground(Color.blue);
 				
 				JLabel nameFieldLabel = new JLabel("이름");
 				nameFieldLabel.setBounds(60, 100, 50, 50);
 				
 				add(nameFieldLabel);
 			} else if(mode.equals("PW 재설정")){
-				setBackground(Color.red);
+				//setBackground(Color.red);
 				
 				JLabel idFieldLabel = new JLabel("아이디");
 				idFieldLabel.setBounds(50, 100, 50, 50);

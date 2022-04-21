@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.TextField;
 import java.awt.Toolkit;
@@ -22,6 +23,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 import ocy.BetDTO_Place;
 import ocy.BetDTO_Quinella;
@@ -257,13 +260,14 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 
 		bet_list = new JPanel();
 		bet_list.setBounds(1200, 650, 200, 312);
-		bet_list.setBackground(Color.gray);
+		bet_list.setBorder(new TitledBorder(new LineBorder(Color.black),"배팅내역"));
+//		bet_list.setFont(new Font("휴먼둥근체",Font.BOLD,14));
 		bet_list.setLayout(new FlowLayout());
 		add(bet_list);
 
 		user_list = new JPanel();
 		user_list.setBounds(1400, 650, 185, 312); // (1200, 650, 385, 312)
-		//user_list.setBackground(Color.gray);
+		user_list.setBorder(new TitledBorder(new LineBorder(Color.black),"접속자"));
 		user_list.setLayout(new FlowLayout());
 		add(user_list);
 

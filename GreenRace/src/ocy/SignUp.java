@@ -47,10 +47,10 @@ public class SignUp extends JFrame {
 		public InnerSignUp() {
 			setSize(400, 750);
 			setLayout(null);
-			setBackground(Color.pink);
+			//setBackground(Color.pink);
 			
 			JLabel titleLabel = new JLabel("회원가입");
-			titleLabel.setForeground(Color.white);
+			//titleLabel.setForeground(Color.white);
 			titleLabel.setBounds(150, 20, 300, 50);
 			titleLabel.setFont(new Font("돋움", Font.PLAIN, 30));
 			
