@@ -1,5 +1,6 @@
 package ohs;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -9,6 +10,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.plaf.FontUIResource;
 
 import ocy.TCPClient;
@@ -23,7 +27,9 @@ public class BattingScreen extends JPanel{
 	FontClass fc;
 	
 	ImageIcon bgimg = new ImageIcon("img/background.png");
-
+	
+	LineBorder lb = new LineBorder(Color.black, 1);
+	
 	JPanel info;
 	JLabel info0, info1, info2, info3, info4, info5, info6, info7, info8, info9, info10, info11;
 	JLabel timer = new JLabel();
@@ -56,25 +62,32 @@ public class BattingScreen extends JPanel{
 		info = new JPanel();
 		info.setBounds(0, 50, 1585, 30);
 		info.setLayout(new GridLayout(1, 7));
-		info.setBackground(new Color(255, 0, 0, 0));
+		info.setBackground(Color.white);
 
 		info0 = new JLabel("엔트리 번호");
+		info0.setBorder(lb);
 		info0.setHorizontalAlignment(JLabel.CENTER);
 		info1 = new JLabel("경주마 이름");
+		info1.setBorder(lb);
 		info1.setHorizontalAlignment(JLabel.CENTER);
 		info2 = new JLabel("경주마 타입");
+		info2.setBorder(lb);
 		info2.setHorizontalAlignment(JLabel.CENTER);
 		info3 = new JLabel("속도");
+		info3.setBorder(lb);
 		info3.setHorizontalAlignment(JLabel.CENTER);
 		info4 = new JLabel("초속");
+		info4.setBorder(lb);
 		info4.setHorizontalAlignment(JLabel.CENTER);
 		info5 = new JLabel("후속");
+		info5.setBorder(lb);
 		info5.setHorizontalAlignment(JLabel.CENTER);
 		//	info6 = new JLabel("스태미나");
 		//	info7 = new JLabel("성별");
 		//	info8 = new JLabel("나이");
 		//	info9 = new JLabel("무게");
 		info10 = new JLabel("컨디션");
+		info10.setBorder(lb);
 		info10.setHorizontalAlignment(JLabel.CENTER);
 		//	info11 = new JLabel("최근순위");
 
@@ -94,11 +107,11 @@ public class BattingScreen extends JPanel{
 		//	info.add(info11);
 
 		add(info);
-		add(bg);
+	//	add(bg);
 
 		setVisible(true);
 		setOpaque(true);
-		setBackground(new Color(255, 0, 0, 0));
+		setBackground(Color.white);
 
 		rpf.b_single.setEnabled(true);
 		rpf.b_yeon.setEnabled(true);
@@ -129,7 +142,6 @@ public class BattingScreen extends JPanel{
 		System.out.println(entry);
 		entry2 = entry;
 		JPanel jp = new showEntry();
-		jp.setBackground(new Color(255, 0, 0, 0));
 		add(jp);
 	}
 
@@ -143,6 +155,7 @@ public class BattingScreen extends JPanel{
 
 		public showEntry() {
 			setBounds(0, 80, 1585, 420);
+		//	setBorder(new TitledBorder(new LineBorder(Color.black)));
 			setLayout(new GridLayout(8,7));
 			//setOpaque(true);
 			//setBackground(new Color(255, 0, 0, 0));
@@ -205,7 +218,35 @@ public class BattingScreen extends JPanel{
 				// recentrecord = new JLabel(entry2.get(i).recentrecord);
 				state = new JLabel(st);
 				state.setHorizontalAlignment(JLabel.CENTER);
-
+				
+				if(i == 0) {
+				entrynum.setOpaque(true);
+				entrynum.setBackground(new Color(255, 102, 99));
+				} else if (i == 1) {
+					entrynum.setOpaque(true);
+					entrynum.setBackground(new Color(253, 253, 151));
+				} else if (i == 2) {
+					entrynum.setOpaque(true);
+					entrynum.setBackground(new Color(158, 224, 158));
+				} else if (i == 3) {
+					entrynum.setOpaque(true);
+					entrynum.setBackground(new Color(158, 193, 207));
+				} else if (i == 4) {
+					entrynum.setOpaque(true);
+					entrynum.setBackground(new Color(204, 153, 201));
+				} else if (i == 5) {
+					entrynum.setOpaque(true);
+					entrynum.setBackground(new Color(168, 113, 57));
+				} else if (i == 6) {
+					entrynum.setOpaque(true);
+					entrynum.setBackground(new Color(255, 255, 255));
+				} else if (i == 7) {
+					entrynum.setOpaque(true);
+					entrynum.setBackground(new Color(128, 128, 128));
+				}
+				
+				entrynum.setBorder(lb);
+				
 				add(entrynum);
 				add(hname);
 				add(type);
@@ -218,7 +259,9 @@ public class BattingScreen extends JPanel{
 				//	 add(weight);
 				add(state);
 				//	 add(recentrecord);
+				
 			}
+			
 
 			setVisible(true);
 
