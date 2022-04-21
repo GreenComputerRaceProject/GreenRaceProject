@@ -35,9 +35,7 @@ public class RandomEntry {
 	         while(rs.next()) {
 	        	 
 	            entry.add(new HorseClass2(rs.getString("hname"), rs.getString("type"),
-	                  rs.getString("speed"), rs.getString("firstspeed"), rs.getString("lastspeed"),
-	                  rs.getString("stamina"),rs.getString("gender"), rs.getString("year"), 
-	                  rs.getString("weight"), rs.getString("state"), rs.getString("recentrecord")));      
+	                  rs.getString("speed"), rs.getString("firstspeed"), rs.getString("lastspeed"),rs.getString("state")));      
 
 	         
 	         }
