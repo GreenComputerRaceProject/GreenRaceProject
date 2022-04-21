@@ -157,28 +157,28 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 
 			if(i==28) {
 				field.setText("1");
-				field.setBackground(new Color(190, 196, 211));
+				field.setBackground(new Color(255, 102, 99));
 			}else if(i==38) {
 				field.setText("2");
-				field.setBackground(new Color(190, 196, 211));
+				field.setBackground(new Color(253, 253, 151));
 			}else if(i==48) {
 				field.setText("3");
-				field.setBackground(new Color(190, 196, 211));
+				field.setBackground(new Color(158, 224, 158));
 			}else if(i==58) {
 				field.setText("4");
-				field.setBackground(new Color(190, 196, 211));
+				field.setBackground(new Color(158, 193, 207));
 			}else if(i==68) {
 				field.setText("5");
-				field.setBackground(new Color(190, 196, 211));
+				field.setBackground(new Color(204, 153, 201));
 			}else if(i==78) {
 				field.setText("6");
-				field.setBackground(new Color(190, 196, 211));
+				field.setBackground(new Color(168, 113, 57));
 			}else if(i==88) {
 				field.setText("7");
-				field.setBackground(new Color(190, 196, 211));
+				field.setBackground(new Color(255, 255, 255));
 			}else if(i==98) {
 				field.setText("8");
-				field.setBackground(new Color(190, 196, 211));
+				field.setBackground(new Color(128, 128, 128));
 			}
 
 			if(i==0) {
@@ -195,25 +195,25 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 				field.setBackground(Color.pink);
 			}else if(i==36) {
 				field.setText("2");
-				field.setBackground(Color.red);
+				field.setBackground(new Color(190, 196, 211));
 			}else if(i==45) {
 				field.setText("3");
-				field.setBackground(new Color(177,244,211));
+				field.setBackground(new Color(190, 196, 211));
 			}else if(i==54) {
 				field.setText("4");
-				field.setBackground(Color.cyan);
+				field.setBackground(new Color(190, 196, 211));
 			}else if(i==63) {
 				field.setText("5");
-				field.setBackground(new Color(77,140,50));
+				field.setBackground(new Color(190, 196, 211));
 			}else if(i==72) {
 				field.setText("6");
-				field.setBackground(new Color(200,150,50));
+				field.setBackground(new Color(190, 196, 211));
 			}else if(i==81) {
 				field.setText("7");
-				field.setBackground(new Color(22,180,250));
+				field.setBackground(new Color(190, 196, 211));
 			}else if(i==90) {
 				field.setText("8");
-				field.setBackground(new Color(147,170,250));
+				field.setBackground(new Color(190, 196, 211));
 			}
 		}
 

@@ -100,9 +100,7 @@ public class TCPServerMain {
 
 	class Timer extends Thread {
 
-
-		public int i = 30;
-
+		public int i = 60;
 
 		@Override
 		public void run() {
