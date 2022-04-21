@@ -25,7 +25,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-
 import ocy.BetDTO_Place;
 import ocy.BetDTO_Quinella;
 import ocy.BetDTO_Single;
@@ -186,16 +185,16 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 
 			if(i==0) {
 				field.setText("마번");
-				field.setBackground(Color.GREEN);
+				field.setBackground(new Color(190, 196, 211));
 			}else if(i==9) {
 				field.setText("단식");
-				field.setBackground(Color.yellow);
+				field.setBackground(new Color(190, 196, 211));
 			}else if(i==18) {
 				field.setText("연식");
-				field.setBackground(Color.orange);
+				field.setBackground(new Color(190, 196, 211));
 			}else if(i==27) {
 				field.setText("복식");
-				field.setBackground(Color.pink);
+				field.setBackground(new Color(190, 196, 211));
 			}else if(i==36) {
 				field.setText("2");
 				field.setBackground(new Color(190, 196, 211));
@@ -242,6 +241,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 
 		b_single = new JButton("단식");
 		b_single.setBounds(0, 0, 128, 80);
+		b_single.setFont(new Font("휴먼둥근체",Font.BOLD,20));
 		//b_single.setBackground(Color.pink);
 		b_single.setEnabled(false);
 		game_rule.add(b_single);
@@ -514,6 +514,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 				//jp.setBackground(Color.yellow);
 
 				JLabel jl = new JLabel("단식 : " + single.getHname() + "번 " + single.getMoney() + "원");
+				jl.setFont(new FontUIResource("휴먼둥근체",Font.BOLD,15));
 				//jl.setBackground(Color.pink);
 				jl.setOpaque(true);
 				jp.add(jl);
@@ -527,6 +528,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 				//jp.setBackground(Color.yellow);
 
 				JLabel jl = new JLabel("연식 : " + place.getHname() + "번 " + place.getMoney() + "원");
+				jl.setFont(new FontUIResource("휴먼둥근체",Font.BOLD,15));
 				//jl.setBackground(Color.pink);
 				jl.setOpaque(true);
 				jp.add(jl);
@@ -540,6 +542,7 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 				//jp.setBackground(Color.yellow);
 
 				JLabel jl = new JLabel("복식 : " + quinella.getHname1() + "_" + quinella.getHname2() + "번 " + quinella.getMoney() + "원");
+				jl.setFont(new FontUIResource("휴먼둥근체",Font.BOLD,15));
 				//jl.setBackground(Color.pink);
 				jl.setOpaque(true);
 				jp.add(jl);
