@@ -453,6 +453,8 @@ public class RaceProjFrame extends JFrame implements ActionListener{
 
 	public void setRank(int rank) {
 		user_info.setText(tc.user.getNickname() + "(랭크" + rank + ")");
+		user_info.revalidate();
+		user_info.repaint();
 	}
 
 	public void getBetRate_Single() {
